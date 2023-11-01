@@ -1,0 +1,5 @@
+.v-badge--dot .v-badge__badge {
+  border-radius: 7px !important;
+  height: 14px !important;
+  width: 14px !important;
+}

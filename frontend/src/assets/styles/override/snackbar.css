@@ -1,0 +1,6 @@
+#chatting-snackbar .v-snack__content {
+  padding: 6px 10px !important;
+}
+#chatting-snackbar .v-snack__wrapper {
+  cursor: pointer !important;
+}

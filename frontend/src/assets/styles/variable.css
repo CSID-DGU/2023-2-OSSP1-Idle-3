@@ -1,0 +1,39 @@
+:root {
+  --main-col-1: #092a49;
+  --main-col-2: #848f9a;
+
+  --red-col: #f24e55;
+  --yellow-col: #f4a41a;
+  --green-col: #00a381;
+  --blue-col: #005fba;
+
+  --roulette-col-1: #f37a7f;
+  --roulette-col-2: #f4a41a;
+  --roulette-col-3: #f4de1a;
+  --roulette-col-4: #2bc0a1;
+  --roulette-col-5: #8ec9ff;
+  --roulette-col-6: #efb9bb;
+  --roulette-col-7: #f7d9a4;
+  --roulette-col-8: #f4edab;
+  --roulette-col-9: #b1eade;
+  --roulette-col-10: #d8e8f8;
+
+  --logo-font: "Shrikhand";
+
+  --thin-font: "Pretendard-Thin";
+  --extralight-font: "Pretendard-ExtraLight";
+  --light-font: "Pretendard-Light";
+  --regular-font: "Pretendard-Regular";
+  --medium-font: "Pretendard-Medium";
+  --semibold-font: "Pretendard-SemiBold";
+  --bold-font: "Pretendard-Bold";
+  --extrabold-font: "Pretendard-ExtraBold";
+  --black-font: "Pretendard-Black";
+
+  /* --point-font: "GeekbleMalang2WOFF2"; */
+  --point-font: "MBC1961GulimM";
+
+  --banner-font-1: "Oooh Baby";
+  --banner-font-2: "Playfair Display";
+  --banner-font-3: "Pacifico";
+}

@@ -1,0 +1,55 @@
+/* 크기 */
+.xxxxxs-font {
+  font-size: 10px;
+}
+.xxxxs-font {
+  font-size: 11px;
+}
+.xxxs-font {
+  font-size: 12px !important;
+}
+.xxs-font {
+  font-size: 13px !important;
+}
+.xs-font {
+  font-size: 14px !important;
+}
+.sm-font {
+  font-size: 15px !important;
+}
+.md-font {
+  font-size: 16px !important;
+}
+.lg-font {
+  font-size: 17px !important;
+}
+.xl-font {
+  font-size: 18px !important;
+}
+.xxl-font {
+  font-size: 19px !important;
+}
+.xxxl-font {
+  font-size: 20px;
+}
+.xxxxl-font {
+  font-size: 21px;
+}
+.xxxxl-font {
+  font-size: 22px;
+}
+.xxxxxl-font {
+  font-size: 23px;
+}
+.xxxxxxl-font {
+  font-size: 24px;
+}
+.huge-font {
+  font-size: 30px;
+}
+.hugelarge-font {
+  font-size: 35px;
+}
+.hugexlarge-font {
+  font-size: 45px;
+}

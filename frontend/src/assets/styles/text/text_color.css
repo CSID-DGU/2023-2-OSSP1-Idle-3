@@ -1,0 +1,25 @@
+/* 색상 */
+.main-col-1 {
+  color: var(--main-col-1) !important;
+}
+.main-col-2 {
+  color: var(--main-col-2) !important;
+}
+.white-font {
+  color: white !important;
+}
+.black-col-font {
+  color: black !important;
+}
+.red-font {
+  color: var(--red-col) !important;
+}
+.blue-font {
+  color: var(--blue-col) !important;
+}
+.yellow-font {
+  color: var(--yellow-col) !important;
+}
+.green-font {
+  color: var(--green-col) !important;
+}

@@ -1,0 +1,5 @@
+.swiper-container-horizontal > .swiper-pagination-bullets,
+.swiper-pagination-custom,
+.swiper-pagination-fraction {
+  left: 40% !important;
+}

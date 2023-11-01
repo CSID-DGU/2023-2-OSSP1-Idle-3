@@ -1,0 +1,43 @@
+/* 글꼴 */
+.logo-font {
+  font-family: var(--logo-font), cursive;
+}
+.thin-font {
+  font-family: var(--thin-font), cursive;
+}
+.extralight-font {
+  font-family: var(--extralight-font), cursive;
+}
+.light-font {
+  font-family: var(--light-font), cursive;
+}
+.regular-font {
+  font-family: var(--regular-font), cursive;
+}
+.medium-font {
+  font-family: var(--medium-font), cursive;
+}
+.semibold-font {
+  font-family: var(--semibold-font), cursive;
+}
+.bold-font {
+  font-family: var(--bold-font), cursive;
+}
+.extrabold-font {
+  font-family: var(--extrabold-font), cursive;
+}
+.black-font {
+  font-family: var(--black-font), cursive;
+}
+.point-font {
+  font-family: var(--point-font);
+}
+.banner-font-1 {
+  font-family: var(--banner-font-1);
+}
+.banner-font-2 {
+  font-family: var(--banner-font-2);
+}
+.banner-font-3 {
+  font-family: var(--banner-font-3);
+}
