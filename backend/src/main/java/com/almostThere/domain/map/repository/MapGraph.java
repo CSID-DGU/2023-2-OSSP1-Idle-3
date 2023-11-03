@@ -4,6 +4,5 @@ import com.almostThere.domain.map.entity.MapNode;
 import java.util.List;
 
 public interface MapGraph {
-    int getStartIndex();
     List<MapNode> getAdjacentNodes(int index);
 }
