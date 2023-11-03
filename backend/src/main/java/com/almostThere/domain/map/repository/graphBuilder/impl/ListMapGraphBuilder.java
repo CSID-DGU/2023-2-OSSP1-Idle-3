@@ -12,13 +12,13 @@ import java.util.List;
 import java.util.Map;
 
 
-public class JSONMapGraphBuilder implements MapGraphBuilder {
+public class ListMapGraphBuilder implements MapGraphBuilder {
     private int ownId;
     private List<MapNode> actualNode;
     private Map<Integer, Integer> map_to_id;
     private List<OwnLink>[] adjacentGraph;
 
-    public JSONMapGraphBuilder() {
+    public ListMapGraphBuilder() {
         this.actualNode = new ArrayList<>();
         this.map_to_id = new HashMap<>();
 
