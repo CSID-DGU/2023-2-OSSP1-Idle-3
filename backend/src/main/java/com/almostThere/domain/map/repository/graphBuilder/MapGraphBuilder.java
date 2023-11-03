@@ -7,5 +7,5 @@ import com.almostThere.domain.map.repository.MapGraph;
 public interface MapGraphBuilder {
     void addNode(MapNode node);
     void addEdge(MapLink link);
-    MapGraph load();
+    MapGraph build();
 }
