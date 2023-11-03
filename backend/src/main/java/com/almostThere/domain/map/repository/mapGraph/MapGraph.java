@@ -1,4 +1,4 @@
-package com.almostThere.domain.map.repository;
+package com.almostThere.domain.map.repository.mapGraph;
 
 import com.almostThere.domain.map.entity.link.OwnLink;
 import java.util.List;

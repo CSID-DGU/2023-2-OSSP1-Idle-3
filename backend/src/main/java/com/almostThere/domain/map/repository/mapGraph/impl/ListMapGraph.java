@@ -1,8 +1,8 @@
-package com.almostThere.domain.map.repository.impl;
+package com.almostThere.domain.map.repository.mapGraph.impl;
 
 import com.almostThere.domain.map.entity.link.OwnLink;
 import com.almostThere.domain.map.entity.node.MapNode;
-import com.almostThere.domain.map.repository.MapGraph;
+import com.almostThere.domain.map.repository.mapGraph.MapGraph;
 import java.util.List;
 import java.util.Map;
 
