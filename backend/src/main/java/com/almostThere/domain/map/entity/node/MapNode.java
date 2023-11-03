@@ -1,5 +1,8 @@
 package com.almostThere.domain.map.entity.node;
 
+import lombok.Getter;
+
+@Getter
 public class MapNode {
     int map_id;
     double longitude;
