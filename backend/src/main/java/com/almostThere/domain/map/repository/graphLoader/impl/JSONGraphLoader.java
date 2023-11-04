@@ -22,14 +22,14 @@ public class JSONGraphLoader implements GraphLoader {
 
     @Override
     public List<MapNode> loadNodes(GRAPH_FILE graphFile) throws IOException, ParseException {
-        FileReader fileReader = new FileReader("../data/" + graphFile);
+        FileReader fileReader = new FileReader("src/main/resources/data/" + graphFile.getName());
         JSONArray nodeArray = (JSONArray)jsonParser.parse(fileReader);
         List<MapNode> result = (List<MapNode>)nodeArray.stream().map((nodeObject) -> {
             JSONObject jsonObject = (JSONObject) nodeObject;
             JSONObject positionObject = (JSONObject) jsonObject.get("position");
 
             return new MapNode(
-                    (int) jsonObject.get("id"),
+                    (long) jsonObject.get("id"),
                     (double) positionObject.get("latitude"),
                     (double) positionObject.get("longitude")
             );
@@ -39,15 +39,16 @@ public class JSONGraphLoader implements GraphLoader {
 
     @Override
     public List<MapLink> loadEdges(GRAPH_FILE graphFile) throws IOException, ParseException {
-        FileReader fileReader = new FileReader("../data/" + graphFile);
+        FileReader fileReader = new FileReader("src/main/resources/data/" + graphFile.getName());
         JSONArray nodeArray = (JSONArray)jsonParser.parse(fileReader);
         List<MapLink> result = (List<MapLink>)nodeArray.stream().map((nodeObject) -> {
             JSONObject jsonObject = (JSONObject) nodeObject;
+            double cost = ((Number) jsonObject.get("cost")).doubleValue();
 
             return new MapLink(
-                    (int) jsonObject.get("start"),
-                    (int) jsonObject.get("end"),
-                    (int) jsonObject.get("cost")
+                    (long) jsonObject.get("start"),
+                    (long) jsonObject.get("end"),
+                    cost
             );
         }).collect(Collectors.toList());
         return result;

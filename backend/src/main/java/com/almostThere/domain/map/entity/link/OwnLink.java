@@ -5,15 +5,15 @@ import lombok.Getter;
 @Getter
 public class OwnLink implements Comparable<OwnLink>{
     private final int index;
-    private final int cost;
+    private final double cost;
 
-    public OwnLink(int index, int cost) {
+    public OwnLink(int index, double cost) {
         this.index = index;
         this.cost = cost;
     }
 
     @Override
     public int compareTo(OwnLink o) {
-        return Integer.compare(this.cost, o.cost);
+        return Double.compare(this.cost, o.cost);
     }
 }
