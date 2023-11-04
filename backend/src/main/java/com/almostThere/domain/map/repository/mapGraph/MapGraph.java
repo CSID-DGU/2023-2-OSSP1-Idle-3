@@ -5,4 +5,5 @@ import java.util.List;
 
 public interface MapGraph {
     List<OwnLink> getAdjacentNodes(int index);
+    int getNodeNum();
 }

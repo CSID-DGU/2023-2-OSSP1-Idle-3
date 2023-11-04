@@ -8,12 +8,12 @@ import java.util.Map;
 
 public class ListMapGraph implements MapGraph {
     private final List<MapNode> actualNode;
-    private final Map<Integer, Integer> map_to_id;
+    private final Map<Long, Integer> map_to_id;
     private final List<OwnLink>[] adjacentGraph;
 
     public ListMapGraph(
             List<MapNode> actualNode,
-            Map<Integer, Integer> map_to_id,
+            Map<Long, Integer> map_to_id,
             List<OwnLink>[] adjacentGraph
         ) {
         this.actualNode = actualNode;
@@ -24,5 +24,10 @@ public class ListMapGraph implements MapGraph {
     @Override
     public List<OwnLink> getAdjacentNodes(int index) {
         return this.adjacentGraph[index];
+    }
+
+    @Override
+    public int getNodeNum() {
+        return this.adjacentGraph.length;
     }
 }
