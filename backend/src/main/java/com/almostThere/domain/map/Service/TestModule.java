@@ -51,8 +51,12 @@ public class TestModule {
                 long srcMapId = scanner.nextLong();
                 if (srcMapId < 0) return;
 
+                long beforeTime = System.currentTimeMillis();
                 int searchId = mapGraph.findSearchId(srcMapId);
                 diRouter = new DiRouter(mapGraph.getNodeNum(), searchId, mapGraph);
+                long afterTime = System.currentTimeMillis();
+                long diffTime = afterTime - beforeTime;
+                System.out.println("실행 시간(ms): " + diffTime);
                 diRouter.getShortestPath();
                 // 입력받은 값으로 작업 수행, 예를 들어 최단 경로 계산 등
 
