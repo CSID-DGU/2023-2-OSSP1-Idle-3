@@ -7,9 +7,8 @@ public class RouteInfo implements Comparable<RouteInfo> {
         this.fromIndex = -1;
         this.minCost = Double.MAX_VALUE;
     }
-    public RouteInfo(int fromIndex, double minCost) {
-        this.fromIndex = fromIndex;
-        this.minCost = minCost;
+    public double getMinCost() {
+        return minCost;
     }
 
     @Override
