@@ -21,8 +21,17 @@ public class TestModule {
         GraphLoader graphLoader = new JSONGraphLoader();
         MapGraphBuilder graphBuilder = new ListMapGraphBuilder();
 
-        List<GRAPH_FILE> nodeFiles = List.of(GRAPH_FILE.SUBWAY_NODE, GRAPH_FILE.STEP_NODE, GRAPH_FILE.BUS_STOP_NODE);
-        List<GRAPH_FILE> edgeFiles = List.of(GRAPH_FILE.SUBWAY_EDGE, GRAPH_FILE.STEP_EDGE, GRAPH_FILE.BUS_ROUTER_EDGE);
+        List<GRAPH_FILE> nodeFiles = List.of(
+            GRAPH_FILE.SUBWAY_NODE,
+            GRAPH_FILE.STEP_NODE,
+            GRAPH_FILE.BUS_STOP_NODE
+        );
+        List<GRAPH_FILE> edgeFiles = List.of(
+            GRAPH_FILE.SUBWAY_EDGE,
+            GRAPH_FILE.STEP_EDGE,
+            GRAPH_FILE.BUS_ROUTER_EDGE,
+            GRAPH_FILE.SUBWAY_STEP_EDGE
+        );
         List<MapNode> map_nodes = new ArrayList<>();
         List<MapLink> map_edges = new ArrayList<>();
         for (GRAPH_FILE nodeFile : nodeFiles) {
@@ -33,13 +42,28 @@ public class TestModule {
             map_edges.addAll(graphLoader.loadEdges(edgeFile));
         }
         MapGraph mapGraph = graphBuilder.build(map_nodes, map_edges);
-        int searchId = mapGraph.findSearchId(101000308L);
-        Router diRouter = new DiRouter(mapGraph.getNodeNum(), searchId, mapGraph);
-        diRouter.getShortestPath();
+        Router diRouter = null;
+
         Scanner scanner = new Scanner(System.in); // 콘솔 입력을 위한 Scanner 생성
         try {
-            System.out.println("Enter a number: ");
+            System.out.println("Enter a source number :");
+            if (scanner.hasNextLong()) { // long 값이 입력될 때까지 기다림
+                long srcMapId = scanner.nextLong();
+                if (srcMapId < 0) return;
 
+                int searchId = mapGraph.findSearchId(srcMapId);
+                diRouter = new DiRouter(mapGraph.getNodeNum(), searchId, mapGraph);
+                diRouter.getShortestPath();
+                // 입력받은 값으로 작업 수행, 예를 들어 최단 경로 계산 등
+
+                System.out.println("You entered: " + srcMapId);
+            } else {
+                // 입력된 값이 long이 아닐 경우
+                System.out.println("Invalid input. Please enter a number.");
+                return ;
+            }
+
+            System.out.println("Enter a destination number: ");
             while (true) {
                 if (scanner.hasNextLong()) { // long 값이 입력될 때까지 기다림
                     long mapId = scanner.nextLong();

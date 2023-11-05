@@ -9,7 +9,8 @@ public enum GRAPH_FILE {
     STEP_EDGE("step_link.json"),
     STEP_NODE("step_node.json"),
     SUBWAY_EDGE("subway_edge.json"),
-    SUBWAY_NODE("subway_node.json");
+    SUBWAY_NODE("subway_node.json"),
+    SUBWAY_STEP_EDGE("subway_step_link.json");
 
     private final String name;
 
