@@ -20,7 +20,6 @@ public class DiRouter implements Router {
         for (int i = 0 ; i < nodeNum; i++) {
             this.dist[i] = new RouteInfo();
         }
-//        this.visited = new Boolean[nodeNum];
         this.startNode = startNode;
         this.mapGraph = mapGraph;
     }
@@ -65,7 +64,7 @@ public class DiRouter implements Router {
                 search_dest_id = fromSearchIndex;
             }
         }
-        System.out.printf("최단 시간은 %f초 입니다.", cost);
+        System.out.printf("최단 시간은 %f초 입니다.\n", cost);
     }
 }
 
