@@ -30,4 +30,14 @@ public class ListMapGraph implements MapGraph {
     public int getNodeNum() {
         return this.adjacentGraph.length;
     }
+
+    @Override
+    public Integer findSearchId(Long mapId) {
+        Integer searchId = this.map_to_id.get(mapId);
+        return searchId;
+    }
+    @Override
+    public Long findMapId(Integer searchId) {
+        return this.actualNode.get(searchId).getMap_id();
+    }
 }
