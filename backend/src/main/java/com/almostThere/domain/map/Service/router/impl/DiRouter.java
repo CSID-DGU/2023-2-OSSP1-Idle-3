@@ -17,6 +17,9 @@ public class DiRouter implements Router {
     public DiRouter(int nodeNum, int startNode, MapGraph mapGraph) {
         this.pq = new PriorityQueue<>();
         this.dist = new RouteInfo[nodeNum];
+        for (int i = 0 ; i < nodeNum; i++) {
+            this.dist[i] = new RouteInfo();
+        }
 //        this.visited = new Boolean[nodeNum];
         this.startNode = startNode;
         this.mapGraph = mapGraph;
