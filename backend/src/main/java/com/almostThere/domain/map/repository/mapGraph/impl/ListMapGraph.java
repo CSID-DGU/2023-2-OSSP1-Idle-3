@@ -40,4 +40,9 @@ public class ListMapGraph implements MapGraph {
     public Long findMapId(Integer searchId) {
         return this.actualNode.get(searchId).getMap_id();
     }
+
+    @Override
+    public MapNode findMapNode(Integer searchId) {
+        return this.actualNode.get(searchId);
+    }
 }

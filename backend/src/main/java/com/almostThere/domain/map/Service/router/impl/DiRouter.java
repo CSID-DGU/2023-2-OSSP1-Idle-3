@@ -3,6 +3,7 @@ package com.almostThere.domain.map.Service.router.impl;
 import com.almostThere.domain.map.Service.router.RouteInfo;
 import com.almostThere.domain.map.Service.router.Router;
 import com.almostThere.domain.map.entity.link.OwnLink;
+import com.almostThere.domain.map.entity.node.MapNode;
 import com.almostThere.domain.map.repository.mapGraph.MapGraph;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -47,6 +48,22 @@ public class DiRouter implements Router {
             }
         }
         return dist;
+    }
+
+    public void showPath(Long map_dest_id) {
+        Integer search_dest_id = this.mapGraph.findSearchId(map_dest_id);
+        while (!search_dest_id.equals(this.startNode)) {
+            MapNode destNode = this.mapGraph.findMapNode(search_dest_id);
+            int fromSearchIndex = dist[search_dest_id].fromIndex;
+            if (fromSearchIndex == -1) {
+                System.out.printf("%s에는 갈 수 없습니다.\n", destNode.getName());
+                break ;
+            }else {
+                MapNode srcNode = this.mapGraph.findMapNode(fromSearchIndex);
+                System.out.printf("%s -> %s\n", srcNode.getName(), destNode.getName());
+                search_dest_id = fromSearchIndex;
+            }
+        }
     }
 }
 
