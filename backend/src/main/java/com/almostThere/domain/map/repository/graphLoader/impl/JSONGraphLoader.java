@@ -31,7 +31,8 @@ public class JSONGraphLoader implements GraphLoader {
             return new MapNode(
                     (long) jsonObject.get("id"),
                     (double) positionObject.get("latitude"),
-                    (double) positionObject.get("longitude")
+                    (double) positionObject.get("longitude"),
+                    (String) jsonObject.get("name")
             );
         }).collect(Collectors.toList());
         return result;
