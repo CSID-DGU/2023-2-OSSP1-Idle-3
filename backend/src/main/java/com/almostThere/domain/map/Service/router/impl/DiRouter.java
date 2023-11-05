@@ -10,7 +10,6 @@ import java.util.PriorityQueue;
 
 public class DiRouter implements Router {
     private final RouteInfo[] dist;
-//    private Boolean[] visited;
     private final Integer startNode;
     private final MapGraph mapGraph;
     private final PriorityQueue<OwnLink> pq;
@@ -29,9 +28,8 @@ public class DiRouter implements Router {
     public RouteInfo[] getShortestPath() {
         dist[startNode].minCost = 0;
         dist[startNode].fromIndex = startNode;
-//        visited[startNode] = true;
 
-        pq.offer(new OwnLink(startNode, 0));
+        pq.offer(new OwnLink(startNode, 0, "none"));
         while (!pq.isEmpty()) {
             OwnLink current = pq.poll();
 
@@ -43,7 +41,8 @@ public class DiRouter implements Router {
                 if (dist[next.getIndex()].minCost > current.getCost() + next.getCost()) {
                     dist[next.getIndex()].minCost = current.getCost() + next.getCost();
                     dist[next.getIndex()].fromIndex = current.getIndex();
-                    pq.offer(new OwnLink(next.getIndex(), dist[next.getIndex()].minCost));
+                    dist[next.getIndex()].line = next.getLine();
+                    pq.offer(new OwnLink(next.getIndex(), dist[next.getIndex()].minCost, next.getLine()));
                 }
             }
         }
@@ -52,18 +51,21 @@ public class DiRouter implements Router {
 
     public void showPath(Long map_dest_id) {
         Integer search_dest_id = this.mapGraph.findSearchId(map_dest_id);
+        double cost = dist[search_dest_id].minCost;
         while (!search_dest_id.equals(this.startNode)) {
             MapNode destNode = this.mapGraph.findMapNode(search_dest_id);
             int fromSearchIndex = dist[search_dest_id].fromIndex;
+            String line = dist[search_dest_id].line;
             if (fromSearchIndex == -1) {
                 System.out.printf("%s에는 갈 수 없습니다.\n", destNode.getName());
                 break ;
             }else {
                 MapNode srcNode = this.mapGraph.findMapNode(fromSearchIndex);
-                System.out.printf("%s -> %s\n", srcNode.getName(), destNode.getName());
+                System.out.printf("%s - [%s] -> %s\n", srcNode.getName(), line, destNode.getName());
                 search_dest_id = fromSearchIndex;
             }
         }
+        System.out.printf("최단 시간은 %f초 입니다.", cost);
     }
 }
 

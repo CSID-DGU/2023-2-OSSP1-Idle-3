@@ -43,7 +43,7 @@ public class ListMapGraphBuilder implements MapGraphBuilder {
         Integer startIndex = map_to_id.get(link.getMap_start_id());
         Integer endIndex = map_to_id.get(link.getMap_end_id());
         if (startIndex != null && endIndex != null)
-            this.adjacentGraph[startIndex].add(new OwnLink(endIndex, link.getCost()));
+            this.adjacentGraph[startIndex].add(new OwnLink(endIndex, link.getCost(), link.getLine()));
     }
 
     @Override

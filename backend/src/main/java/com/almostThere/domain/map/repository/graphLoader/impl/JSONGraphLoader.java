@@ -49,7 +49,8 @@ public class JSONGraphLoader implements GraphLoader {
             return new MapLink(
                     (long) jsonObject.get("start"),
                     (long) jsonObject.get("end"),
-                    cost
+                    cost,
+                    (String) jsonObject.get("line")
             );
         }).collect(Collectors.toList());
         return result;
