@@ -22,7 +22,7 @@ def generateTransferBusNode():
     bus_stop_filePath = 'bus_stop_node.json'
     bus_route_filePath = 'bus_router_edge.json'
 
-
+    progress_idx = 0
 
     with open(bus_stop_filePath, 'r', encoding='utf-8') as f:
         bus_stop_list = json.load(f)
@@ -31,7 +31,9 @@ def generateTransferBusNode():
         bus_route_list = json.load(f)   
   
     for bus_stop in bus_stop_list:
-
+        # 진행도 출력
+        progress_idx += 1
+        print(f'Progress {progress_idx}/{len(bus_stop_list)}', end='\r')
 
         bus_stop_id = bus_stop['id']
 
