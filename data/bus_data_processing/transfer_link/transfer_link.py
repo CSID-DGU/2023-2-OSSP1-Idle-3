@@ -1,11 +1,14 @@
 import json
 
 # LOGIC
+# generateTransferBusNode()
 # 1. 버스 정류장 데이터에서 하나의 노드(정류장)씩 뽑아서 
 #   해당 정류장의 id가 출발지 혹은 도착지에 들어있는 버스노선 들을 찾고 route_id 별로 묶는다.
 # 2. 찾은 버스노선의 갯수만큼 버스 노드를 생성해준다. 
 # 3. 생성된 버스 노드 id를 이용하여 엣지의 기존 출발지 혹은 도착지 id를 수정해준다.
 # 4. 위 과정을 통해 새로운 버스 노드와 엣지가 생성된다. 기존의 버스 노드와 엣지는 사용하지 않는다.
+
+# generateTransferBusEdge()
 # 5. 이때 생성된 각각의 버스 노드들끼리 연결하는 엣지를 생성해준다.(환승 엣지로 사용될 것이다.)
 
 # 적어놓기
@@ -54,6 +57,7 @@ def generateTransferBusNode():
                     "longitude" : bus_stop['position']['longitude'],
                 },
                 "name" : bus_stop['name'] + "_" + bus_routes[0]['line'],
+                "prev_bus_stop_id" : bus_stop_id,
             })
 
             #생성된 버스 노드 id를 이용하여 bus_route_list엣지의 기존 출발지 혹은 도착지 id를 수정해준다.
@@ -65,6 +69,8 @@ def generateTransferBusNode():
 
 
             bus_stop_node_with_transfer_index += 1
+
+        
 
     
     with open('bus_stop_node_with_transfer.json', 'w', encoding='utf-8') as f:
