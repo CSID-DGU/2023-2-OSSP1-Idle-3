@@ -23,16 +23,30 @@ public class MapGraphConfig {
         GraphLoader graphLoader = new JSONGraphLoader();
         MapGraphBuilder graphBuilder = new ListMapGraphBuilder();
 
-        List<GRAPH_FILE> nodeFiles = List.of(GRAPH_FILE.SUBWAY_NODE, GRAPH_FILE.STEP_NODE, GRAPH_FILE.BUS_STOP_NODE);
-        List<GRAPH_FILE> edgeFiles = List.of(GRAPH_FILE.SUBWAY_EDGE, GRAPH_FILE.STEP_EDGE, GRAPH_FILE.BUS_ROUTER_EDGE);
+        List<GRAPH_FILE> nodeFiles = List.of(
+                GRAPH_FILE.SUBWAY_NODE,
+                GRAPH_FILE.STEP_NODE,
+                GRAPH_FILE.BUS_STOP_NODE
+        );
+        List<GRAPH_FILE> edgeFiles = List.of(
+                GRAPH_FILE.SUBWAY_EDGE,
+                GRAPH_FILE.STEP_EDGE,
+                GRAPH_FILE.BUS_ROUTER_EDGE,
+                GRAPH_FILE.SUBWAY_STEP_EDGE,
+                GRAPH_FILE.BUS_STEP_EDGE
+        );
         List<MapNode> map_nodes = new ArrayList<>();
         List<MapLink> map_edges = new ArrayList<>();
         for (GRAPH_FILE nodeFile : nodeFiles) {
+            System.out.println(nodeFile.getName());
             map_nodes.addAll(graphLoader.loadNodes(nodeFile));
         }
         for (GRAPH_FILE edgeFile : edgeFiles) {
+            System.out.println(edgeFile.getName());
             map_edges.addAll(graphLoader.loadEdges(edgeFile));
         }
+        System.out.printf("node 수는 %d개 입니다.\n", map_nodes.size());
+        System.out.printf("edge 수는 %d개 입니다.\n", map_edges.size());
         return graphBuilder.build(map_nodes, map_edges);
     }
 }
