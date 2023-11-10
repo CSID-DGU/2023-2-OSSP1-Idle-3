@@ -14,11 +14,17 @@ import json
 # Memo
 # 기존 버스 정류장 노드의 id 범위는 100000001 ~ 717104358
 # 기존 버스 정류장 노드의 개수는 61809개
-# 기존 버스 엣지의 개수는 ???
+# 기존 버스 엣지의 개수는 138938개
+# 야간 버스, 투어버스 제거한 버스 엣지의 개수는 ???
 # 환승이 적용된 버스 정류장 노드의 id 범위는 1000000001 ~ 1000091159 (기존 보다 한자리 수 더 많음!!!)
-# 환승이 적용된 버스 정류장 노드의 개수는 ???
-# 환승이 적용된 엣지의 개수는 ???
+# 환승이 적용된 버스 정류장 노드의 개수는 91159개
+# 환승이 적용된 엣지의 개수는 998604개
 
+# Think
+# 환승 cost 어떻게 측정해야할까?
+# 노드나 엣지 수를 더 줄일 수 없을까?
+# 생성을 더 빠르게 할 수 없을까?
+#   3중 for문을 줄인다던가..
 
 
 def generateTransferBusNode():
@@ -68,7 +74,7 @@ def generateTransferBusNode():
             })
 
             #생성된 버스 노드 id를 이용하여 bus_route_list엣지의 기존 출발지 혹은 도착지 id를 수정해준다.
-            for bus_route in bus_route_list:
+            for bus_route in bus_routes:
                 if bus_stop_id == bus_route['start']:
                     bus_route['start'] = bus_stop_node_with_transfer_index
                 elif bus_stop_id == bus_route['end']:
@@ -79,16 +85,18 @@ def generateTransferBusNode():
 
         
 
-    
     with open('bus_stop_node_with_transfer.json', 'w', encoding='utf-8') as f:
         json.dump(bus_stop_node_with_transfer, f, indent=4, ensure_ascii=False)
+    
+    with open('bus_router_edge_with_transfer.json', 'w', encoding='utf-8') as f:
+        json.dump(bus_route_list, f, indent=4, ensure_ascii=False)
 
 
 
 def generateTransferBusEdge():
 
     bus_stop_filePath = 'bus_stop_node_with_transfer.json'
-    bus_route_filePath = 'bus_router_edge.json'
+    bus_route_filePath = 'bus_router_edge_with_transfer.json'
 
     with open(bus_stop_filePath, 'r', encoding='utf-8') as f:
         bus_stop_list = json.load(f)
@@ -130,3 +138,15 @@ def generateTransferBusEdge():
         json.dump(bus_route_list, f, indent=4, ensure_ascii=False)
 
 
+# def count():
+#     path = 'bus_router_edge_with_transfer.json'
+
+#     with open(path, 'r', encoding='utf-8') as f:
+#         bus_stop_list = json.load(f)
+
+#     print(len(bus_stop_list))
+
+
+# count()
+
+generateTransferBusNode()
