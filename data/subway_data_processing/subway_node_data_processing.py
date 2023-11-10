@@ -22,7 +22,7 @@ for item in input_json["DATA"]:
 
     output_json.append(station_info)
 
-with open("subway_node.json", "w", encoding="utf-8") as outfile:
+with open("preprocessed_data/subway_node.json", "w", encoding="utf-8") as outfile:
     json.dump(output_json, outfile, ensure_ascii=False, indent=4)
 
 print("success")
