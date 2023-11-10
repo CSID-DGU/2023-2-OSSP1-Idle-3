@@ -1,0 +1,1892 @@
+[
+  {
+    "start": "서울역",
+    "end": "시청",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "1"
+  },
+  {
+    "start": "시청",
+    "end": "종각",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "1"
+  },
+  {
+    "start": "종각",
+    "end": "종로3가",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "1"
+  },
+  {
+    "start": "종로3가",
+    "end": "종로5가",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "1"
+  },
+  {
+    "start": "종로5가",
+    "end": "동대문",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "1"
+  },
+  {
+    "start": "동대문",
+    "end": "동묘앞",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "1"
+  },
+  {
+    "start": "동묘앞",
+    "end": "신설동",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "1"
+  },
+  {
+    "start": "신설동",
+    "end": "제기동",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "1"
+  },
+  {
+    "start": "제기동",
+    "end": "청량리",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "1"
+  },
+  {
+    "start": "시청",
+    "end": "을지로입구",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "을지로입구",
+    "end": "을지로3가",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "을지로3가",
+    "end": "을지로4가",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "을지로4가",
+    "end": "동대문역사문화공원",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "동대문역사문화공원",
+    "end": "신당",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "신당",
+    "end": "상왕십리",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "상왕십리",
+    "end": "왕십리",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "왕십리",
+    "end": "한양대",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "한양대",
+    "end": "뚝섬",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "뚝섬",
+    "end": "성수",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "성수",
+    "end": "건대입구",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "건대입구",
+    "end": "구의",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "구의",
+    "end": "강변",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "강변",
+    "end": "잠실나루",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "잠실나루",
+    "end": "잠실",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "잠실",
+    "end": "잠실새내",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "잠실새내",
+    "end": "종합운동장",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "종합운동장",
+    "end": "삼성",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "삼성",
+    "end": "선릉",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "선릉",
+    "end": "역삼",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "역삼",
+    "end": "강남",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "강남",
+    "end": "교대",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "교대",
+    "end": "서초",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "서초",
+    "end": "방배",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "방배",
+    "end": "사당",
+    "cost": 150,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "사당",
+    "end": "낙성대",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "낙성대",
+    "end": "서울대입구",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "서울대입구",
+    "end": "봉천",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "봉천",
+    "end": "신림",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "신림",
+    "end": "신대방",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "신대방",
+    "end": "구로디지털단지",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "구로디지털단지",
+    "end": "대림",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "대림",
+    "end": "신도림",
+    "cost": 150,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "신도림",
+    "end": "문래",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "문래",
+    "end": "영등포구청",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "영등포구청",
+    "end": "당산",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "당산",
+    "end": "합정",
+    "cost": 150,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "합정",
+    "end": "홍대입구",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "홍대입구",
+    "end": "신촌",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "신촌",
+    "end": "이대",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "이대",
+    "end": "아현",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "아현",
+    "end": "충정로",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "충정로",
+    "end": "시청",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "시청",
+    "end": "용답",
+    "cost": 180,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "용답",
+    "end": "신답",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "신답",
+    "end": "용두",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "용두",
+    "end": "신설동",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "신설동",
+    "end": "도림천",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "도림천",
+    "end": "양천구청",
+    "cost": 150,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "양천구청",
+    "end": "신정네거리",
+    "cost": 180,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "신정네거리",
+    "end": "까치산",
+    "cost": 150,
+    "type": "SUBWAY",
+    "line": "2"
+  },
+  {
+    "start": "지축",
+    "end": "구파발",
+    "cost": 180,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "구파발",
+    "end": "연신내",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "연신내",
+    "end": "불광",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "불광",
+    "end": "녹번",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "녹번",
+    "end": "홍제",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "홍제",
+    "end": "무악재",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "무악재",
+    "end": "독립문",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "독립문",
+    "end": "경복궁",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "경복궁",
+    "end": "안국",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "안국",
+    "end": "종로3가",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "종로3가",
+    "end": "을지로3가",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "을지로3가",
+    "end": "충무로",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "충무로",
+    "end": "동대입구",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "동대입구",
+    "end": "약수",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "약수",
+    "end": "금호",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "금호",
+    "end": "옥수",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "옥수",
+    "end": "압구정",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "압구정",
+    "end": "신사",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "신사",
+    "end": "잠원",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "잠원",
+    "end": "고속터미널",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "고속터미널",
+    "end": "교대",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "교대",
+    "end": "남부터미널",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "남부터미널",
+    "end": "양재",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "양재",
+    "end": "매봉",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "매봉",
+    "end": "도곡",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "도곡",
+    "end": "대치",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "대치",
+    "end": "학여울",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "학여울",
+    "end": "대청",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "대청",
+    "end": "일원",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "일원",
+    "end": "수서",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "수서",
+    "end": "가락시장",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "가락시장",
+    "end": "경찰병원",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "경찰병원",
+    "end": "오금",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "3"
+  },
+  {
+    "start": "당고개",
+    "end": "상계",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "상계",
+    "end": "노원",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "노원",
+    "end": "창동",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "창동",
+    "end": "쌍문",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "쌍문",
+    "end": "수유",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "수유",
+    "end": "미아",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "미아",
+    "end": "미아사거리 ",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "미아사거리 ",
+    "end": "길음",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "길음",
+    "end": "성신여대입구",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "성신여대입구",
+    "end": "한성대입구",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "한성대입구",
+    "end": "혜화",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "혜화",
+    "end": "동대문",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "동대문",
+    "end": "동대문역사문화공원",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "동대문역사문화공원",
+    "end": "충무로",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "충무로",
+    "end": "명동",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "명동",
+    "end": "회현",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "회현",
+    "end": "서울역",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "서울역",
+    "end": "숙대입구",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "숙대입구",
+    "end": "삼각지",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "삼각지",
+    "end": "신용산",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "신용산",
+    "end": "이촌",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "이촌",
+    "end": "동작",
+    "cost": 180,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "동작",
+    "end": "총신대입구",
+    "cost": 150,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "총신대입구",
+    "end": "사당",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "사당",
+    "end": "남태령",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "4"
+  },
+  {
+    "start": "방화",
+    "end": "개화산",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "개화산",
+    "end": "김포공항",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "김포공항",
+    "end": "송정",
+    "cost": 130,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "송정",
+    "end": "마곡",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "마곡",
+    "end": "발산",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "발산",
+    "end": "우장산",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "우장산",
+    "end": "화곡",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "화곡",
+    "end": "까치산",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "까치산",
+    "end": "신정",
+    "cost": 110,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "신정",
+    "end": "목동",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "목동",
+    "end": "오목교",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "오목교",
+    "end": "양평",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "양평",
+    "end": "영등포구청",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "영등포구청",
+    "end": "영등포시장",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "영등포시장",
+    "end": "신길",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "신길",
+    "end": "여의도",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "여의도",
+    "end": "여의나루",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "여의나루",
+    "end": "마포",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "마포",
+    "end": "공덕",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "공덕",
+    "end": "애오개",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "애오개",
+    "end": "충정로",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "충정로",
+    "end": "서대문",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "서대문",
+    "end": "광화문",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "광화문",
+    "end": "종로3가",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "종로3가",
+    "end": "을지로4가",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "을지로4가",
+    "end": "동대문역사문화공원",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "동대문역사문화공원",
+    "end": "청구",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "청구",
+    "end": "신금호",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "신금호",
+    "end": "행당",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "행당",
+    "end": "왕십리",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "왕십리",
+    "end": "마장",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "마장",
+    "end": "답십리",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "답십리",
+    "end": "장한평",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "장한평",
+    "end": "군자",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "군자",
+    "end": "아차산",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "아차산",
+    "end": "광나루",
+    "cost": 110,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "광나루",
+    "end": "천호",
+    "cost": 130,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "천호",
+    "end": "강동",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "강동",
+    "end": "길동",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "길동",
+    "end": "굽은다리",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "굽은다리",
+    "end": "명일",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "명일",
+    "end": "고덕",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "고덕",
+    "end": "상일동",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "상일동",
+    "end": "강일",
+    "cost": 110,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "강일",
+    "end": "미사",
+    "cost": 110,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "미사",
+    "end": "하남풍산",
+    "cost": 150,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "하남풍산",
+    "end": "하남시청",
+    "cost": 110,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "하남시청",
+    "end": "하남검단산",
+    "cost": 150,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "하남검단산",
+    "end": "둔촌동",
+    "cost": 110,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "둔촌동",
+    "end": "올림픽공원",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "올림픽공원",
+    "end": "방이",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "방이",
+    "end": "오금",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "오금",
+    "end": "개롱",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "개롱",
+    "end": "거여",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "거여",
+    "end": "마천",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "5"
+  },
+  {
+    "start": "응암",
+    "end": "역촌",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "역촌",
+    "end": "불광",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "불광",
+    "end": "독바위",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "독바위",
+    "end": "연신내",
+    "cost": 130,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "연신내",
+    "end": "구산",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "구산",
+    "end": "응암",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "응암",
+    "end": "새절",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "새절",
+    "end": "증산",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "증산",
+    "end": "디지털미디어시티",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "디지털미디어시티",
+    "end": "월드컵경기장",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "월드컵경기장",
+    "end": "마포구청",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "마포구청",
+    "end": "망원",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "망원",
+    "end": "합정",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "합정",
+    "end": "상수",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "상수",
+    "end": "광흥창",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "광흥창",
+    "end": "대흥",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "대흥",
+    "end": "공덕",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "공덕",
+    "end": "효창공원앞",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "효창공원앞",
+    "end": "삼각지",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "삼각지",
+    "end": "녹사평",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "녹사평",
+    "end": "이태원",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "이태원",
+    "end": "한강진",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "한강진",
+    "end": "버티고개",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "버티고개",
+    "end": "약수",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "약수",
+    "end": "청구",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "청구",
+    "end": "신당",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "신당",
+    "end": "동묘앞",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "동묘앞",
+    "end": "창신",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "창신",
+    "end": "보문",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "보문",
+    "end": "안암",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "안암",
+    "end": "고려대",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "고려대",
+    "end": "월곡",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "월곡",
+    "end": "상월곡",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "상월곡",
+    "end": "돌곶이",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "돌곶이",
+    "end": "석계",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "석계",
+    "end": "태릉입구",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "태릉입구",
+    "end": "화랑대",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "화랑대",
+    "end": "봉화산",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "봉화산",
+    "end": "신내역",
+    "cost": 270,
+    "type": "SUBWAY",
+    "line": "6"
+  },
+  {
+    "start": "장암",
+    "end": "도봉산",
+    "cost": 270,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "도봉산",
+    "end": "수락산",
+    "cost": 140,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "수락산",
+    "end": "마들",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "마들",
+    "end": "노원",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "노원",
+    "end": "중계",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "중계",
+    "end": "하계",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "하계",
+    "end": "공릉",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "공릉",
+    "end": "태릉입구",
+    "cost": 60,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "태릉입구",
+    "end": "먹골",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "먹골",
+    "end": "중화",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "중화",
+    "end": "상봉",
+    "cost": 110,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "상봉",
+    "end": "면목",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "면목",
+    "end": "사가정",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "사가정",
+    "end": "용마산",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "용마산",
+    "end": "중곡",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "중곡",
+    "end": "군자",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "군자",
+    "end": "어린이대공원",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "어린이대공원",
+    "end": "건대입구",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "건대입구",
+    "end": "뚝섬유원지",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "뚝섬유원지",
+    "end": "청담",
+    "cost": 150,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "청담",
+    "end": "강남구청",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "강남구청",
+    "end": "학동",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "학동",
+    "end": "논현",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "논현",
+    "end": "반포",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "반포",
+    "end": "고속터미널",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "고속터미널",
+    "end": "내방",
+    "cost": 150,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "내방",
+    "end": "이수",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "이수",
+    "end": "남성",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "남성",
+    "end": "숭실대입구",
+    "cost": 150,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "숭실대입구",
+    "end": "상도",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "상도",
+    "end": "장승배기",
+    "cost": 150,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "장승배기",
+    "end": "신대방삼거리",
+    "cost": 110,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "신대방삼거리",
+    "end": "보라매",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "보라매",
+    "end": "신풍",
+    "cost": 140,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "신풍",
+    "end": "대림",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "대림",
+    "end": "남구로",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "남구로",
+    "end": "가산디지털단지",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "가산디지털단지",
+    "end": "철산",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "철산",
+    "end": "광명사거리",
+    "cost": 110,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "광명사거리",
+    "end": "천왕",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "천왕",
+    "end": "온수",
+    "cost": 140,
+    "type": "SUBWAY",
+    "line": "7"
+  },
+  {
+    "start": "암사",
+    "end": "천호",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "천호",
+    "end": "강동구청",
+    "cost": 80,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "강동구청",
+    "end": "몽촌토성",
+    "cost": 120,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "몽촌토성",
+    "end": "잠실",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "잠실",
+    "end": "석촌",
+    "cost": 110,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "석촌",
+    "end": "송파",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "송파",
+    "end": "가락시장",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "가락시장",
+    "end": "문정",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "문정",
+    "end": "장지",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "장지",
+    "end": "복정",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "복정",
+    "end": "남위례",
+    "cost": 110,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "남위례",
+    "end": "산성",
+    "cost": 100,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "산성",
+    "end": "남한산성입구",
+    "cost": 130,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "남한산성입구",
+    "end": "단대오거리",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "단대오거리",
+    "end": "신흥",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "신흥",
+    "end": "수진",
+    "cost": 70,
+    "type": "SUBWAY",
+    "line": "8"
+  },
+  {
+    "start": "수진",
+    "end": "모란",
+    "cost": 90,
+    "type": "SUBWAY",
+    "line": "8"
+  }
+]
