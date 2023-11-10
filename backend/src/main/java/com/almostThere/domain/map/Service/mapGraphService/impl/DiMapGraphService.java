@@ -5,6 +5,7 @@ import com.almostThere.domain.map.Service.mapGraphService.MapGraphService;
 import com.almostThere.domain.map.Service.router.RouteInfo;
 import com.almostThere.domain.map.Service.router.Router;
 import com.almostThere.domain.map.Service.router.impl.DiRouter;
+import com.almostThere.domain.map.entity.node.MapNode;
 import com.almostThere.domain.map.repository.mapGraph.MapGraph;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,27 +32,46 @@ public class DiMapGraphService implements MapGraphService {
         for (int i = 0; i < numberOfStartPoints; i++) {
             Point point = startPoints.get(i);
             Integer startNode = this.mapGraph.findNearestId(point.getY(), point.getX());
+            MapNode mapNode = this.mapGraph.findMapNode(startNode);
+            System.out.printf("%d(%f, %f) 와 가장 가까운 노드는 : %s (위도 : %f, 경도 : %f) 입니다.\n",
+                i,point.getY(), point.getX(),
+                mapNode.getName(), mapNode.getLatitude(), mapNode.getLongitude()
+            );
             routers.add(new DiRouter(nodeNum, startNode, mapGraph));
         }
 
         for (int i = 0; i < numberOfStartPoints; i++) {
             Router router = routers.get(i);
-            RouteInfo[] shortestPath = router.getShortestPath();
-            routeTables[i] = shortestPath;
+            routeTables[i] = router.getShortestPath();
         }
 
         for (int i = 0; i < nodeNum ; i++) {
-            Double sum = Double.valueOf(0);
-            for (int startPoint = 0 ; startPoint < numberOfStartPoints ; startPoint++) {
-                if (routeTables[startPoint][i].equals(Double.MAX_VALUE)) {
-                    avgCost[i] = new AverageCost(-1, Double.MAX_VALUE);
+            double sum = 0;
+
+            int startPoint;
+            for (startPoint = 0 ; startPoint < numberOfStartPoints ; startPoint++) {
+                if (routeTables[startPoint][i].minCost == Double.MAX_VALUE) {
                     break;
                 }
                 sum = sum + routeTables[startPoint][i].minCost;
             }
-            avgCost[i] = new AverageCost(i, sum / numberOfStartPoints);
+            // 셋 다 모두 갈 수 있는 경우
+            if (startPoint == numberOfStartPoints) {
+                double averageTime = sum / numberOfStartPoints;
+                double avgGap = 0;
+                int innerStartPoint;
+                for (innerStartPoint = 0; innerStartPoint < numberOfStartPoints; innerStartPoint++) {
+                    avgGap += Math.abs(routeTables[innerStartPoint][i].minCost - averageTime);
+                    avgGap = avgGap / numberOfStartPoints;
+                }
+                avgCost[i] = new AverageCost(i, avgGap);
+            }else {
+                avgCost[i] = new AverageCost(i, Double.MAX_VALUE);
+            }
         }
-        Arrays.sort(avgCost, Comparator.comparingDouble(AverageCost::getCost));
-        return Arrays.stream(avgCost).collect(Collectors.toList());
+        return Arrays.stream(avgCost)
+                .filter(averageCost -> averageCost.getCost() != Double.MAX_VALUE)
+                .sorted(Comparator.comparingDouble(AverageCost::getCost))
+                .collect(Collectors.toList());
     }
 }
