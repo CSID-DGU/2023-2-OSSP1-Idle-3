@@ -17,14 +17,16 @@ public class DiRouter implements Router {
     public DiRouter(int nodeNum, int startNode, MapGraph mapGraph) {
         this.pq = new PriorityQueue<>();
         this.dist = new RouteInfo[nodeNum];
-        for (int i = 0 ; i < nodeNum; i++) {
-            this.dist[i] = new RouteInfo();
-        }
         this.startNode = startNode;
         this.mapGraph = mapGraph;
     }
 
     public RouteInfo[] getShortestPath() {
+        if (this.dist[0] != null)
+            return this.dist;
+        for (int i = 0 ; i < this.mapGraph.getNodeNum(); i++) {
+            this.dist[i] = new RouteInfo();
+        }
         dist[startNode].minCost = 0;
         dist[startNode].fromIndex = startNode;
 
