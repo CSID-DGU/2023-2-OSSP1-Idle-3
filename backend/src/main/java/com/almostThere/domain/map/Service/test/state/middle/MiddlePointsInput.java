@@ -1,7 +1,7 @@
 package com.almostThere.domain.map.Service.test.state.middle;
 
-import com.almostThere.domain.map.Service.test.context.middle.MiddleContext;
 import com.almostThere.domain.map.Service.test.state.TestState;
+import com.almostThere.domain.map.Service.test.context.middle.MiddleContext;
 import java.util.Scanner;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.geo.Point;

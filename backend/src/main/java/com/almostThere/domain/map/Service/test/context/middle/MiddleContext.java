@@ -1,12 +1,11 @@
 package com.almostThere.domain.map.Service.test.context.middle;
 
-import com.almostThere.domain.map.Service.mapGraphService.AverageCost;
 import com.almostThere.domain.map.Service.mapGraphService.MapGraphService;
 import com.almostThere.domain.map.Service.mapGraphService.impl.DiMapGraphService;
-import com.almostThere.domain.map.Service.test.context.Context;
 import com.almostThere.domain.map.Service.test.state.TestState;
 import com.almostThere.domain.map.Service.test.state.middle.GetMiddlePoint;
 import com.almostThere.domain.map.Service.test.state.middle.MiddlePointsInput;
+import com.almostThere.domain.map.Service.test.context.Context;
 import com.almostThere.domain.map.repository.mapGraph.MapGraph;
 import java.util.ArrayList;
 import java.util.List;

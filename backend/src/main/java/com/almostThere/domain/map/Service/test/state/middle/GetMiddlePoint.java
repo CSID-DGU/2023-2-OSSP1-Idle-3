@@ -1,8 +1,8 @@
 package com.almostThere.domain.map.Service.test.state.middle;
 
 import com.almostThere.domain.map.Service.mapGraphService.AverageCost;
-import com.almostThere.domain.map.Service.test.context.middle.MiddleContext;
 import com.almostThere.domain.map.Service.test.state.TestState;
+import com.almostThere.domain.map.Service.test.context.middle.MiddleContext;
 import com.almostThere.domain.map.entity.node.MapNode;
 import com.almostThere.domain.map.repository.mapGraph.MapGraph;
 import java.util.List;
