@@ -10,4 +10,6 @@ public interface MapGraph {
     Integer findSearchId(Long mapId);
     Long findMapId(Integer searchId);
     MapNode findMapNode(Integer searchId);
+    Integer findNearestId(Double latitude, Double longitude);
+    MapNode getNode(Integer searchId);
 }

@@ -2,6 +2,7 @@ package com.almostThere.domain.map.repository.mapGraph.impl;
 
 import com.almostThere.domain.map.entity.link.OwnLink;
 import com.almostThere.domain.map.entity.node.MapNode;
+import com.almostThere.domain.map.repository.gisUtil.GIS;
 import com.almostThere.domain.map.repository.mapGraph.MapGraph;
 import java.util.List;
 import java.util.Map;
@@ -43,6 +44,25 @@ public class ListMapGraph implements MapGraph {
 
     @Override
     public MapNode findMapNode(Integer searchId) {
+        return this.actualNode.get(searchId);
+    }
+    @Override
+    public Integer findNearestId(Double latitude, Double longitude) {
+        Double length = Double.MAX_VALUE;
+        int minIndex = 0;
+
+        for (int i = 0 ; i < adjacentGraph.length ; i++) {
+            double distance = GIS.getDistance(latitude, longitude, this.actualNode.get(i));
+            if (distance < length) {
+                length = distance;
+                minIndex = i;
+            }
+        }
+        return minIndex;
+    }
+
+    @Override
+    public MapNode getNode(Integer searchId) {
         return this.actualNode.get(searchId);
     }
 }
