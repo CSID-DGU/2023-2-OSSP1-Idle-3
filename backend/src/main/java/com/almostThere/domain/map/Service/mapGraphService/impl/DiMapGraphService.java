@@ -4,10 +4,9 @@ import com.almostThere.domain.map.Service.mapGraphService.AverageCost;
 import com.almostThere.domain.map.Service.mapGraphService.MapGraphService;
 import com.almostThere.domain.map.Service.router.RouteInfo;
 import com.almostThere.domain.map.Service.router.Router;
-import com.almostThere.domain.map.Service.router.impl.DiRouter;
-import com.almostThere.domain.map.entity.node.MapNode;
+import com.almostThere.domain.map.Service.routerFactory.RouterFactory;
+import com.almostThere.domain.map.Service.routerFactory.impl.DiRouterFactory;
 import com.almostThere.domain.map.repository.mapGraph.MapGraph;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -20,36 +19,14 @@ import org.springframework.stereotype.Service;
 @Service
 public class DiMapGraphService implements MapGraphService {
     private final MapGraph mapGraph;
-
-    @Override
-    public List<AverageCost> findMiddleSpace(List<Point> startPoints) {
-        final int numberOfStartPoints = startPoints.size();
-        final int nodeNum = this.mapGraph.getNodeNum();
-        List<Router> routers = new ArrayList<>();
-        RouteInfo[][] routeTables = new RouteInfo[numberOfStartPoints][nodeNum];
+    private static List<AverageCost> getAverageGap(int numberOfStartPoints, int nodeNum, RouteInfo[][] routeTables) {
         AverageCost[] avgCost = new AverageCost[nodeNum];
 
-        for (int i = 0; i < numberOfStartPoints; i++) {
-            Point point = startPoints.get(i);
-            Integer startNode = this.mapGraph.findNearestId(point.getY(), point.getX());
-            MapNode mapNode = this.mapGraph.findMapNode(startNode);
-            System.out.printf("%d(%f, %f) 와 가장 가까운 노드는 : %s (위도 : %f, 경도 : %f) 입니다.\n",
-                i,point.getY(), point.getX(),
-                mapNode.getName(), mapNode.getLatitude(), mapNode.getLongitude()
-            );
-            routers.add(new DiRouter(nodeNum, startNode, mapGraph));
-        }
-
-        for (int i = 0; i < numberOfStartPoints; i++) {
-            Router router = routers.get(i);
-            routeTables[i] = router.getShortestPath();
-        }
-
-        for (int i = 0; i < nodeNum ; i++) {
+        for (int i = 0; i < nodeNum; i++) {
             double sum = 0;
 
             int startPoint;
-            for (startPoint = 0 ; startPoint < numberOfStartPoints ; startPoint++) {
+            for (startPoint = 0 ; startPoint < numberOfStartPoints; startPoint++) {
                 if (routeTables[startPoint][i].minCost == Double.MAX_VALUE) {
                     break;
                 }
@@ -73,5 +50,23 @@ public class DiMapGraphService implements MapGraphService {
                 .filter(averageCost -> averageCost.getCost() != Double.MAX_VALUE)
                 .sorted(Comparator.comparingDouble(AverageCost::getCost))
                 .collect(Collectors.toList());
+    }
+    @Override
+    public List<AverageCost> findMiddleSpace(List<Point> startPoints) {
+        RouterFactory routerFactory = new DiRouterFactory(mapGraph);
+        List<Router> routers = routerFactory.createRouters(startPoints);
+        return findMiddleSpaceWithRouter(routers);
+    }
+
+    @Override
+    public List<AverageCost> findMiddleSpaceWithRouter(List<Router> routers) {
+        final int numberOfStartPoints = routers.size();
+        final int nodeNum = this.mapGraph.getNodeNum();
+        RouteInfo[][] routeTables = new RouteInfo[numberOfStartPoints][nodeNum];
+
+        for (int i = 0; i < numberOfStartPoints; i++) {
+            routeTables[i] = routers.get(i).getShortestPath();
+        }
+        return getAverageGap(numberOfStartPoints, nodeNum, routeTables);
     }
 }
