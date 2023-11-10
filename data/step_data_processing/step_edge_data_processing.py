@@ -15,14 +15,22 @@ def getStepEdgeJson():
 
   # 링크 변환
   for i in range(len(link_reader)):
-    l = {
-      'id': link_reader[i]['Link ID'],
-      'start': link_reader[i]['Start Node ID'],
-      'end': link_reader[i]['End Node ID'],
-      'cost': round(float(link_reader[i]['Link Length'])/1.29, 2),
-      'subway_network': link_reader[i]['Subway Network']
+    l1 = {
+      'id': int(link_reader[i]['Link ID']),
+      'start': int(link_reader[i]['Start Node ID']) + 900000, # 지하철과 노드 id와 겹치지 않도록 90만 더하기
+      'end': int(link_reader[i]['End Node ID']) + 900000,
+      'cost': round(float(link_reader[i]['Link Length'])/1.29), # 소요시간 첫째 자리에서 반올림
+      'subway_network': int(link_reader[i]['Subway Network'])
     }
-    link_data.append(l)
+    l2 = {
+      'id': int(link_reader[i]['Link ID']),
+      'start': int(link_reader[i]['End Node ID']) + 900000, # 지하철과 노드 id와 겹치지 않도록 90만 더하기
+      'end': int(link_reader[i]['Start Node ID']) + 900000, 
+      'cost': round(float(link_reader[i]['Link Length'])/1.29), # 소요시간 첫째 자리에서 반올림
+      'subway_network': int(link_reader[i]['Subway Network'])
+    }
+    link_data.append(l1)
+    link_data.append(l2)
 
   print(link_data[0])
 
