@@ -1,6 +1,9 @@
 package com.almostThere.domain.map.Service.test.state.middle;
 
 import com.almostThere.domain.map.Service.mapGraphService.AverageCost;
+import com.almostThere.domain.map.Service.router.Router;
+import com.almostThere.domain.map.Service.routerFactory.RouterFactory;
+import com.almostThere.domain.map.Service.routerFactory.impl.DiRouterFactory;
 import com.almostThere.domain.map.Service.test.state.TestState;
 import com.almostThere.domain.map.Service.test.context.middle.MiddleContext;
 import com.almostThere.domain.map.entity.node.MapNode;
@@ -14,9 +17,14 @@ public class GetMiddlePoint implements TestState {
     private final MiddleContext context;
     @Override
     public void action() {
-        List<AverageCost> middleSpace = this.context.getService().findMiddleSpace(this.context.getInputPoints());
         MapGraph mapGraph = this.context.getMapGraph();
-        int size = middleSpace.size();
+
+        RouterFactory routerFactory = new DiRouterFactory(mapGraph);
+        List<Router> routers = routerFactory.createRouters(this.context.getInputPoints());
+        List<AverageCost> middleSpace = this.context.getService()
+                .findMiddleSpaceWithRouter(routers);
+
+        final int size = middleSpace.size();
         int base = 0;
         System.out.println("몇 개씩 보여드릴까요? -1울 입력하여 종료!");
         Scanner scanner = new Scanner(System.in);
@@ -33,6 +41,9 @@ public class GetMiddlePoint implements TestState {
                     mapNode.getLongitude(),
                     cost.getCost()
                 );
+                for (Router router : routers) {
+                    router.showPath(mapGraph.findMapId(cost.getIndex()));
+                }
             }
             base += offset;
         }
