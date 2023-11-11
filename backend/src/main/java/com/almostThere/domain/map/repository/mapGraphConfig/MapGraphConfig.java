@@ -24,16 +24,21 @@ public class MapGraphConfig {
         MapGraphBuilder graphBuilder = new ListMapGraphBuilder();
 
         List<GRAPH_FILE> nodeFiles = List.of(
-                GRAPH_FILE.SUBWAY_NODE,
                 GRAPH_FILE.STEP_NODE,
-                GRAPH_FILE.BUS_STOP_NODE
+
+                GRAPH_FILE.BUS_STOP_NODE,
+                GRAPH_FILE.SUBWAY_NODE,
+                GRAPH_FILE.STATION_GATE_NODE
         );
         List<GRAPH_FILE> edgeFiles = List.of(
-                GRAPH_FILE.SUBWAY_EDGE,
                 GRAPH_FILE.STEP_EDGE,
+
                 GRAPH_FILE.BUS_ROUTER_EDGE,
-                GRAPH_FILE.SUBWAY_STEP_EDGE,
-                GRAPH_FILE.BUS_STEP_EDGE
+                GRAPH_FILE.BUS_STEP_EDGE,
+
+                GRAPH_FILE.SUBWAY_EDGE,
+                GRAPH_FILE.SUBWAY_GATE_EDGE,
+                GRAPH_FILE.GATE_STEP_EDGE
         );
         List<MapNode> map_nodes = new ArrayList<>();
         List<MapLink> map_edges = new ArrayList<>();
