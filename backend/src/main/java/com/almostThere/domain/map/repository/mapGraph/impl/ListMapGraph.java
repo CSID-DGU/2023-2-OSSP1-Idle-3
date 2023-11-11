@@ -34,8 +34,7 @@ public class ListMapGraph implements MapGraph {
 
     @Override
     public Integer findSearchId(Long mapId) {
-        Integer searchId = this.map_to_id.get(mapId);
-        return searchId;
+        return this.map_to_id.get(mapId);
     }
     @Override
     public Long findMapId(Integer searchId) {
@@ -48,11 +47,14 @@ public class ListMapGraph implements MapGraph {
     }
     @Override
     public Integer findNearestId(Double latitude, Double longitude) {
-        Double length = Double.MAX_VALUE;
+        double length = Double.MAX_VALUE;
         int minIndex = 0;
 
         for (int i = 0 ; i < adjacentGraph.length ; i++) {
-            double distance = GIS.getDistance(latitude, longitude, this.actualNode.get(i));
+            MapNode mapNode = this.actualNode.get(i);
+            if (mapNode.getMap_id() < 1000000 || mapNode.getMap_id() > 1000000000)
+                continue;
+            double distance = GIS.getDistance(latitude, longitude, mapNode);
             if (distance < length) {
                 length = distance;
                 minIndex = i;

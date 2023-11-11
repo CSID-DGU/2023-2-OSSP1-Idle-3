@@ -25,7 +25,7 @@ public class DiRouterFactory implements RouterFactory {
             Point point = startPoints.get(i);
             Integer startNode = this.mapGraph.findNearestId(point.getY(), point.getX());
             MapNode mapNode = this.mapGraph.findMapNode(startNode);
-            System.out.printf("%d(%f, %f) 와 가장 가까운 노드는 : %s (위도 : %f, 경도 : %f) 입니다.\n",
+            System.out.printf("%d(%f, %f) 와 가장 가까운 도보 노드는 : %s (위도 : %f, 경도 : %f) 입니다.\n",
                     i,point.getY(), point.getX(),
                     mapNode.getName(), mapNode.getLatitude(), mapNode.getLongitude()
             );
