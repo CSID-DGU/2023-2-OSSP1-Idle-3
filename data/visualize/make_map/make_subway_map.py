@@ -6,11 +6,6 @@ def readSubwayLinks():
     subwayLinks = json.load(f)
   return subwayLinks
 
-def readNewLine1():
-  with open('data_processing/result_data/line1_edge_for_vis.json', 'r', encoding='utf-8') as f:
-    subwayLinks = json.load(f)
-  return subwayLinks
-
 def makeSubwayMap(subwayLinks, map, line):
   for link in subwayLinks:
     if line == link["line"]:
@@ -31,11 +26,8 @@ def makeSubwayMap(subwayLinks, map, line):
 map = folium.Map(location = [37.544129, 127.054357],zoom_start = 12)
 print("몇호선?(1~8 정수)")
 line = int(input())
-if line == 1:
-  subwayLinks = readNewLine1()
-else:
-  subwayLinks = readSubwayLinks()
 
+subwayLinks = readSubwayLinks()
 makeSubwayMap(subwayLinks, map, line)
 
 map.save("maps/" + str(line) + "호선.html")
