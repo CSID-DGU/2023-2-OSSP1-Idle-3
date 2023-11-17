@@ -4,6 +4,9 @@ import com.almostThere.middleSpace.domain.routetable.RouteInfo;
 import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.graph.MapGraph;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import lombok.Getter;
 
 @Getter
@@ -46,5 +49,13 @@ public class DiRouteTable implements RouteTable {
             }
         }
         System.out.printf("최단 시간은 %f초 입니다.\n", cost);
+    }
+
+    @Override
+    public void showUnReachableNodeCount() {
+        System.out.printf("가지 못하는 노드의 개수 : %d\n",
+                Arrays.stream(dist)
+                        .filter(routeInfo -> routeInfo.minCost == Double.MAX_VALUE)
+                        .count());
     }
 }

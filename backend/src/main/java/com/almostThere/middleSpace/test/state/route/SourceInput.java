@@ -28,6 +28,6 @@ public class SourceInput implements TestState {
                 break;
             }
         }
-        this.context.setState("DestInput");
+        this.context.setState("ShowPath");
     }
 }

@@ -13,4 +13,5 @@ public interface MapGraph {
     Integer findNearestId(Double latitude, Double longitude);
     MapNode findNearestWalkNode(Double latitude, Double longitude);
     MapNode getNode(Integer searchId);
+    List<List<MapNode>> getIsolatedNetworks();
 }
