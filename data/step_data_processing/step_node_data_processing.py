@@ -17,11 +17,11 @@ def getStepNodeJson():
   for i in range(len(node_reader)):
     longitude, latitude = node_reader[i]['Node WKT'][6:-1].split()
     n = {
-      'id': node_reader[i]['Node ID'],
-      'crosswalk': node_reader[i]['Crosswalk'],
+      'id': int(node_reader[i]['Node ID']) + 900000, # 지하철과 노드 id와 겹치지 않도록 90만 더하기
+      'crosswalk': int(node_reader[i]['Crosswalk']),
       'position': {
-        'latitude': latitude,  # 위도
-        'longitude': longitude # 경도
+        'latitude': float(latitude),  # 위도
+        'longitude': float(longitude) # 경도
       }
     }
     node_data.append(n)
