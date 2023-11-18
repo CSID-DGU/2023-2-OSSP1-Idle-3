@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * MapGraphService의 구현체
  */
 @RequiredArgsConstructor
 @Service
@@ -73,7 +73,7 @@ public class MapGraphServiceImpl implements MapGraphService {
 
     /**
      * @param startPoints : 시작점(위도, 경도) 리스트
-     * @return 구해진 소요시간의 편차의 평균을 정렬한 리스트를 반환
+     * @return 구해진 소요시간의 편차의 평균을 오름차순으로 정렬한 리스트를 반환
      */
     @Override
     public List<AverageCost> findMiddleSpace(List<Position> startPoints) {

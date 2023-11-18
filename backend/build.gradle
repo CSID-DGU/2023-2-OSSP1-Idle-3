@@ -57,6 +57,9 @@ dependencies {
 	//자바 역직렬화 문제 해결 패키지
 	implementation 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310'
 	implementation 'com.fasterxml.jackson.core:jackson-databind'
+
+	//시각화
+	implementation 'org.jfree:jfreechart:1.5.4'
 }
 
 tasks.named('test') {

@@ -16,7 +16,7 @@ public class TestContext {
     public static void main(String[] args) throws IOException, ParseException {
         MapGraphConfig config = new MapGraphConfig();
         MapGraph mapGraph = config.mapGraph();
-        Context context = new RouteContext(mapGraph);
+        Context context = new MiddleContext(mapGraph);
         while (true) {
             context.action();
         }

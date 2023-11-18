@@ -12,11 +12,18 @@ import org.springframework.data.geo.Point;
 @RequiredArgsConstructor
 public class MiddlePointsInput implements TestState {
     private final MiddleContext context;
+    private final Scanner scanner;
     @Override
     public void action() {
         System.out.print("출발점의 개수를 입력하세요 : ");
-        Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
+        int n = 0;
+        while (true){
+            if (scanner.hasNext())
+            {
+                n = scanner.nextInt();
+                break ;
+            }
+        }
         if (n < 0) {
             System.exit(0);
         }
@@ -26,6 +33,6 @@ public class MiddlePointsInput implements TestState {
             double log = scanner.nextDouble(); // 경도 x
             this.context.getInputPoints().add(new Point(log, lat));
         }
-        this.context.setState("GetMiddle");
+        this.context.setState("GetMiddlePoint");
     }
 }

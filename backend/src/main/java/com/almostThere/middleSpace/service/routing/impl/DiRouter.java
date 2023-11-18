@@ -49,4 +49,3 @@ public class DiRouter implements Router {
         return new DiRouteTable(startNodeIndex, dist, mapGraph);
     }
 }
-

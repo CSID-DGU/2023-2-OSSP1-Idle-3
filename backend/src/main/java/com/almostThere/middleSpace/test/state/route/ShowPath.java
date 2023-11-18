@@ -39,7 +39,6 @@ public class ShowPath implements TestState {
                                         System.out.println(node.getName());
                                     });
                         });
-                break;
             }
         }
     }

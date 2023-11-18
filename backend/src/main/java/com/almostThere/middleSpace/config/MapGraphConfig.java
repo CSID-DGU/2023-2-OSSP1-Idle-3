@@ -35,8 +35,9 @@ public class MapGraphConfig {
                 FILENAME.STEP_NODE,
 
                 FILENAME.BUS_STOP_NODE,
-                FILENAME.SUBWAY_NODE,
-                FILENAME.STATION_GATE_NODE
+                FILENAME.SUBWAY_NODE
+//                ,
+//                FILENAME.STATION_GATE_NODE
         );
         // 간선 파일 리스트
         List<FILENAME> edgeFiles = List.of(
@@ -45,9 +46,11 @@ public class MapGraphConfig {
                 FILENAME.BUS_ROUTER_EDGE,
                 FILENAME.BUS_STEP_EDGE,
 
-                FILENAME.SUBWAY_EDGE,
-                FILENAME.SUBWAY_GATE_EDGE,
-                FILENAME.GATE_STEP_EDGE
+                FILENAME.SUBWAY_EDGE
+//                ,
+//                FILENAME.SUBWAY_GATE_EDGE
+//                ,
+//                FILENAME.GATE_STEP_EDGE
         );
 
         List<MapNode> map_nodes = graphLoader.loadNodes(nodeFiles);
