@@ -20,9 +20,28 @@ def generateTransferSubwayEdge():
 
 
     # 지하철별 평균 배차 간격을 저장할 변수 1호선~9호선
-    subway_interval_cost = {}
-    for i in range(1, 10):
-        subway_interval_cost[str(i)] = 0.0
+    # cost는 배차간격의 절반
+    # 1호선 5분
+    # 2호선 6분
+    # 3호선 8분
+    # 4호선 7분
+    # 5호선 6분
+    # 6호선 7분
+    # 7호선 6분
+    # 8호선 8분
+    # 9호선 12분
+
+    subway_interval_cost = {
+        "1" : 150.0,
+        "2" : 180.0,
+        "3" : 240.0, 
+        "4" : 210.0,
+        "5" : 180.0,
+        "6" : 210.0,
+        "7" : 180.0,
+        "8" : 240.0,
+        "9" : 360.0,
+    }
 
     transfer_subway_edge_list = []
 
