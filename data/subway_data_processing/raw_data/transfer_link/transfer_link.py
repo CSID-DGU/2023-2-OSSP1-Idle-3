@@ -18,29 +18,51 @@ def generateTransferSubwayEdge():
             subway_node_group[subway_node['name']] = []
         subway_node_group[subway_node['name']].append(subway_node)
 
+
+    # 지하철별 평균 배차 간격을 저장할 변수 1호선~9호선
+    subway_interval_cost = {}
+    for i in range(1, 10):
+        subway_interval_cost[str(i)] = 0.0
+
+    transfer_subway_edge_list = []
+
     # 서로서로 연결해주는 edge 생성
     for subway_node_name, subway_nodes in subway_node_group.items():
         for i in range(len(subway_nodes)-1):
+            transfer_cost_to_i = subway_interval_cost[getSubwayEdgeIndex(subway_edge_list, subway_nodes[i]['id'])]
             for j in range(i+1, len(subway_nodes)):
-                subway_edge_list.append({
+                transfer_cost_to_j = subway_interval_cost[getSubwayEdgeIndex(subway_edge_list, subway_nodes[j]['id'])]
+
+                transfer_subway_edge_list.append({
                     "start" : subway_nodes[i]['id'],
                     "end" : subway_nodes[j]['id'],
-                    "cost" : 20.0,
+                    "cost" : transfer_cost_to_j,
                     "type" : "SUBWAY",
                     "line" : "환승",
                 })
 
                 # 반대 방향의 엣지도 추가
-                subway_edge_list.append({
+                transfer_subway_edge_list.append({
                     "start": subway_nodes[j]['id'],
                     "end":  subway_nodes[i]['id'],
-                    "cost" : 20.0,
+                    "cost" : transfer_cost_to_i,
                     "type" : "SUBWAY",
                     "line" : "환승",
                 })
     
+    
+    # subway_edge_list 뒷부분에 transfer_subway_edge_list를 추가
+    subway_edge_list.extend(transfer_subway_edge_list)
+
     with open('subway_edge_id.json', 'w', encoding='utf-8') as f:
         json.dump(subway_edge_list, f, indent=4, ensure_ascii=False)
 
+
+# subway_nodes[j]['id'] 가 subway_edge_list의 데이터 중 end에 존재하는 데이터 목록중 0번 불러오기
+def getSubwayEdgeIndex(subway_edge_list, subway_nodes_id):
+    for i in range(len(subway_edge_list)):
+        if subway_edge_list[i]['end'] == subway_nodes_id:
+            return subway_edge_list[i]['line']
+    return None
 
 generateTransferSubwayEdge()
