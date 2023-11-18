@@ -1,5 +1,6 @@
 package com.almostThere.middleSpace.service.recommendation.impl;
 
+import com.almostThere.middleSpace.domain.gis.Boundary;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.service.recommendation.MapGraphService;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
+
+import static com.almostThere.middleSpace.util.GIS.getWhat3WordsMapBoundaryPoint;
 
 /**
  *
@@ -115,11 +118,15 @@ public class MapGraphServiceImpl implements MapGraphService {
             minLongitude = Math.min(minLongitude, longitude);
         }
 
+
+
+        Boundary finalBoundary = getWhat3WordsMapBoundaryPoint(maxLatitude, minLatitude, maxLongitude, minLongitude);
+
         // 위도 경도 경계 찾음
-        double finalMinLatitude = minLatitude;
-        double finalMinLongitude = minLongitude;
-        double finalMaxLatitude = maxLatitude;
-        double finalMaxLongitude = maxLongitude;
+        double finalMinLatitude = finalBoundary.minLatitude;
+        double finalMinLongitude = finalBoundary.minLongitude;
+        double finalMaxLatitude = finalBoundary.maxLatitude;
+        double finalMaxLongitude = finalBoundary.maxLongitude;
 
 
         // averageCosts 변수의 Node의 latitude와 longitude가 finalMinLatitude, finalMinLongitude, finalMaxLatitude, finalMaxLongitude 안에 있는지 확인
