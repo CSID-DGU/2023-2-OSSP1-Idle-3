@@ -1,5 +1,6 @@
 package com.almostThere.middleSpace.service.recommendation.impl;
 
+import com.almostThere.middleSpace.domain.gis.Boundary;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.service.recommendation.MapGraphService;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
@@ -14,6 +15,8 @@ import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
+
+import static com.almostThere.middleSpace.util.GIS.getWhat3WordsMapBoundaryPoint;
 
 /**
  *
@@ -98,10 +101,7 @@ public class MapGraphServiceImpl implements MapGraphService {
     @Override
     public List<AverageCost> findMiddleSpaceWithBoundary(List<AverageCost> averageCosts, List<Point> startPoints) {
         // 사용자의 위도와 경도 중 최대값 및 최소값 초기화
-        double maxLatitude = Double.MIN_VALUE;
-        double minLatitude = Double.MAX_VALUE;
-        double maxLongitude = Double.MIN_VALUE;
-        double minLongitude = Double.MAX_VALUE;
+        Boundary boundary = new Boundary(Double.MIN_VALUE,Double.MIN_VALUE,Double.MIN_VALUE,Double.MIN_VALUE);
 
         // 시작점의 위치 값에서 최대 및 최소 값을 찾음
         for (Point point : startPoints) {
@@ -109,17 +109,19 @@ public class MapGraphServiceImpl implements MapGraphService {
             double longitude = point.getX();
 
             // 최대 및 최소 값을 갱신
-            maxLatitude = Math.max(maxLatitude, latitude);
-            minLatitude = Math.min(minLatitude, latitude);
-            maxLongitude = Math.max(maxLongitude, longitude);
-            minLongitude = Math.min(minLongitude, longitude);
+            boundary.maxLatitude = Math.max(boundary.maxLatitude, latitude);
+            boundary.minLatitude = Math.min(boundary.minLatitude, latitude);
+            boundary.maxLongitude = Math.max(boundary.maxLongitude, longitude);
+            boundary.minLongitude = Math.min(boundary.minLongitude, longitude);
         }
 
+        Boundary finalBoundary = getWhat3WordsMapBoundaryPoint(boundary);
+
         // 위도 경도 경계 찾음
-        double finalMinLatitude = minLatitude;
-        double finalMinLongitude = minLongitude;
-        double finalMaxLatitude = maxLatitude;
-        double finalMaxLongitude = maxLongitude;
+        double finalMinLatitude = finalBoundary.minLatitude;
+        double finalMinLongitude = finalBoundary.minLongitude;
+        double finalMaxLatitude = finalBoundary.maxLatitude;
+        double finalMaxLongitude = finalBoundary.maxLongitude;
 
 
         // averageCosts 변수의 Node의 latitude와 longitude가 finalMinLatitude, finalMinLongitude, finalMaxLatitude, finalMaxLongitude 안에 있는지 확인
