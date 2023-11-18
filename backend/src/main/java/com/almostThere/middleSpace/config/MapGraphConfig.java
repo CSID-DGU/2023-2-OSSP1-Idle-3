@@ -9,7 +9,6 @@ import com.almostThere.middleSpace.graph.loader.GraphLoader;
 import com.almostThere.middleSpace.graph.loader.impl.JSONGraphLoader;
 import com.almostThere.middleSpace.graph.MapGraph;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import org.json.simple.parser.ParseException;
 import org.springframework.context.annotation.Bean;

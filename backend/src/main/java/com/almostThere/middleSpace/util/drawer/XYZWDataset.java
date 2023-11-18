@@ -37,8 +37,8 @@ public class XYZWDataset extends AbstractXYZDataset {
 
     public void normalize() {
         Double maxAverageDeviations = this.averageDeviations.stream().max(Double::compareTo).get();
-        this.averageDeviations = NormUtil.normalize_with_std(this.averageDeviations);
-        this.sums = NormUtil.normalize_with_std(this.sums);
+        this.averageDeviations = NormUtil.normalize_with_max(this.averageDeviations);
+        this.sums = NormUtil.normalize_with_max(this.sums);
     }
 
     @Override
