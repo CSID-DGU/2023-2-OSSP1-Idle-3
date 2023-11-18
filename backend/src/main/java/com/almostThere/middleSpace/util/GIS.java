@@ -29,22 +29,17 @@ public class GIS {
     }
 
     // 1. 3m가 위도, 경도 상으로 얼마나 차이나는지 계산
-    public static Boundary getWhat3WordsMapBoundaryPoint(Boundary boundary){
-        double maxLatitude = boundary.maxLatitude;
-        double minLatitude = boundary.minLatitude;
-        double maxLongitude = boundary.maxLongitude;
-        double minLongitude = boundary.minLongitude;
-
+    public static Boundary getWhat3WordsMapBoundaryPoint(double maxLatitude, double minLatitude, double maxLongitude, double minLongitude){
         // what3words 가 반영된 경계값을 구하기.
         double max3WordsLatitude = Double.MIN_VALUE;
         double min3WordsLatitude = Double.MAX_VALUE;
         double max3WordsLongitude = Double.MIN_VALUE;
         double min3WordsLongitude = Double.MAX_VALUE;
 
-        max3WordsLatitude = (maxLatitude / THREE_METER_TO_ANGLE) * THREE_METER_TO_ANGLE + THREE_METER_TO_ANGLE;
-        min3WordsLatitude = (minLatitude / THREE_METER_TO_ANGLE) * THREE_METER_TO_ANGLE;
-        max3WordsLongitude = (maxLongitude / THREE_METER_TO_ANGLE) * THREE_METER_TO_ANGLE + THREE_METER_TO_ANGLE;
-        min3WordsLongitude = (minLongitude / THREE_METER_TO_ANGLE) * THREE_METER_TO_ANGLE;
+        max3WordsLatitude = Math.floor(maxLatitude / THREE_METER_TO_ANGLE) * THREE_METER_TO_ANGLE + THREE_METER_TO_ANGLE;
+        min3WordsLatitude = Math.floor(minLatitude / THREE_METER_TO_ANGLE) * THREE_METER_TO_ANGLE;
+        max3WordsLongitude = Math.floor(maxLongitude / THREE_METER_TO_ANGLE) * THREE_METER_TO_ANGLE + THREE_METER_TO_ANGLE;
+        min3WordsLongitude = Math.floor(minLongitude / THREE_METER_TO_ANGLE) * THREE_METER_TO_ANGLE;
 
         return new Boundary(min3WordsLatitude, max3WordsLatitude, min3WordsLongitude, max3WordsLongitude);
     }
