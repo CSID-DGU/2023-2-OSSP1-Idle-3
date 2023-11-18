@@ -644,14 +644,81 @@
             "longitude": 127.024634,
             "line": "1호선"
         }
-    },
-    {
+    },{
         "line": 1,
         "start": {
             "id": 157,
             "name": "제기동",
             "latitude": 37.578103,
             "longitude": 127.034893,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 158,
+            "name": "청량리(서울시립대입구)",
+            "latitude": 37.579956,
+            "longitude": 127.044585,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 158,
+            "name": "청량리(서울시립대입구)",
+            "latitude": 37.579956,
+            "longitude": 127.044585,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 157,
+            "name": "제기동",
+            "latitude": 37.578103,
+            "longitude": 127.034893,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 158,
+            "name": "청량리(서울시립대입구)",
+            "latitude": 37.579956,
+            "longitude": 127.044585,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1015,
+            "name": "회기",
+            "latitude": 37.58946,
+            "longitude": 127.057583,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1015,
+            "name": "회기",
+            "latitude": 37.58946,
+            "longitude": 127.057583,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 158,
+            "name": "청량리(서울시립대입구)",
+            "latitude": 37.579956,
+            "longitude": 127.044585,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1015,
+            "name": "회기",
+            "latitude": 37.58946,
+            "longitude": 127.057583,
             "line": "1호선"
         },
         "end": {
@@ -672,10 +739,10 @@
             "line": "1호선"
         },
         "end": {
-            "id": 157,
-            "name": "제기동",
-            "latitude": 37.578103,
-            "longitude": 127.034893,
+            "id": 1015,
+            "name": "회기",
+            "latitude": 37.58946,
+            "longitude": 127.057583,
             "line": "1호선"
         }
     },
