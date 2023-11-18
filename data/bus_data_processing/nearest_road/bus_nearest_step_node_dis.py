@@ -1,11 +1,11 @@
 import json
 from geopy.distance import geodesic
 
-with open('data/result1.json', 'r', encoding='utf-8') as transfor_file:
+with open('result1.json', 'r', encoding='utf-8') as transfor_file:
     transfor_data = json.load(transfor_file)
 
 # `bus_node.json` 파일을 읽어옵니다. 인코딩을 'utf-8'로 지정합니다.
-with open('data/bus_stop_node.json', 'r', encoding='utf-8') as bus_node_file:
+with open('data/bus_stop_node_with_transfer.json', 'r', encoding='utf-8') as bus_node_file:
     bus_data = json.load(bus_node_file)
 
 # `step_node.json` 파일을 읽어옵니다. 인코딩을 'utf-8'로 지정합니다.

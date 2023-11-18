@@ -1,7 +1,7 @@
 import json
 
 def getBusRouterEdgeJson():
-    bus_route_filePath = "rawData/bus_route.json"
+    bus_route_filePath = "rawData/nosun_data_final.json"
     bus_route_line_filePath = "rawData/bus_route_line.json"
 
     bus_average_speed = 5.028
@@ -14,7 +14,7 @@ def getBusRouterEdgeJson():
 
     #route_id를 기준으로 그룹화
     route_group = {}   
-    for route in bus_route_list['DATA']:
+    for route in bus_route_list:
         if route['route_id'] not in route_group:
             route_group[route['route_id']] = []
         route_group[route['route_id']].append(route)
@@ -37,3 +37,16 @@ def getBusRouterEdgeJson():
 
 
 getBusRouterEdgeJson()
+
+
+
+
+# def count():
+#     path = 'bus_stop_node_with_transfer.json'
+
+#     with open(path, 'r', encoding='utf-8') as f:
+#         bus_stop_list = json.load(f)
+
+#     print(len(bus_stop_list))
+
+
