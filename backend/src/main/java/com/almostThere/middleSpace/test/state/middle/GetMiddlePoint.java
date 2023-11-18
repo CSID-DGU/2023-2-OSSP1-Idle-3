@@ -28,6 +28,7 @@ public class GetMiddlePoint implements TestState {
     private void showPaths(List<RouteTable> tables,
                            List<AverageCost> middleSpace,
                            Scanner scanner) {
+        middleSpace = this.context.getService().findMiddleSpaceWithBoundary(middleSpace, context.getInputPoints());
         final int size = middleSpace.size();
         int base = 0;
         System.out.println("몇 개씩 보여드릴까요? -1울 입력하여 종료!");

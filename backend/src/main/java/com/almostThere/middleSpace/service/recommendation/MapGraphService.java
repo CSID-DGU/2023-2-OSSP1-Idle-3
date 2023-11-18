@@ -22,4 +22,6 @@ public interface MapGraphService {
      * @return
      */
     List<AverageCost> findMiddleSpaceWithTables(List<RouteTable> tables);
+
+    List<AverageCost> findMiddleSpaceWithBoundary(List<AverageCost> averageCosts, List<Point> startPoints);
 }

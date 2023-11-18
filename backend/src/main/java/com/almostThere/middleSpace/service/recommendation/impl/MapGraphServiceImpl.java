@@ -1,17 +1,22 @@
 package com.almostThere.middleSpace.service.recommendation.impl;
 
 import com.almostThere.middleSpace.domain.gis.Position;
+import com.almostThere.middleSpace.domain.gis.Boundary;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.service.recommendation.MapGraphService;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.graph.MapGraph;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+
+import static com.almostThere.middleSpace.util.GIS.getWhat3WordsMapBoundaryPoint;
 
 /**
  * MapGraphService의 구현체
@@ -48,7 +53,7 @@ public class MapGraphServiceImpl implements MapGraphService {
                 double averageTime = sum / numberOfStartPoints;
                 double avgGap = 0;
                 int innerStartPoint;
-                
+
                 // 편차의 합을 구하는 부분
                 for (innerStartPoint = 0; innerStartPoint < numberOfStartPoints; innerStartPoint++) {
                     RouteTable routeTable = routeTables.get(innerStartPoint);
@@ -91,5 +96,49 @@ public class MapGraphServiceImpl implements MapGraphService {
     @Override
     public List<AverageCost> findMiddleSpaceWithTables(List<RouteTable> tables) {
         return getAverageGap(tables);
+    }
+
+    @Override
+    public List<AverageCost> findMiddleSpaceWithBoundary(List<AverageCost> averageCosts, List<Point> startPoints) {
+        // 사용자의 위도와 경도 중 최대값 및 최소값 초기화
+        double maxLatitude = Double.MIN_VALUE;
+        double minLatitude = Double.MAX_VALUE;
+        double maxLongitude = Double.MIN_VALUE;
+        double minLongitude = Double.MAX_VALUE;
+
+        // 시작점의 위치 값에서 최대 및 최소 값을 찾음
+        for (Point point : startPoints) {
+            double latitude = point.getY();
+            double longitude = point.getX();
+
+            // 최대 및 최소 값을 갱신
+            maxLatitude = Math.max(maxLatitude, latitude);
+            minLatitude = Math.min(minLatitude, latitude);
+            maxLongitude = Math.max(maxLongitude, longitude);
+            minLongitude = Math.min(minLongitude, longitude);
+        }
+
+
+
+        Boundary finalBoundary = getWhat3WordsMapBoundaryPoint(maxLatitude, minLatitude, maxLongitude, minLongitude);
+
+        // 위도 경도 경계 찾음
+        double finalMinLatitude = finalBoundary.minLatitude;
+        double finalMinLongitude = finalBoundary.minLongitude;
+        double finalMaxLatitude = finalBoundary.maxLatitude;
+        double finalMaxLongitude = finalBoundary.maxLongitude;
+
+
+        // averageCosts 변수의 Node의 latitude와 longitude가 finalMinLatitude, finalMinLongitude, finalMaxLatitude, finalMaxLongitude 안에 있는지 확인
+        // 위의 조건을 만족하는 AverageCost 객체를 리스트에 담아 반환
+        return averageCosts.stream()
+                .filter(averageCost -> {
+                    double latitude = averageCost.getNode().getLatitude();
+                    double longitude = averageCost.getNode().getLongitude();
+
+                    return latitude >= finalMinLatitude && latitude <= finalMaxLatitude &&
+                            longitude >= finalMinLongitude && longitude <= finalMaxLongitude;
+                })
+                .collect(Collectors.toList());
     }
 }

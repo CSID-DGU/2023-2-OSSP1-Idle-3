@@ -1,5 +1,6 @@
 package com.almostThere.middleSpace.util;
 
+import com.almostThere.middleSpace.domain.gis.Boundary;
 import com.almostThere.middleSpace.graph.node.MapNode;
 
 /**
@@ -7,6 +8,8 @@ import com.almostThere.middleSpace.graph.node.MapNode;
  * */
 public class GIS {
     private static final double EARTH_RADIUS = 6371000; // 지구 반지름 (미터 단위)
+
+    private static final double THREE_METER_TO_ANGLE = 0.000027; // 3m를 각도로 변환한 값
     public static double haversin(double val) {
         return Math.pow(Math.sin(val / 2), 2);
     }
@@ -24,4 +27,21 @@ public class GIS {
 
         return EARTH_RADIUS * c; // 결과는 미터 단위
     }
+
+    // 1. 3m가 위도, 경도 상으로 얼마나 차이나는지 계산
+    public static Boundary getWhat3WordsMapBoundaryPoint(double maxLatitude, double minLatitude, double maxLongitude, double minLongitude){
+        // what3words 가 반영된 경계값을 구하기.
+        double max3WordsLatitude = Double.MIN_VALUE;
+        double min3WordsLatitude = Double.MAX_VALUE;
+        double max3WordsLongitude = Double.MIN_VALUE;
+        double min3WordsLongitude = Double.MAX_VALUE;
+
+        max3WordsLatitude = Math.floor(maxLatitude / THREE_METER_TO_ANGLE) * THREE_METER_TO_ANGLE + THREE_METER_TO_ANGLE;
+        min3WordsLatitude = Math.floor(minLatitude / THREE_METER_TO_ANGLE) * THREE_METER_TO_ANGLE;
+        max3WordsLongitude = Math.floor(maxLongitude / THREE_METER_TO_ANGLE) * THREE_METER_TO_ANGLE + THREE_METER_TO_ANGLE;
+        min3WordsLongitude = Math.floor(minLongitude / THREE_METER_TO_ANGLE) * THREE_METER_TO_ANGLE;
+
+        return new Boundary(min3WordsLatitude, max3WordsLatitude, min3WordsLongitude, max3WordsLongitude);
+    }
+
 }
