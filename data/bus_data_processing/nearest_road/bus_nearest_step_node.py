@@ -1,11 +1,11 @@
 import json
 
 # `bus_node.json` 파일을 읽어옵니다. 인코딩을 'utf-8'로 지정합니다.
-with open('bus_stop_node.json', 'r', encoding='utf-8') as bus_node_file:
+with open('data/bus_stop_node_with_transfer.json', 'r', encoding='utf-8') as bus_node_file:
     bus_data = json.load(bus_node_file)
 
 # `step_node.json` 파일을 읽어옵니다. 인코딩을 'utf-8'로 지정합니다.
-with open('step_node.json', 'r', encoding='utf-8') as step_node_file:
+with open('data/step_node.json', 'r', encoding='utf-8') as step_node_file:
     step_data = json.load(step_node_file)
 
 # `step_node.json` 데이터와 `bus_node.json` 데이터 간의 차이가 가장 적은 노드를 찾습니다.
