@@ -1,8 +1,10 @@
 package com.almostThere.middleSpace.test;
 
+import com.almostThere.middleSpace.test.context.Context;
 import com.almostThere.middleSpace.test.context.middle.MiddleContext;
 import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.config.MapGraphConfig;
+import com.almostThere.middleSpace.test.context.route.RouteContext;
 import java.io.IOException;
 import org.json.simple.parser.ParseException;
 
@@ -14,7 +16,7 @@ public class TestContext {
     public static void main(String[] args) throws IOException, ParseException {
         MapGraphConfig config = new MapGraphConfig();
         MapGraph mapGraph = config.mapGraph();
-        MiddleContext context = new MiddleContext(mapGraph);
+        Context context = new MiddleContext(mapGraph);
         while (true) {
             context.action();
         }

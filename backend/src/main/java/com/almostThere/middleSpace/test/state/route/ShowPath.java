@@ -1,8 +1,10 @@
 package com.almostThere.middleSpace.test.state.route;
 
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
+import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.test.context.route.RouteContext;
 import com.almostThere.middleSpace.test.state.TestState;
+import java.util.List;
 import java.util.Scanner;
 import lombok.RequiredArgsConstructor;
 
@@ -26,7 +28,17 @@ public class ShowPath implements TestState {
                 }
                 RouteTable table = this.context.getTable();
                 table.showPath(input);
-                break;
+                table.showUnReachableNodeCount();
+                List<List<MapNode>> isolatedNetworks = context.getMapGraph().getIsolatedNetworks();
+                isolatedNetworks.remove(0);
+                isolatedNetworks
+                        .stream().forEach(network -> {
+                            System.out.println("------------------network----------------");
+                            network.stream()
+                                    .forEach(node -> {
+                                        System.out.println(node.getName());
+                                    });
+                        });
             }
         }
     }

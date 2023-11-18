@@ -4,8 +4,10 @@ import com.almostThere.middleSpace.graph.edge.OwnEdge;
 import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.util.GIS;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Stack;
 
 public class ListMapGraph implements MapGraph {
     private final List<MapNode> actualNode;
@@ -70,5 +72,42 @@ public class ListMapGraph implements MapGraph {
     @Override
     public MapNode getNode(Integer searchId) {
         return this.actualNode.get(searchId);
+    }
+
+    private void dfs(int v, boolean[] visited, List<MapNode> component) {
+        Stack<Integer> stk = new Stack<>();
+        stk.push(v);
+        component.add(this.actualNode.get(v));
+
+        visited[v] = true;
+        while (!stk.empty()) {
+            Integer topNode = stk.pop();
+
+            visited[topNode] = true;
+            List<OwnEdge> ownEdges = adjacentGraph[topNode];
+            for (OwnEdge edge : ownEdges) {
+                if (!visited[edge.getIndex()]) {
+                    visited[edge.getIndex()] = true;
+                    stk.push(edge.getIndex());
+                    component.add(this.actualNode.get(edge.getIndex()));
+                }
+            }
+        }
+    }
+
+    @Override
+    public List<List<MapNode>> getIsolatedNetworks() {
+        List<List<MapNode>> subNetworks = new ArrayList<>();
+        final int size = actualNode.size();
+        boolean[] visited = new boolean[size];
+
+        for (int i = 0; i < size ; i++) {
+            if (!visited[i]) {
+                List<MapNode> subNetwork = new ArrayList<>();
+                dfs(i, visited, subNetwork);
+                subNetworks.add(subNetwork);
+            }
+        }
+        return subNetworks;
     }
 }

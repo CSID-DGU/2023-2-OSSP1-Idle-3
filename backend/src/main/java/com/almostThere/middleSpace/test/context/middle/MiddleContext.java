@@ -12,6 +12,7 @@ import com.almostThere.middleSpace.service.routing.impl.DiRouter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Scanner;
 import lombok.Getter;
 import org.springframework.data.geo.Point;
 
@@ -24,9 +25,10 @@ public class MiddleContext implements Context {
     private final List<Point> inputPoints;
     private final Router router;
     public MiddleContext(MapGraph mapGraph) {
+        Scanner scanner = new Scanner(System.in);
         this.states = Map.of(
-                "MiddlePointsInput", new MiddlePointsInput(this),
-                "GetMiddle", new GetMiddlePoint(this)
+                "MiddlePointsInput", new MiddlePointsInput(this, scanner),
+                "GetMiddlePoint", new GetMiddlePoint(this, scanner)
         );
         this.state = this.states.get("MiddlePointsInput");
         this.mapGraph = mapGraph;

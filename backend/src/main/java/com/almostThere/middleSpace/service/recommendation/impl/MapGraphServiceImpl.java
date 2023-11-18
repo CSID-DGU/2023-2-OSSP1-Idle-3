@@ -1,5 +1,6 @@
 package com.almostThere.middleSpace.service.recommendation.impl;
 
+import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.gis.Boundary;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.service.recommendation.MapGraphService;
@@ -13,13 +14,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 import static com.almostThere.middleSpace.util.GIS.getWhat3WordsMapBoundaryPoint;
 
 /**
- *
+ * MapGraphService의 구현체
  */
 @RequiredArgsConstructor
 @Service
@@ -78,12 +78,12 @@ public class MapGraphServiceImpl implements MapGraphService {
 
     /**
      * @param startPoints : 시작점(위도, 경도) 리스트
-     * @return 구해진 소요시간의 편차의 평균을 정렬한 리스트를 반환
+     * @return 구해진 소요시간의 편차의 평균을 오름차순으로 정렬한 리스트를 반환
      */
     @Override
-    public List<AverageCost> findMiddleSpace(List<Point> startPoints) {
+    public List<AverageCost> findMiddleSpace(List<Position> startPoints) {
         List<RouteTable> tables = startPoints.stream()
-                .map(point -> this.mapGraph.findNearestId(point.getY(), point.getX()))
+                .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
                 .map(id -> router.getShortestPath(id))
                 .collect(Collectors.toList());
         return findMiddleSpaceWithTables(tables);
