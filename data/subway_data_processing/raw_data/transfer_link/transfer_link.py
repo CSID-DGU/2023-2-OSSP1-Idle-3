@@ -1,4 +1,5 @@
 import json;
+import re;
 
 def generateTransferSubwayEdge():
 
@@ -41,6 +42,7 @@ def generateTransferSubwayEdge():
         "7" : 180.0,
         "8" : 240.0,
         "9" : 360.0,
+        "-1": 99999.0
     }
 
     transfer_subway_edge_list = []
@@ -48,9 +50,16 @@ def generateTransferSubwayEdge():
     # 서로서로 연결해주는 edge 생성
     for subway_node_name, subway_nodes in subway_node_group.items():
         for i in range(len(subway_nodes)-1):
-            transfer_cost_to_i = subway_interval_cost[getSubwayEdgeIndex(subway_edge_list, subway_nodes[i]['id'])]
+            if len(re.findall(r'\d+', subway_nodes[i]['line'])) == 0:
+                transfer_cost_to_i = subway_interval_cost["-1"]
+            else:
+                transfer_cost_to_i = subway_interval_cost[str(re.findall(r'\d+', subway_nodes[i]['line'])[0])]
+
             for j in range(i+1, len(subway_nodes)):
-                transfer_cost_to_j = subway_interval_cost[getSubwayEdgeIndex(subway_edge_list, subway_nodes[j]['id'])]
+                if len(re.findall(r'\d+', subway_nodes[j]['line'])) == 0:
+                    transfer_cost_to_j = subway_interval_cost["-1"]
+                else:
+                    transfer_cost_to_j = subway_interval_cost[str(re.findall(r'\d+', subway_nodes[j]['line'])[0])]
 
                 transfer_subway_edge_list.append({
                     "start" : subway_nodes[i]['id'],
@@ -82,6 +91,16 @@ def getSubwayEdgeIndex(subway_edge_list, subway_nodes_id):
     for i in range(len(subway_edge_list)):
         if subway_edge_list[i]['end'] == subway_nodes_id:
             return subway_edge_list[i]['line']
-    return None
 
 generateTransferSubwayEdge()
+
+
+# def count():
+#     path = 'subway_edge_id.json'
+
+#     with open(path, 'r', encoding='utf-8') as f:
+#         bus_stop_list = json.load(f)
+
+#     print(len(bus_stop_list))
+
+# count()
