@@ -10064,5 +10064,1561 @@
             "longitude": 127.140722,
             "line": "8호선"
         }
+    },
+
+  {
+    "line": 9,
+    "start": {
+      "id": 4101,
+      "position": {
+        "latitude": 37.578608,
+        "longitude": 126.798153
+      },
+      "name": "개화",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4102,
+      "position": {
+        "latitude": 37.561916,
+        "longitude": 126.802152
+      },
+      "name": "김포공항",
+      "line": "9호선"
     }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4102,
+      "position": {
+        "latitude": 37.561916,
+        "longitude": 126.802152
+      },
+      "name": "김포공항",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4103,
+      "position": {
+        "latitude": 37.563726,
+        "longitude": 126.810678
+      },
+      "name": "공항시장",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4103,
+      "position": {
+        "latitude": 37.563726,
+        "longitude": 126.810678
+      },
+      "name": "공항시장",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4104,
+      "position": {
+        "latitude": 37.567532,
+        "longitude": 126.816601
+      },
+      "name": "신방화",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4104,
+      "position": {
+        "latitude": 37.567532,
+        "longitude": 126.816601
+      },
+      "name": "신방화",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4105,
+      "position": {
+        "latitude": 37.566778,
+        "longitude": 126.82731
+      },
+      "name": "마곡나루",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4105,
+      "position": {
+        "latitude": 37.566778,
+        "longitude": 126.82731
+      },
+      "name": "마곡나루",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4106,
+      "position": {
+        "latitude": 37.568381,
+        "longitude": 126.841333
+      },
+      "name": "양천향교",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4106,
+      "position": {
+        "latitude": 37.568381,
+        "longitude": 126.841333
+      },
+      "name": "양천향교",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4107,
+      "position": {
+        "latitude": 37.561391,
+        "longitude": 126.854456
+      },
+      "name": "가양",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4107,
+      "position": {
+        "latitude": 37.561391,
+        "longitude": 126.854456
+      },
+      "name": "가양",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4108,
+      "position": {
+        "latitude": 37.557402,
+        "longitude": 126.861939
+      },
+      "name": "증미",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4108,
+      "position": {
+        "latitude": 37.557402,
+        "longitude": 126.861939
+      },
+      "name": "증미",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4109,
+      "position": {
+        "latitude": 37.550632,
+        "longitude": 126.865689
+      },
+      "name": "등촌",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4109,
+      "position": {
+        "latitude": 37.550632,
+        "longitude": 126.865689
+      },
+      "name": "등촌",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4110,
+      "position": {
+        "latitude": 37.546936,
+        "longitude": 126.874916
+      },
+      "name": "염창",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4110,
+      "position": {
+        "latitude": 37.546936,
+        "longitude": 126.874916
+      },
+      "name": "염창",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4111,
+      "position": {
+        "latitude": 37.544277,
+        "longitude": 126.88308
+      },
+      "name": "신목동",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4111,
+      "position": {
+        "latitude": 37.544277,
+        "longitude": 126.88308
+      },
+      "name": "신목동",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4112,
+      "position": {
+        "latitude": 37.53802,
+        "longitude": 126.893525
+      },
+      "name": "선유도",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4112,
+      "position": {
+        "latitude": 37.53802,
+        "longitude": 126.893525
+      },
+      "name": "선유도",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4113,
+      "position": {
+        "latitude": 37.533406,
+        "longitude": 126.902809
+      },
+      "name": "당산",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4113,
+      "position": {
+        "latitude": 37.533406,
+        "longitude": 126.902809
+      },
+      "name": "당산",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4114,
+      "position": {
+        "latitude": 37.528105,
+        "longitude": 126.917874
+      },
+      "name": "국회의사당",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4114,
+      "position": {
+        "latitude": 37.528105,
+        "longitude": 126.917874
+      },
+      "name": "국회의사당",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4115,
+      "position": {
+        "latitude": 37.52176,
+        "longitude": 126.92403
+      },
+      "name": "여의도",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4115,
+      "position": {
+        "latitude": 37.52176,
+        "longitude": 126.92403
+      },
+      "name": "여의도",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4116,
+      "position": {
+        "latitude": 37.517274,
+        "longitude": 126.928422
+      },
+      "name": "샛강",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4116,
+      "position": {
+        "latitude": 37.517274,
+        "longitude": 126.928422
+      },
+      "name": "샛강",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4117,
+      "position": {
+        "latitude": 37.513534,
+        "longitude": 126.941005
+      },
+      "name": "노량진",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4117,
+      "position": {
+        "latitude": 37.513534,
+        "longitude": 126.941005
+      },
+      "name": "노량진",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4118,
+      "position": {
+        "latitude": 37.512887,
+        "longitude": 126.953222
+      },
+      "name": "노들",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4118,
+      "position": {
+        "latitude": 37.512887,
+        "longitude": 126.953222
+      },
+      "name": "노들",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4119,
+      "position": {
+        "latitude": 37.50877,
+        "longitude": 126.963708
+      },
+      "name": "흑석(중앙대입구)",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4119,
+      "position": {
+        "latitude": 37.50877,
+        "longitude": 126.963708
+      },
+      "name": "흑석(중앙대입구)",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4120,
+      "position": {
+        "latitude": 37.502878,
+        "longitude": 126.978153
+      },
+      "name": "동작(현충원)",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4120,
+      "position": {
+        "latitude": 37.502878,
+        "longitude": 126.978153
+      },
+      "name": "동작(현충원)",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4121,
+      "position": {
+        "latitude": 37.501364,
+        "longitude": 126.987332
+      },
+      "name": "구반포",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4121,
+      "position": {
+        "latitude": 37.501364,
+        "longitude": 126.987332
+      },
+      "name": "구반포",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4122,
+      "position": {
+        "latitude": 37.503415,
+        "longitude": 126.995925
+      },
+      "name": "신반포",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4122,
+      "position": {
+        "latitude": 37.503415,
+        "longitude": 126.995925
+      },
+      "name": "신반포",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4123,
+      "position": {
+        "latitude": 37.50598,
+        "longitude": 127.004403
+      },
+      "name": "고속터미널",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4123,
+      "position": {
+        "latitude": 37.50598,
+        "longitude": 127.004403
+      },
+      "name": "고속터미널",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4124,
+      "position": {
+        "latitude": 37.504206,
+        "longitude": 127.015259
+      },
+      "name": "사평",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4124,
+      "position": {
+        "latitude": 37.504206,
+        "longitude": 127.015259
+      },
+      "name": "사평",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4125,
+      "position": {
+        "latitude": 37.504598,
+        "longitude": 127.02506
+      },
+      "name": "신논현",
+      "line": "9호선"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4125,
+      "position": {
+        "latitude": 37.504598,
+        "longitude": 127.02506
+      },
+      "name": "신논현",
+      "line": "9호선"
+    },
+    "end": {
+      "id": 4126,
+      "position": {
+        "latitude": 37.507287,
+        "longitude": 127.033868
+      },
+      "name": "언주",
+      "line": "9호선(연장)"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4126,
+      "position": {
+        "latitude": 37.507287,
+        "longitude": 127.033868
+      },
+      "name": "언주",
+      "line": "9호선(연장)"
+    },
+    "end": {
+      "id": 4127,
+      "position": {
+        "latitude": 37.510297,
+        "longitude": 127.043999
+      },
+      "name": "선정릉",
+      "line": "9호선(연장)"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4127,
+      "position": {
+        "latitude": 37.510297,
+        "longitude": 127.043999
+      },
+      "name": "선정릉",
+      "line": "9호선(연장)"
+    },
+    "end": {
+      "id": 4127,
+      "position": {
+        "latitude": 37.510297,
+        "longitude": 127.043999
+      },
+      "name": "선정릉",
+      "line": "9호선(연장)"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4127,
+      "position": {
+        "latitude": 37.510297,
+        "longitude": 127.043999
+      },
+      "name": "선정릉",
+      "line": "9호선(연장)"
+    },
+    "end": {
+      "id": 4129,
+      "position": {
+        "latitude": 37.514219,
+        "longitude": 127.060245
+      },
+      "name": "봉은사",
+      "line": "9호선(연장)"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4129,
+      "position": {
+        "latitude": 37.514219,
+        "longitude": 127.060245
+      },
+      "name": "봉은사",
+      "line": "9호선(연장)"
+    },
+    "end": {
+      "id": 4130,
+      "position": {
+        "latitude": 37.511426,
+        "longitude": 127.076275
+      },
+      "name": "종합운동장",
+      "line": "9호선(연장)"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4130,
+      "position": {
+        "latitude": 37.511426,
+        "longitude": 127.076275
+      },
+      "name": "종합운동장",
+      "line": "9호선(연장)"
+    },
+    "end": {
+      "id": 4131,
+      "position": {
+        "latitude": 37.504738,
+        "longitude": 127.088025
+      },
+      "name": "삼전",
+      "line": "9호선(연장)"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4131,
+      "position": {
+        "latitude": 37.504738,
+        "longitude": 127.088025
+      },
+      "name": "삼전",
+      "line": "9호선(연장)"
+    },
+    "end": {
+      "id": 4132,
+      "position": {
+        "latitude": 37.502558,
+        "longitude": 127.097033
+      },
+      "name": "석촌고분",
+      "line": "9호선(연장)"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4132,
+      "position": {
+        "latitude": 37.502558,
+        "longitude": 127.097033
+      },
+      "name": "석촌고분",
+      "line": "9호선(연장)"
+    },
+    "end": {
+      "id": 4133,
+      "position": {
+        "latitude": 37.505208,
+        "longitude": 127.10704
+      },
+      "name": "석촌",
+      "line": "9호선(연장)"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4133,
+      "position": {
+        "latitude": 37.505208,
+        "longitude": 127.10704
+      },
+      "name": "석촌",
+      "line": "9호선(연장)"
+    },
+    "end": {
+      "id": 4134,
+      "position": {
+        "latitude": 37.510372,
+        "longitude": 127.112216
+      },
+      "name": "송파나루",
+      "line": "9호선(연장)"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4134,
+      "position": {
+        "latitude": 37.510372,
+        "longitude": 127.112216
+      },
+      "name": "송파나루",
+      "line": "9호선(연장)"
+    },
+    "end": {
+      "id": 4135,
+      "position": {
+        "latitude": 37.516404,
+        "longitude": 127.116503
+      },
+      "name": "한성백제",
+      "line": "9호선(연장)"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4135,
+      "position": {
+        "latitude": 37.516404,
+        "longitude": 127.116503
+      },
+      "name": "한성백제",
+      "line": "9호선(연장)"
+    },
+    "end": {
+      "id": 4136,
+      "position": {
+        "latitude": 37.516269,
+        "longitude": 127.130288
+      },
+      "name": "올림픽공원(한국체대)",
+      "line": "9호선(연장)"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4136,
+      "position": {
+        "latitude": 37.516269,
+        "longitude": 127.130288
+      },
+      "name": "올림픽공원(한국체대)",
+      "line": "9호선(연장)"
+    },
+    "end": {
+      "id": 4137,
+      "position": {
+        "latitude": 37.519683,
+        "longitude": 127.137989
+      },
+      "name": "둔촌오륜",
+      "line": "9호선(연장)"
+    }
+  },
+  {
+    "line": 9,
+    "start": {
+      "id": 4137,
+      "position": {
+        "latitude": 37.519683,
+        "longitude": 127.137989
+      },
+      "name": "둔촌오륜",
+      "line": "9호선(연장)"
+    },
+    "end": {
+      "id": 4138,
+      "position": {
+        "latitude": 37.529191,
+        "longitude": 127.148739
+      },
+      "name": "중앙보훈병원",
+      "line": "9호선(연장)"
+    }
+},
+    {
+      "line": 9,
+      "start": {
+        "id": 4101,
+        "position": {
+          "latitude": 37.578608,
+          "longitude": 126.798153
+        },
+        "name": "개화",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4102,
+        "position": {
+          "latitude": 37.561916,
+          "longitude": 126.802152
+        },
+        "name": "김포공항",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4102,
+        "position": {
+          "latitude": 37.561916,
+          "longitude": 126.802152
+        },
+        "name": "김포공항",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4103,
+        "position": {
+          "latitude": 37.563726,
+          "longitude": 126.810678
+        },
+        "name": "공항시장",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4103,
+        "position": {
+          "latitude": 37.563726,
+          "longitude": 126.810678
+        },
+        "name": "공항시장",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4104,
+        "position": {
+          "latitude": 37.567532,
+          "longitude": 126.816601
+        },
+        "name": "신방화",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4104,
+        "position": {
+          "latitude": 37.567532,
+          "longitude": 126.816601
+        },
+        "name": "신방화",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4105,
+        "position": {
+          "latitude": 37.566778,
+          "longitude": 126.82731
+        },
+        "name": "마곡나루",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4105,
+        "position": {
+          "latitude": 37.566778,
+          "longitude": 126.82731
+        },
+        "name": "마곡나루",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4106,
+        "position": {
+          "latitude": 37.568381,
+          "longitude": 126.841333
+        },
+        "name": "양천향교",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4106,
+        "position": {
+          "latitude": 37.568381,
+          "longitude": 126.841333
+        },
+        "name": "양천향교",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4107,
+        "position": {
+          "latitude": 37.561391,
+          "longitude": 126.854456
+        },
+        "name": "가양",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4107,
+        "position": {
+          "latitude": 37.561391,
+          "longitude": 126.854456
+        },
+        "name": "가양",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4108,
+        "position": {
+          "latitude": 37.557402,
+          "longitude": 126.861939
+        },
+        "name": "증미",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4108,
+        "position": {
+          "latitude": 37.557402,
+          "longitude": 126.861939
+        },
+        "name": "증미",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4109,
+        "position": {
+          "latitude": 37.550632,
+          "longitude": 126.865689
+        },
+        "name": "등촌",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4109,
+        "position": {
+          "latitude": 37.550632,
+          "longitude": 126.865689
+        },
+        "name": "등촌",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4110,
+        "position": {
+          "latitude": 37.546936,
+          "longitude": 126.874916
+        },
+        "name": "염창",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4110,
+        "position": {
+          "latitude": 37.546936,
+          "longitude": 126.874916
+        },
+        "name": "염창",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4111,
+        "position": {
+          "latitude": 37.544277,
+          "longitude": 126.88308
+        },
+        "name": "신목동",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4111,
+        "position": {
+          "latitude": 37.544277,
+          "longitude": 126.88308
+        },
+        "name": "신목동",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4112,
+        "position": {
+          "latitude": 37.53802,
+          "longitude": 126.893525
+        },
+        "name": "선유도",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4112,
+        "position": {
+          "latitude": 37.53802,
+          "longitude": 126.893525
+        },
+        "name": "선유도",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4113,
+        "position": {
+          "latitude": 37.533406,
+          "longitude": 126.902809
+        },
+        "name": "당산",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4113,
+        "position": {
+          "latitude": 37.533406,
+          "longitude": 126.902809
+        },
+        "name": "당산",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4114,
+        "position": {
+          "latitude": 37.528105,
+          "longitude": 126.917874
+        },
+        "name": "국회의사당",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4114,
+        "position": {
+          "latitude": 37.528105,
+          "longitude": 126.917874
+        },
+        "name": "국회의사당",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4115,
+        "position": {
+          "latitude": 37.52176,
+          "longitude": 126.92403
+        },
+        "name": "여의도",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4115,
+        "position": {
+          "latitude": 37.52176,
+          "longitude": 126.92403
+        },
+        "name": "여의도",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4116,
+        "position": {
+          "latitude": 37.517274,
+          "longitude": 126.928422
+        },
+        "name": "샛강",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4116,
+        "position": {
+          "latitude": 37.517274,
+          "longitude": 126.928422
+        },
+        "name": "샛강",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4117,
+        "position": {
+          "latitude": 37.513534,
+          "longitude": 126.941005
+        },
+        "name": "노량진",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4117,
+        "position": {
+          "latitude": 37.513534,
+          "longitude": 126.941005
+        },
+        "name": "노량진",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4118,
+        "position": {
+          "latitude": 37.512887,
+          "longitude": 126.953222
+        },
+        "name": "노들",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4118,
+        "position": {
+          "latitude": 37.512887,
+          "longitude": 126.953222
+        },
+        "name": "노들",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4119,
+        "position": {
+          "latitude": 37.50877,
+          "longitude": 126.963708
+        },
+        "name": "흑석(중앙대입구)",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4119,
+        "position": {
+          "latitude": 37.50877,
+          "longitude": 126.963708
+        },
+        "name": "흑석(중앙대입구)",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4120,
+        "position": {
+          "latitude": 37.502878,
+          "longitude": 126.978153
+        },
+        "name": "동작(현충원)",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4120,
+        "position": {
+          "latitude": 37.502878,
+          "longitude": 126.978153
+        },
+        "name": "동작(현충원)",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4121,
+        "position": {
+          "latitude": 37.501364,
+          "longitude": 126.987332
+        },
+        "name": "구반포",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4121,
+        "position": {
+          "latitude": 37.501364,
+          "longitude": 126.987332
+        },
+        "name": "구반포",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4122,
+        "position": {
+          "latitude": 37.503415,
+          "longitude": 126.995925
+        },
+        "name": "신반포",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4122,
+        "position": {
+          "latitude": 37.503415,
+          "longitude": 126.995925
+        },
+        "name": "신반포",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4123,
+        "position": {
+          "latitude": 37.50598,
+          "longitude": 127.004403
+        },
+        "name": "고속터미널",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4123,
+        "position": {
+          "latitude": 37.50598,
+          "longitude": 127.004403
+        },
+        "name": "고속터미널",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4124,
+        "position": {
+          "latitude": 37.504206,
+          "longitude": 127.015259
+        },
+        "name": "사평",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4124,
+        "position": {
+          "latitude": 37.504206,
+          "longitude": 127.015259
+        },
+        "name": "사평",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4125,
+        "position": {
+          "latitude": 37.504598,
+          "longitude": 127.02506
+        },
+        "name": "신논현",
+        "line": "9호선"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4125,
+        "position": {
+          "latitude": 37.504598,
+          "longitude": 127.02506
+        },
+        "name": "신논현",
+        "line": "9호선"
+      },
+      "end": {
+        "id": 4126,
+        "position": {
+          "latitude": 37.507287,
+          "longitude": 127.033868
+        },
+        "name": "언주",
+        "line": "9호선(연장)"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4126,
+        "position": {
+          "latitude": 37.507287,
+          "longitude": 127.033868
+        },
+        "name": "언주",
+        "line": "9호선(연장)"
+      },
+      "end": {
+        "id": 4127,
+        "position": {
+          "latitude": 37.510297,
+          "longitude": 127.043999
+        },
+        "name": "선정릉",
+        "line": "9호선(연장)"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4127,
+        "position": {
+          "latitude": 37.510297,
+          "longitude": 127.043999
+        },
+        "name": "선정릉",
+        "line": "9호선(연장)"
+      },
+      "end": {
+        "id": 4127,
+        "position": {
+          "latitude": 37.510297,
+          "longitude": 127.043999
+        },
+        "name": "선정릉",
+        "line": "9호선(연장)"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4127,
+        "position": {
+          "latitude": 37.510297,
+          "longitude": 127.043999
+        },
+        "name": "선정릉",
+        "line": "9호선(연장)"
+      },
+      "end": {
+        "id": 4129,
+        "position": {
+          "latitude": 37.514219,
+          "longitude": 127.060245
+        },
+        "name": "봉은사",
+        "line": "9호선(연장)"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4129,
+        "position": {
+          "latitude": 37.514219,
+          "longitude": 127.060245
+        },
+        "name": "봉은사",
+        "line": "9호선(연장)"
+      },
+      "end": {
+        "id": 4130,
+        "position": {
+          "latitude": 37.511426,
+          "longitude": 127.076275
+        },
+        "name": "종합운동장",
+        "line": "9호선(연장)"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4130,
+        "position": {
+          "latitude": 37.511426,
+          "longitude": 127.076275
+        },
+        "name": "종합운동장",
+        "line": "9호선(연장)"
+      },
+      "end": {
+        "id": 4131,
+        "position": {
+          "latitude": 37.504738,
+          "longitude": 127.088025
+        },
+        "name": "삼전",
+        "line": "9호선(연장)"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4131,
+        "position": {
+          "latitude": 37.504738,
+          "longitude": 127.088025
+        },
+        "name": "삼전",
+        "line": "9호선(연장)"
+      },
+      "end": {
+        "id": 4132,
+        "position": {
+          "latitude": 37.502558,
+          "longitude": 127.097033
+        },
+        "name": "석촌고분",
+        "line": "9호선(연장)"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4132,
+        "position": {
+          "latitude": 37.502558,
+          "longitude": 127.097033
+        },
+        "name": "석촌고분",
+        "line": "9호선(연장)"
+      },
+      "end": {
+        "id": 4133,
+        "position": {
+          "latitude": 37.505208,
+          "longitude": 127.10704
+        },
+        "name": "석촌",
+        "line": "9호선(연장)"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4133,
+        "position": {
+          "latitude": 37.505208,
+          "longitude": 127.10704
+        },
+        "name": "석촌",
+        "line": "9호선(연장)"
+      },
+      "end": {
+        "id": 4134,
+        "position": {
+          "latitude": 37.510372,
+          "longitude": 127.112216
+        },
+        "name": "송파나루",
+        "line": "9호선(연장)"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4134,
+        "position": {
+          "latitude": 37.510372,
+          "longitude": 127.112216
+        },
+        "name": "송파나루",
+        "line": "9호선(연장)"
+      },
+      "end": {
+        "id": 4135,
+        "position": {
+          "latitude": 37.516404,
+          "longitude": 127.116503
+        },
+        "name": "한성백제",
+        "line": "9호선(연장)"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4135,
+        "position": {
+          "latitude": 37.516404,
+          "longitude": 127.116503
+        },
+        "name": "한성백제",
+        "line": "9호선(연장)"
+      },
+      "end": {
+        "id": 4136,
+        "position": {
+          "latitude": 37.516269,
+          "longitude": 127.130288
+        },
+        "name": "올림픽공원(한국체대)",
+        "line": "9호선(연장)"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4136,
+        "position": {
+          "latitude": 37.516269,
+          "longitude": 127.130288
+        },
+        "name": "올림픽공원(한국체대)",
+        "line": "9호선(연장)"
+      },
+      "end": {
+        "id": 4137,
+        "position": {
+          "latitude": 37.519683,
+          "longitude": 127.137989
+        },
+        "name": "둔촌오륜",
+        "line": "9호선(연장)"
+      }
+    },
+    {
+      "line": 9,
+      "start": {
+        "id": 4137,
+        "position": {
+          "latitude": 37.519683,
+          "longitude": 127.137989
+        },
+        "name": "둔촌오륜",
+        "line": "9호선(연장)"
+      },
+      "end": {
+        "id": 4138,
+        "position": {
+          "latitude": 37.529191,
+          "longitude": 127.148739
+        },
+        "name": "중앙보훈병원",
+        "line": "9호선(연장)"
+      }
+    }
+  
 ]

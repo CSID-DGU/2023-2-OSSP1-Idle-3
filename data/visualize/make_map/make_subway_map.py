@@ -19,16 +19,25 @@ def readSubwayLinks():
   return subwayLinks
 
 def makeSubwayMap(subwayLinks, map, line):
-  color = ["navy", "#4CAF50", "orange", "blue", "#C2185B", "#EF6C00", "#AFB42B", "#F06292"]
+  color = ["navy", "#4CAF50", "orange", "blue", "#C2185B", "#EF6C00", "#AFB42B", "#F06292", "#BDB092"]
   for link in subwayLinks:
     if line == link["line"] or line == 0:
-      startPosition = []
-      endPosition = []
-      startPosition.append(link["start"]["latitude"])
-      startPosition.append(link["start"]["longitude"])
-      endPosition.append(link["end"]["latitude"])
-      endPosition.append(link["end"]["longitude"])
-      startName = link["start"]["name"]
+      if link["line"] == 9:
+        startPosition = []
+        endPosition = []
+        startPosition.append(link["start"]["position"]["latitude"])
+        startPosition.append(link["start"]["position"]["longitude"])
+        endPosition.append(link["end"]["position"]["latitude"])
+        endPosition.append(link["end"]["position"]["longitude"])
+        startName = link["start"]["name"]
+      else:
+        startPosition = []
+        endPosition = []
+        startPosition.append(link["start"]["latitude"])
+        startPosition.append(link["start"]["longitude"])
+        endPosition.append(link["end"]["latitude"])
+        endPosition.append(link["end"]["longitude"])
+        startName = link["start"]["name"]
 
       locationData = [startPosition, endPosition]
       
@@ -39,6 +48,7 @@ def makeSubwayMap(subwayLinks, map, line):
       folium.PolyLine(locations=locationData, tooltip=str(link["line"])+"호선", color=color[link["line"]-1], weight=4).add_to(map)
 
 map = folium.Map(location = [37.544129, 127.054357],zoom_start = 12)
+folium.TileLayer('cartodbpositron').add_to(map)
 print("몇호선?(1~8 정수)")
 line = int(input())
 
