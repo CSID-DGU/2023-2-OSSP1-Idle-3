@@ -1,5 +1,6 @@
 package com.almostThere.middleSpace.util.drawer;
 
+import com.almostThere.middleSpace.util.NormUtil;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,6 +11,9 @@ public class XYZWDataset extends AbstractXYZDataset {
     private List<Double> latitudes;
     private List<Double> averageDeviations;
     private List<Double> sums;
+
+    private Double targetLongitude;
+    private Double targetLatitude;
 
     public XYZWDataset() {
         longitudes = new ArrayList<>();
@@ -24,17 +28,17 @@ public class XYZWDataset extends AbstractXYZDataset {
         this.averageDeviations.add(averageDeviation);
         this.sums.add(sum);
     }
+    public void setTargetPosition(Double targetLongitude, Double targetLatitude) {
+        this.targetLatitude = targetLatitude;
+        this.targetLongitude = targetLongitude;
+    }
+    public Double getTargetLongitude() {return this.targetLongitude;}
+    public Double getTargetLatitude() {return this.targetLatitude;}
 
     public void normalize() {
         Double maxAverageDeviations = this.averageDeviations.stream().max(Double::compareTo).get();
-        this.averageDeviations = this.averageDeviations.stream()
-                .map(derivation -> derivation / maxAverageDeviations)
-                .collect(Collectors.toList());
-
-        Double maxSum = this.sums.stream().max(Double::compareTo).get();
-        this.sums = this.sums.stream()
-                .map(sum -> sum / maxSum)
-                .collect(Collectors.toList());
+        this.averageDeviations = NormUtil.normalize_with_std(this.averageDeviations);
+        this.sums = NormUtil.normalize_with_std(this.sums);
     }
 
     @Override
