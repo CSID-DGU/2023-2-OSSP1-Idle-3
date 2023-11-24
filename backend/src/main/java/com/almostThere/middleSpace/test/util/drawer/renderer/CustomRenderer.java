@@ -1,6 +1,6 @@
-package com.almostThere.middleSpace.util.drawer.renderer;
+package com.almostThere.middleSpace.test.util.drawer.renderer;
 
-import com.almostThere.middleSpace.util.drawer.XYZWDataset;
+import com.almostThere.middleSpace.test.util.drawer.XYZWDataset;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 
 public class CustomRenderer extends XYLineAndShapeRenderer {

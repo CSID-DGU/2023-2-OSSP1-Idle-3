@@ -31,7 +31,7 @@ public class CalculateState implements TestState {
     @Override
     public void action() {
         List<RouteTable> tables = context.getInputPoints().stream()
-                .map(point -> this.context.getMapGraph().findNearestId(point.getY(), point.getX()))
+                .map(point -> this.context.getMapGraph().findNearestId(point.getLatitude(), point.getLongitude()))
                 .map(router::getShortestPath)
                 .collect(Collectors.toList());
 
@@ -39,5 +39,6 @@ public class CalculateState implements TestState {
 
         this.context.updateMiddleSpace(middleSpace);
         this.context.updateRouteTables(tables);
+        this.context.setState("VisualizeState");
     }
 }

@@ -1,14 +1,13 @@
-package com.almostThere.middleSpace.util.drawer;
+package com.almostThere.middleSpace.test.util.drawer;
 
 import com.almostThere.middleSpace.util.NormUtil;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 import org.jfree.data.xy.AbstractXYZDataset;
 
 public class XYZWDataset extends AbstractXYZDataset {
-    private List<Double> longitudes;
-    private List<Double> latitudes;
+    private final List<Double> longitudes;
+    private final List<Double> latitudes;
     private List<Double> averageDeviations;
     private List<Double> sums;
 
@@ -18,8 +17,6 @@ public class XYZWDataset extends AbstractXYZDataset {
     public XYZWDataset() {
         longitudes = new ArrayList<>();
         latitudes = new ArrayList<>();
-        averageDeviations = new ArrayList<>();
-        sums = new ArrayList<>();
     }
 
     public void add(Double longitude, Double latitude, Double averageDeviation, Double sum) {
@@ -36,7 +33,6 @@ public class XYZWDataset extends AbstractXYZDataset {
     public Double getTargetLatitude() {return this.targetLatitude;}
 
     public void normalize() {
-        Double maxAverageDeviations = this.averageDeviations.stream().max(Double::compareTo).get();
         this.averageDeviations = NormUtil.normalize_with_max(this.averageDeviations);
         this.sums = NormUtil.normalize_with_max(this.sums);
     }

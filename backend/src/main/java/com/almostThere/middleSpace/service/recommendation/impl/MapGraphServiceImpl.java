@@ -124,7 +124,7 @@ public class MapGraphServiceImpl implements MapGraphService {
                     avgGap += Math.abs(routeTable.getCost(i) - averageTime);
                 }
                 // 편차의 평균을 구하고 해당 노드에 소요시간의 편차의 평균값을 할당
-                avgCost[i] = new AverageCost(this.mapGraph.getNode(i), avgGap / numberOfStartPoints, sum);
+                avgCost[i] = new AverageCost(this.mapGraph.getNode(i), avgGap / numberOfStartPoints, averageTime);
             }
             // 갈 수 없는 경우, 평균 편차를 무한대로 설정
             else {

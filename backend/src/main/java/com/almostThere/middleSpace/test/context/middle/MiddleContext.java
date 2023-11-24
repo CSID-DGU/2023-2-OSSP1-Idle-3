@@ -31,7 +31,7 @@ public class MiddleContext implements Context {
                 "CalculateState", new CalculateState(this, mapGraph),
                 "VisualizeState", new VisualizeState(this, scanner)
         );
-        this.state = this.states.get("MiddlePointsInput");
+        this.state = this.states.get("InputState");
 
         this.inputPoints = null;
         this.middleSpaces = null;

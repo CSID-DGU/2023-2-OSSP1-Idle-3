@@ -5,7 +5,8 @@ import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.test.context.middle.MiddleContext;
 import com.almostThere.middleSpace.test.state.TestState;
-import com.almostThere.middleSpace.util.drawer.CustomScatterPlot;
+import com.almostThere.middleSpace.test.util.drawer.Scatter;
+import com.almostThere.middleSpace.test.util.drawer.StatisticsDrawer;
 import java.util.List;
 import java.util.Scanner;
 import lombok.RequiredArgsConstructor;
@@ -21,8 +22,11 @@ public class VisualizeState implements TestState {
                 + "1.경로 보기\n"
                 + "2.편차 분포 보기\n"
                 + "3.총합 분포 보기\n"
-                + "4.다시 입력");
+                + "4.편차 분포 그래프 보기\n"
+                + "5.총합 분포 그래프 보기\n"
+                + "6.다시 입력");
 
+        double interval;
         int menu;
         while (true){
             if (scanner.hasNext())
@@ -37,13 +41,33 @@ public class VisualizeState implements TestState {
                 showPaths(middleSpaces);
                 break;
             case 2:
-                CustomScatterPlot.plotGapData(middleSpaces);
+                Scatter.plotGapData(middleSpaces);
                 break;
             case 3:
-                CustomScatterPlot.plotSumData(middleSpaces);
+                Scatter.plotSumData(middleSpaces);
                 break;
             case 4:
-                this.context.setState("MiddlePointsInput");
+                while (true){
+                    if (scanner.hasNextDouble())
+                    {
+                        interval = scanner.nextDouble();
+                        break ;
+                    }
+                }
+                StatisticsDrawer.drawGapFrequency(middleSpaces, interval);
+                break;
+            case 5:
+                while (true){
+                    if (scanner.hasNextDouble())
+                    {
+                        interval = scanner.nextDouble();
+                        break ;
+                    }
+                }
+                StatisticsDrawer.drawSumFrequency(middleSpaces, interval);
+                break;
+            case 6:
+                this.context.setState("InputState");
                 break;
         }
     }

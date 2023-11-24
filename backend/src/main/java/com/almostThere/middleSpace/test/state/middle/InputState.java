@@ -37,6 +37,6 @@ public class InputState implements TestState {
             points.add(new Position(lat, log));
         }
         this.context.updateInputPoints(points);
-        this.context.setState("GetMiddlePoint");
+        this.context.setState("CalculateState");
     }
 }

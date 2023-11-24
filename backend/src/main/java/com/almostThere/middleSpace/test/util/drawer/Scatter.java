@@ -1,11 +1,11 @@
-package com.almostThere.middleSpace.util.drawer;
+package com.almostThere.middleSpace.test.util.drawer;
 
 import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
-import com.almostThere.middleSpace.util.drawer.renderer.CustomGapRenderer;
-import com.almostThere.middleSpace.util.drawer.renderer.CustomRenderer;
-import com.almostThere.middleSpace.util.drawer.renderer.CustomSumRenderer;
+import com.almostThere.middleSpace.test.util.drawer.renderer.CustomGapRenderer;
+import com.almostThere.middleSpace.test.util.drawer.renderer.CustomRenderer;
+import com.almostThere.middleSpace.test.util.drawer.renderer.CustomSumRenderer;
 import java.awt.Shape;
 import java.awt.geom.Ellipse2D;
 import java.util.List;
@@ -17,7 +17,7 @@ import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.xy.XYLineAndShapeRenderer;
 
-public class CustomScatterPlot {
+public class Scatter {
     private static final double CIRCLE_SIZE = 1.0;
     public static void plotNodes(MapGraph mapGraph) {
         XYZWDataset xyzwDataset = loadMapGraphDataset(mapGraph);
@@ -39,7 +39,6 @@ public class CustomScatterPlot {
         JFreeChart chart = loadChart(xyzwDataset);
         renderDotOnly(customRenderer, chart);
     }
-
 
     private static XYZWDataset loadDataset(List<AverageCost> costs) {
         XYZWDataset xyzwDataset = new XYZWDataset();
