@@ -1,5 +1,6 @@
 package com.almostThere.middleSpace.test.context.middle;
 
+import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.test.state.TestState;
@@ -12,14 +13,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 import lombok.Getter;
-import org.springframework.data.geo.Point;
 
 @Getter
 public class MiddleContext implements Context {
     private TestState state;
     private final Map<String, TestState> states;
     private final MapGraph mapGraph;
-    private List<Point> inputPoints;
+    private List<Position> inputPoints;
     private List<AverageCost> middleSpaces;
     private List<RouteTable> tables;
 
@@ -54,7 +54,7 @@ public class MiddleContext implements Context {
     public void updateRouteTables(List<RouteTable> tables) {
         this.tables = tables;
     }
-    public void updateInputPoints(List<Point> inputPoints) {
+    public void updateInputPoints(List<Position> inputPoints) {
         this.inputPoints = inputPoints;
     }
 }

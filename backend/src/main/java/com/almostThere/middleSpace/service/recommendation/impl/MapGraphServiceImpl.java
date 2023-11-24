@@ -98,7 +98,7 @@ public class MapGraphServiceImpl implements MapGraphService {
     }
 
     @Override
-    public List<AverageCost> findMiddleSpaceWithBoundary(List<AverageCost> averageCosts, List<Point> startPoints) {
+    public List<AverageCost> findMiddleSpaceWithBoundary(List<AverageCost> averageCosts, List<Position> startPoints) {
         // 사용자의 위도와 경도 중 최대값 및 최소값 초기화
         double maxLatitude = Double.MIN_VALUE;
         double minLatitude = Double.MAX_VALUE;
@@ -106,9 +106,9 @@ public class MapGraphServiceImpl implements MapGraphService {
         double minLongitude = Double.MAX_VALUE;
 
         // 시작점의 위치 값에서 최대 및 최소 값을 찾음
-        for (Point point : startPoints) {
-            double latitude = point.getY();
-            double longitude = point.getX();
+        for (Position point : startPoints) {
+            double latitude = point.getLatitude();
+            double longitude = point.getLongitude();
 
             // 최대 및 최소 값을 갱신
             maxLatitude = Math.max(maxLatitude, latitude);

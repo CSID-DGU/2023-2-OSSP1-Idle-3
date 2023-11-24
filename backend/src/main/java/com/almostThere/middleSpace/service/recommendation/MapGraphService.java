@@ -3,7 +3,6 @@ package com.almostThere.middleSpace.service.recommendation;
 import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import java.util.List;
-import org.springframework.data.geo.Point;
 
 /**
  * 중간 지점 선정 알고리즘의 결과를 직접적으로 반환하는 Service 객체
@@ -24,5 +23,5 @@ public interface MapGraphService {
      */
     List<AverageCost> findMiddleSpaceWithTables(List<RouteTable> tables);
 
-    List<AverageCost> findMiddleSpaceWithBoundary(List<AverageCost> averageCosts, List<Point> startPoints);
+    List<AverageCost> findMiddleSpaceWithBoundary(List<AverageCost> averageCosts, List<Position> startPoints);
 }
