@@ -20,6 +20,8 @@ public class DiRouter implements Router {
     }
 
     public RouteTable getShortestPath(int startNodeIndex) {
+        long startTime = System.currentTimeMillis();
+
         PriorityQueue<OwnEdge> pq = new PriorityQueue<>();
         int nodeNum = this.mapGraph.getNodeNum();
         RouteInfo[] dist = new RouteInfo[nodeNum];
@@ -46,6 +48,9 @@ public class DiRouter implements Router {
                 }
             }
         }
+        long endTime = System.currentTimeMillis();
+        long totalTime = endTime - startTime;
+        System.out.println("실행 시간: " + totalTime + " 밀리초");
         return new DiRouteTable(startNodeIndex, dist, mapGraph);
     }
 }

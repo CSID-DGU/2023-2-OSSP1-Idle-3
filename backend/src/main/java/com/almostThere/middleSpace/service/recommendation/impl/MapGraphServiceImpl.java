@@ -8,12 +8,12 @@ import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.graph.MapGraph;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.geo.Point;
 import org.springframework.stereotype.Service;
 
 import static com.almostThere.middleSpace.util.GIS.getWhat3WordsMapBoundaryPoint;
@@ -37,9 +37,8 @@ public class MapGraphServiceImpl implements MapGraphService {
         AverageCost[] avgCost = new AverageCost[nodeNum];
 
         for (int i = 0; i < nodeNum; i++) {
-            double sum = 0;
-
             // 출발 노드들에서 다른 노드를 가는데 걸리는 소요시간의 합을 구한다.
+            double sum = 0;
             int startPoint;
             for (startPoint = 0 ; startPoint < numberOfStartPoints; startPoint++) {
                 RouteTable routeTable = routeTables.get(startPoint);
@@ -60,11 +59,11 @@ public class MapGraphServiceImpl implements MapGraphService {
                     avgGap += Math.abs(routeTable.getCost(i) - averageTime);
                 }
                 // 편차의 평균을 구하고 해당 노드에 소요시간의 편차의 평균값을 할당
-                avgCost[i] = new AverageCost(this.mapGraph.getNode(i), avgGap / numberOfStartPoints);
+                avgCost[i] = new AverageCost(this.mapGraph.getNode(i), avgGap / numberOfStartPoints, sum);
             }
             // 갈 수 없는 경우, 평균 편차를 무한대로 설정
             else {
-                avgCost[i] = new AverageCost(this.mapGraph.getNode(i), Double.MAX_VALUE);
+                avgCost[i] = new AverageCost(this.mapGraph.getNode(i));
             }
         }
 
@@ -84,7 +83,7 @@ public class MapGraphServiceImpl implements MapGraphService {
     public List<AverageCost> findMiddleSpace(List<Position> startPoints) {
         List<RouteTable> tables = startPoints.stream()
                 .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
-                .map(id -> router.getShortestPath(id))
+                .map(router::getShortestPath)
                 .collect(Collectors.toList());
         return findMiddleSpaceWithTables(tables);
     }
