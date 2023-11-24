@@ -18,10 +18,10 @@ public interface MapGraphService {
     /**
      * 아직까진 실험 용도로 사용.
      * 실제로 서비스에 배포할 때는 위의 메서드를 사용하여 구현할 예정
-     * @param tables
-     * @return
+     * @param tables : (출발노드 인덱스, 그 노드에서 다른 노드까지 걸리는 시간이 기록된 테이블)들
+     * @return (도착노드, 소요시간 편차, 총 소요시간)
      */
     List<AverageCost> findMiddleSpaceWithTables(List<RouteTable> tables);
 
-    List<AverageCost> findMiddleSpaceWithBoundary(List<AverageCost> averageCosts, List<Point> startPoints);
+    List<AverageCost> findMiddleSpaceWithBoundary(List<AverageCost> averageCosts, List<Position> startPoints);
 }
