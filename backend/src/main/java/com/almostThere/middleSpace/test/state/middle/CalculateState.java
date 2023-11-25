@@ -3,7 +3,6 @@ package com.almostThere.middleSpace.test.state.middle;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.service.recommendation.MapGraphService;
-import com.almostThere.middleSpace.service.recommendation.impl.MapGraphServiceImpl;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.service.routing.impl.DiRouter;
 import com.almostThere.middleSpace.test.state.TestState;
@@ -25,7 +24,7 @@ public class CalculateState implements TestState {
     public CalculateState(MiddleContext context, MapGraph mapGraph) {
         this.context = context;
         this.router = new DiRouter(mapGraph);
-        this.service = new MapGraphServiceImpl(mapGraph, router);
+        this.service = new MapGraphService(mapGraph, router);
     }
 
     @Override
