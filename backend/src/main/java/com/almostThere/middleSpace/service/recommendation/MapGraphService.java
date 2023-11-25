@@ -91,9 +91,9 @@ public class MapGraphService {
                 .collect(Collectors.toList());
 
         List<AverageCost> candidates = this.findMiddleSpaceWithTables(tables);
-        candidates = this.findMiddleSpaceWithBoundary(candidates, startPoints);
+        List<AverageCost> boxedCandidate = this.findMiddleSpaceWithBoundary(candidates, startPoints);
 
-        AverageCost answer = candidates.get(0);
+        AverageCost answer = boxedCandidate.get(0);
         MapNode answerNode = answer.getNode();
 
         AnswerPoint answerPoint = AnswerPoint.builder()
@@ -103,8 +103,7 @@ public class MapGraphService {
                 .build();
 
         List<MissingPoint> missingPoints = candidates.stream().filter(candidate ->
-                (candidate.getSum() < answer.getSum() && candidate.getCost() <= answer.getCost()) ||
-                        (candidate.getSum() <= answer.getSum() && candidate.getCost() < answer.getCost())
+                !((candidate.getSum() >= answer.getSum()) || (candidate.getCost() >= answer.getCost()))
         ).map(candidate -> {
             MapNode node = candidate.getNode();
             return MissingPoint.builder()
@@ -160,6 +159,7 @@ public class MapGraphService {
                     return latitude >= finalMinLatitude && latitude <= finalMaxLatitude &&
                             longitude >= finalMinLongitude && longitude <= finalMaxLongitude;
                 })
+                .sorted(Comparator.comparingDouble(AverageCost::getCost))
                 .collect(Collectors.toList());
     }
 

@@ -8,6 +8,8 @@ import com.almostThere.middleSpace.constant.FILENAME;
 import com.almostThere.middleSpace.graph.loader.GraphLoader;
 import com.almostThere.middleSpace.graph.loader.impl.JSONGraphLoader;
 import com.almostThere.middleSpace.graph.MapGraph;
+import com.almostThere.middleSpace.service.routing.Router;
+import com.almostThere.middleSpace.service.routing.impl.DiRouter;
 import java.io.IOException;
 import java.util.List;
 import org.json.simple.parser.ParseException;
@@ -35,8 +37,8 @@ public class MapGraphConfig {
 
                 FILENAME.BUS_STOP_NODE,
                 FILENAME.SUBWAY_NODE
-//                ,
-//                FILENAME.STATION_GATE_NODE
+                ,
+                FILENAME.STATION_GATE_NODE
         );
         // 간선 파일 리스트
         List<FILENAME> edgeFiles = List.of(
@@ -46,10 +48,10 @@ public class MapGraphConfig {
                 FILENAME.BUS_STEP_EDGE,
 
                 FILENAME.SUBWAY_EDGE
-//                ,
-//                FILENAME.SUBWAY_GATE_EDGE
-//                ,
-//                FILENAME.GATE_STEP_EDGE
+                ,
+                FILENAME.SUBWAY_GATE_EDGE
+                ,
+                FILENAME.GATE_STEP_EDGE
         );
 
         List<MapNode> map_nodes = graphLoader.loadNodes(nodeFiles);
@@ -57,5 +59,10 @@ public class MapGraphConfig {
         System.out.printf("node 수는 %d개 입니다.\n", map_nodes.size());
         System.out.printf("edge 수는 %d개 입니다.\n", map_edges.size());
         return graphBuilder.build(map_nodes, map_edges);
+    }
+
+    @Bean
+    public Router router(MapGraph mapGraph) {
+        return new DiRouter(mapGraph);
     }
 }

@@ -7,24 +7,27 @@ import com.almostThere.middleSpace.web.dto.MiddleSpaceResponse;
 import com.almostThere.middleSpace.web.dto.TestModuleResponse;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
+@RequestMapping("/middleSpace")
 @RequiredArgsConstructor
 public class MiddleSpaceController {
     private final MapGraphService mapGraphService;
 
     @PostMapping("/")
-    public MiddleSpaceResponse getMiddleSpacePaths(@RequestBody IndexedPointsDTO indexedPointsDTO) {
-        return this.mapGraphService.findMostFairMiddleSpaceWithPathIndexed(
+    public ResponseEntity<MiddleSpaceResponse> getMiddleSpacePaths(@RequestBody IndexedPointsDTO indexedPointsDTO) {
+        return ResponseEntity.ok(this.mapGraphService.findMostFairMiddleSpaceWithPathIndexed(
                 indexedPointsDTO.getStartPoints(),
                 indexedPointsDTO.getIndex()
-        );
+        ));
     }
     @PostMapping("/test")
-    public TestModuleResponse getTestResult(@RequestBody List<Position> startPoints) {
-        return this.mapGraphService.getTestResult(startPoints);
+    public ResponseEntity<TestModuleResponse> getTestResult(@RequestBody List<Position> startPoints) {
+        return ResponseEntity.ok(this.mapGraphService.getTestResult(startPoints));
     }
 }
