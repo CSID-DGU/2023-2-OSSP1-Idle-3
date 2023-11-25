@@ -17,6 +17,8 @@ public class XYZWDataset extends AbstractXYZDataset {
     public XYZWDataset() {
         longitudes = new ArrayList<>();
         latitudes = new ArrayList<>();
+        averageDeviations = new ArrayList<>();
+        sums = new ArrayList<>();
     }
 
     public void add(Double longitude, Double latitude, Double averageDeviation, Double sum) {
