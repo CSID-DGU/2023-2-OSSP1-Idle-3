@@ -6,16 +6,15 @@ import json
 import random
 import requests
 import folium
+import time
 
-def getRandomIds():
+def getRandNodes(n):
   with open("step_node.json", "r", encoding="UTF-8") as file:
     nodes = json.load(file)
   nodeIds = []
   for node in nodes:
     nodeIds.append(node["id"])
 
-  print("사용자 수를 입력하세요: ")
-  n = int(input())
   randomIds = []
 
   for _ in range(n):
@@ -29,15 +28,12 @@ def getRandomIds():
   for node in nodes:
     for i in range(len(randomIds)):
       if node["id"] == randomIds[i]:
-        randNodes[i] = {
+        randNodes.append({
           "id": randomIds[i],
-          "position":{
-            "latitude": node["position"]["latitude"],
-            "longitude": node["position"]["longitude"]
-          }
-        }
-
-  return randomIds
+          "latitude": node["position"]["latitude"],
+          "longitude": node["position"]["longitude"]
+        })
+  return randNodes
 
 
 
@@ -45,15 +41,13 @@ def getRandomIds():
 def postPosition(randomIds):
 
   #url
-  url = "https://b98e-218-48-52-82.ngrok.io"
+  url = " https://010f-210-94-220-228.ngrok.io/middleSpace/test"
   # header
   header = {
     "Content-Type": "application/json"
   }
   # body
-  requestBody = {
-    "randomIds" : randomIds
-  }
+  requestBody = randomIds
   # response
   response = requests.post(url, data = json.dumps(requestBody), headers = header)
   print("response status:", response.status_code)
@@ -61,6 +55,13 @@ def postPosition(randomIds):
 
 
 def visualize(ps, map, type):
+  if type == "answer":
+    position = []
+    position.append(ps["position"]["latitude"])
+    position.append(ps["position"]["longitude"])
+    popupstr = str(position)+"gap: "+ str(ps["gap"])
+    folium.Circle(position, color="green", radius=300, popup=popupstr).add_to(map)
+    return
   for p in ps:
     position = []
     position.append(p["position"]["latitude"])
@@ -71,15 +72,17 @@ def visualize(ps, map, type):
       normSum = p["norm_sum"]
     # sum 정규화한 값을 radius(반지름)에 반영
     # gap 정규화한 값을 fill_opacity(불투명도)에 반영
-      folium.Circle(position, radius=100*normSum, fill_opacity=100*normGap).add_to(map) 
+      popupstr = str(position) + "gapdiff: " + str(p["gapDifference"])
+      folium.Circle(position, radius=100*normSum, fill_opacity=100*normGap, color="red", fill="red",popup=popupstr).add_to(map) 
     else:
-      folium.Circle(position).add_to(map)
+      folium.Circle(position, color = "black", fill="black", radius=300, popup=position).add_to(map)
 
 
 
 # =================================================#
 # ====================== MAIN =====================#
 # =================================================#
+TESTCASE = 5
 worst = {
   "count": 0
 }
@@ -90,41 +93,67 @@ best = {
 # 테스트 케이스별 시작지점과 도착 지점 저장
 datas = []
 
-for j in range(1000):
-  randomIds = getRandomIds()
+print("사용자 수를 입력하세요: ")
+n = int(input())
+
+for j in range(TESTCASE):
+  randNodes = getRandNodes(n)
 
   # SEND REQUEST
-  response = postPosition(randomIds)
-
-  missing_points = response["missing_points"]
+  response = postPosition(randNodes)
+  time.sleep(1)
+  
+  missing_points = response["missingPoints"]
   count = len(missing_points)
   answer = response["answer"]
   
   # 정규화
   normGaps = []
   normSums = []
+  if len(missing_points) == 0:
+    print("missing point가 없습니다.")
+    continue
   for mp in missing_points:
-    normGaps.append(mp["gap_difference"])
-    normSums.append(mp["sum_difference"])
+    normGaps.append(mp["gapDifference"])
+    normSums.append(mp["sumDifference"])
+  # print("normGaps: ", normGaps)
+  # print("normSums: ", normSums)
   max_gap = max(normGaps)
   max_sum = max(normSums)
-  for i in len(missing_points):
+  for i in range(len(missing_points)):
     normGaps[i] = normGaps[i]/max_gap
     normSums[i] = normSums[i]/max_sum
-  for i in len(missing_points):
+  for i in range(len(missing_points)):
     missing_points[i]["norm_gap"] = normGaps[i]
     missing_points[i]["norm_sum"] = normSums[i]
 
   # response data 가공
   data = {
     "test_id": j,
-    "start_nodes": randomIds, 
+    "start_nodes": randNodes, 
     "answer_node": answer,
     "missing_points": missing_points,
     "count": count
   }
-  datas.append(data)
 
+  map = folium.Map(location = [37.544129, 127.054357],zoom_start = 14)
+  start_nodes = []
+  for node in randNodes:
+    start_nodes.append({
+      "position":{
+        "latitude": node["latitude"],
+        "longitude": node["longitude"]
+      }
+    })
+  visualize(start_nodes, map, "start")
+  answer_node = answer
+  visualize(answer_node, map, "answer")
+  missing_points = missing_points
+  visualize(missing_points, map, "missing")
+  title = "maps/"+str(n)+"persons/"+"test"+str(j)+".html"
+  map.save(title)
+
+  datas.append(data)
 
   # worst 갱신
   if count > worst["count"]:
@@ -135,23 +164,12 @@ for j in range(1000):
 
 print("worst case:", worst)
 print("best case:", best)
-
-# 시각화
-for i in len(datas):
-  map = folium.Map(location = [37.544129, 127.054357],zoom_start = 14)
-  start_nodes = datas[i]["start_nodes"]
-  visualize(start_nodes, map)
-  answer_node = datas[i]["answer"]
-  visualize(answer_node, map)
-  missing_points = datas[i]["missing_points"]
-  visualize(missing_points, map)
-  map.save("test", i, ".html")
-
-
+with open("maps/"+str(n)+"persons/result.json", 'w', encoding = 'utf-8') as json_file:
+  json.dump(datas, json_file)
 # 좌표, 편차의 차이, 이동시간의 차이
 # 차이에 따라서 다르게 지도에 표현
 # position, gap, sum, missing points([poisiton(latitude, longitude), gap, sum])
 
 # 시작노드: 검은색, 중간지점: 초록색
-# sum_difference는 원의 크기
-# gap_difference는 불투명도
+# sumDifference 원의 크기
+# gapDifference 불투명도
