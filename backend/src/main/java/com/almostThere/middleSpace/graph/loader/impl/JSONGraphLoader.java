@@ -2,7 +2,6 @@ package com.almostThere.middleSpace.graph.loader.impl;
 
 import com.almostThere.middleSpace.graph.edge.MapEdge;
 import com.almostThere.middleSpace.graph.node.MapNode;
-import com.almostThere.middleSpace.constant.FILENAME;
 import com.almostThere.middleSpace.graph.loader.GraphLoader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -22,9 +21,10 @@ public class JSONGraphLoader implements GraphLoader {
     }
 
     @Override
-    public List<MapNode> loadNodes(FILENAME graphFile) throws IOException, ParseException {
-        FileReader fileReader = new FileReader("src/main/resources/data/" + graphFile.getName());
+    public List<MapNode> loadNodes(String graphFile) throws IOException, ParseException {
+        FileReader fileReader = new FileReader("src/main/resources/data/" + graphFile);
         JSONArray nodeArray = (JSONArray)jsonParser.parse(fileReader);
+        System.out.println(graphFile);
         List<MapNode> result = (List<MapNode>)nodeArray.stream().map((nodeObject) -> {
             JSONObject jsonObject = (JSONObject) nodeObject;
             JSONObject positionObject = (JSONObject) jsonObject.get("position");
@@ -40,9 +40,10 @@ public class JSONGraphLoader implements GraphLoader {
     }
 
     @Override
-    public List<MapEdge> loadEdges(FILENAME graphFile) throws IOException, ParseException {
-        FileReader fileReader = new FileReader("src/main/resources/data/" + graphFile.getName());
+    public List<MapEdge> loadEdges(String graphFile) throws IOException, ParseException {
+        FileReader fileReader = new FileReader("src/main/resources/data/" + graphFile);
         JSONArray nodeArray = (JSONArray)jsonParser.parse(fileReader);
+        System.out.println(graphFile);
         List<MapEdge> result = (List<MapEdge>)nodeArray.stream().map((nodeObject) -> {
             JSONObject jsonObject = (JSONObject) nodeObject;
             double cost = ((Number) jsonObject.get("cost")).doubleValue();
@@ -58,18 +59,18 @@ public class JSONGraphLoader implements GraphLoader {
     }
 
     @Override
-    public List<MapNode> loadNodes(List<FILENAME> graphFiles) throws IOException, ParseException {
+    public List<MapNode> loadNodes(List<String> graphFiles) throws IOException, ParseException {
         List<MapNode> nodeList = new ArrayList<>();
-        for (FILENAME filename : graphFiles) {
+        for (String filename : graphFiles) {
             nodeList.addAll(loadNodes(filename));
         }
         return nodeList;
     }
 
     @Override
-    public List<MapEdge> loadEdges(List<FILENAME> graphFiles) throws IOException, ParseException {
+    public List<MapEdge> loadEdges(List<String> graphFiles) throws IOException, ParseException {
         List<MapEdge> edgeList = new ArrayList<>();
-        for (FILENAME filename : graphFiles) {
+        for (String filename : graphFiles) {
             edgeList.addAll(loadEdges(filename));
         }
         return edgeList;
