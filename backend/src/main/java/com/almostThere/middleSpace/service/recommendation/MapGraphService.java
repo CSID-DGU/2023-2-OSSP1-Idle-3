@@ -6,15 +6,21 @@ import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.graph.MapGraph;
+import com.almostThere.middleSpace.util.GIS;
+import com.almostThere.middleSpace.util.NormUtil;
 import com.almostThere.middleSpace.web.dto.AnswerPoint;
 import com.almostThere.middleSpace.web.dto.MiddleSpaceResponse;
 import com.almostThere.middleSpace.web.dto.MissingPoint;
 import com.almostThere.middleSpace.web.dto.TestModuleResponse;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
+import java.util.stream.DoubleStream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +53,134 @@ public class MapGraphService {
      * @return (도착노드, 소요시간 편차, 총 소요시간)
      */
     public List<AverageCost> findMiddleSpaceWithTables(List<RouteTable> tables) {
-        return getAverageGap(tables);
+        List<AverageCost> results = getAverageGap(tables);
+        List<MapNode> startPoints = tables.stream()
+                .map(RouteTable::getStartNode)
+                .collect(Collectors.toList());
+
+        // 무게 중심 구하기
+        Position centerOfPosition = getCenterOfPosition(startPoints);
+        // 최솟값, 최대값
+        double minLength = Double.MAX_VALUE, maxLength = Double.MIN_VALUE;
+        for (MapNode node : startPoints) {
+            double distance = GIS.getDistance(centerOfPosition, node);
+            if (minLength > distance)
+                minLength = distance;
+            if (maxLength < distance)
+                maxLength = distance;
+        }
+        // 편차를 고려할 가중치
+        double alpha = minLength / maxLength;
+        normalize(results);
+        // 계산한 점수를 기준으로 정렬하여 반환
+        return results.stream()
+                .sorted(Comparator.comparingDouble(result -> score(result.getSum(), result.getCost(), alpha)))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * 시간 무게를 적용한 무게 중심
+     * @param startPoints 출발 좌표들
+     * @return
+     */
+    public List<AverageCost> findMiddleSpaceWithWeightedPosition(List<Position> startPoints) {
+        List<RouteTable> tables = startPoints.stream()
+                .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
+                .map(router::getShortestPath)
+                .collect(Collectors.toList());
+        List<AverageCost> results = getAverageGap(tables);
+        // 중심을 구함
+        Position center = getCenterOfTimeWeightCenter(tables);
+        // 해당 중심을 기준으로 가중치를 구함
+        MapNode nearestWalkNode = this.mapGraph.findNearestWalkNode(center.getLatitude(), center.getLongitude());
+        Integer searchId = this.mapGraph.findSearchId(nearestWalkNode.getMap_id());
+        double maxTime = tables.stream().mapToDouble(table -> table.getCost(searchId))
+                .max().orElseThrow(NoSuchElementException::new);
+        double minTime = tables.stream().mapToDouble(table -> table.getCost(searchId))
+                .min().orElseThrow(NoSuchElementException::new);
+        double alpha = minTime / maxTime;
+        // 정규화
+        normalize(results);
+        // score 기준 정렬하기
+        return results.stream()
+                .sorted(Comparator.comparingDouble(result->score(result.getSum(), result.getCost(), alpha)))
+                .collect(Collectors.toList());
+    }
+    
+    private static void normalize(List<AverageCost> results) {
+        // 정규화
+        List<Double> sumList = results.stream().mapToDouble(AverageCost::getSum).boxed().collect(Collectors.toList());
+        List<Double> gapList = results.stream().mapToDouble(AverageCost::getCost).boxed().collect(Collectors.toList());
+        double sumMean = NormUtil.calculateMean(sumList);
+        double sumStd = NormUtil.calculateStandardDeviation(sumList, sumMean);
+        double gapMean = NormUtil.calculateMean(gapList);
+        double gapStd = NormUtil.calculateStandardDeviation(gapList, gapMean);
+        results.stream().forEach(result-> {
+            Double gap = result.getCost(), sum = result.getSum();
+            result.setCost((gap - gapMean) / gapStd);
+            result.setSum((sum - sumMean) / sumStd);
+        });
+    }
+
+    /**
+     * 시작점 좌표 기준으로 무게 중심 좌표를 구하는 함수
+     * @param startPoints
+     * @return
+     */
+    private Position getCenterOfPosition(List<MapNode> startPoints) {
+        double latitude = 0.0f;
+        double longitude = 0.0f;
+        int size = startPoints.size();
+
+        for (MapNode mapNode : startPoints) {
+            latitude += mapNode.getLatitude();
+            longitude += mapNode.getLongitude();
+        }
+        return new Position(latitude / size, longitude / size);
+    }
+
+    /**
+     * 시작점 좌표 + 각 시작점 사이의 가는 거리를 가중치로 하는 무게 중심좌표
+     * @param routeTables
+     * @return
+     */
+    private Position getCenterOfTimeWeightCenter(List<RouteTable> routeTables) {
+        List<MapNode> startPoints = routeTables.stream()
+                .map(RouteTable::getStartNode)
+                .collect(Collectors.toList());
+        int size = startPoints.size();
+
+        List<Double> weights = new ArrayList<>();
+        for (int i = 0; i < size ; i++) {
+            RouteTable routeTable = routeTables.get(i);
+            double sum = 0.0f;
+            for (int j = 0 ; j < size ; j++) {
+                if (i != j) continue;
+                MapNode endNode = startPoints.get(j);
+                double distance = routeTable.getCost(this.mapGraph.findSearchId(endNode.getMap_id()));
+                sum += distance;
+            }
+            weights.add(sum / size);
+        }
+
+        double lat = 0.0, log = 0.0;
+        for (int i = 0 ; i < size; i++) {
+            MapNode node = startPoints.get(i);
+            lat += (weights.get(i) * node.getLatitude());
+            log += (weights.get(i) * node.getLongitude());
+        }
+        return new Position(lat / size, log / size);
+    }
+
+    /**
+     *
+     * @param sum 그 지점까지 가는데 걸리는 시간의 평균
+     * @param gap 그 지점까지 가는데 걸리는 시간의 편차의 평균
+     * @param alpha 편차를 고려하는 정도 [0, 1]
+     * @return
+     */
+    private Double score(Double sum, Double gap, double alpha) {
+        return alpha * gap + (1 - alpha) * sum;
     }
 
     /**
@@ -81,21 +214,15 @@ public class MapGraphService {
 
     /**
      * 랜덤 샘플 테스트용 메서드
-     * @param startPoints
+     * @param candidates 후보 군
      * @return (정답 정보, 놓친 점의 개수)
      */
-    public TestModuleResponse getTestResult(List<Position> startPoints) {
-        List<RouteTable> tables = startPoints.stream()
-                .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
-                .map(id -> router.getShortestPath(id))
-                .collect(Collectors.toList());
-
-        List<AverageCost> candidates = this.findMiddleSpaceWithTables(tables);
-        List<AverageCost> boxedCandidate = this.findMiddleSpaceWithBoundary(candidates, startPoints);
-
-        AverageCost answer = boxedCandidate.get(0);
+    public TestModuleResponse getTestResult(List<AverageCost> candidates) {
+        // 정답 선택
+        AverageCost answer = candidates.get(0);
         MapNode answerNode = answer.getNode();
 
+        // 반환형 만드는 부분
         AnswerPoint answerPoint = AnswerPoint.builder()
                 .position(new Position(answerNode.getLatitude(), answerNode.getLongitude()))
                 .gap(answer.getCost())
@@ -103,7 +230,7 @@ public class MapGraphService {
                 .build();
 
         List<MissingPoint> missingPoints = candidates.stream().filter(candidate ->
-                !((candidate.getSum() >= answer.getSum()) || (candidate.getCost() >= answer.getCost()))
+                (candidate.getSum() < answer.getSum()) && (candidate.getCost() < answer.getCost())
         ).map(candidate -> {
             MapNode node = candidate.getNode();
             return MissingPoint.builder()
@@ -138,8 +265,6 @@ public class MapGraphService {
             maxLongitude = Math.max(maxLongitude, longitude);
             minLongitude = Math.min(minLongitude, longitude);
         }
-
-
 
         Boundary finalBoundary = getWhat3WordsMapBoundaryPoint(maxLatitude, minLatitude, maxLongitude, minLongitude);
 
