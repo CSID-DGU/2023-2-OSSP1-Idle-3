@@ -56,7 +56,7 @@ def postPosition(randomIds):
   return response.json()
 
 
-def visualize(ps, map, type):
+def subVisualize(ps, map, type):
   if type == "answer":
     position = []
     position.append(ps["position"]["latitude"])
@@ -82,44 +82,13 @@ def visualize(ps, map, type):
       position.append(p["longitude"])
       folium.Circle(position, color = "black", fill="black", radius=200, popup=position).add_to(map)
 
-
-
-# =================================================#
-# ====================== MAIN =====================#
-# =================================================#
-TESTCASE = 1
-worst = {
-  "count": 0
-}
-best = {
-  "count": 1000000
-}
-
-# 테스트 케이스별 시작지점과 도착 지점 저장
-datas = []
-
-# print("사용자 수를 입력하세요: ")
-# n = int(input())
-n = 6
-
-for j in range(TESTCASE):
-  # randNodes = getRandNodes(n)
-
-  # SEND REQUEST
-  
-  start_nodes = [
-    {"latitude": 37.51441651126843, "longitude": 127.04199825118819},
-    {"latitude": 37.49322813001188, "longitude": 127.03149261531696},
-    {"latitude": 37.48657972901505, "longitude": 127.0707475116464},
-    {"latitude": 37.50687804281888, "longitude": 127.1082253695799},]
-  response = postPosition(start_nodes)
-
-  # reponse 파일 읽어오기
-  file_path = "C:/Users/cjm95/Downloads/server_response.json"
-  # with open(file_path, "r", encoding="UTF-8") as file:
-  #   response = json.load(file)
-  time.sleep(1.5)
-  
+def visualize(start_nodes, res, type):
+  if res == 0:
+    file_path = "C:/Users/cjm95/Downloads/server_response.json"
+    with open(file_path, "r", encoding="UTF-8") as file:
+      response = json.load(file)
+  else:
+    response = res
   missing_points = response["missingPoints"]
   count = len(missing_points)
   answer = response["answer"]
@@ -161,32 +130,68 @@ for j in range(TESTCASE):
   #       "longitude": node["longitude"]
   #     }
   #   })
-  visualize(start_nodes, map, "start")
+  subVisualize(start_nodes, map, "start")
   answer_node = answer
-  visualize(answer_node, map, "answer")
+  subVisualize(answer_node, map, "answer")
   missing_points = missing_points
-  visualize(missing_points, map, "missing")
-  title = "maps/select_test.html"
+  subVisualize(missing_points, map, "missing")
+  title = "maps/"+type+".html"
   map.save(title)
 
   datas.append(data)
+  try:
+    os.remove(file_path)
+    print("파일 삭제 성공")
+  except OSError as e:
+    print("파일 삭제 에러")
+  with open("result.json", 'w', encoding = 'utf-8') as json_file:
+    json.dump(datas, json_file)
 
-  # worst 갱신
-  if count > worst["count"]:
-    worst = data
-  # best 갱신
-  if count < best["count"]:
-    best = data
+# time center test
+def testTimeCenter(start_nodes):
+  #url
+  url = "https://fb86-210-94-220-228.ngrok-free.app/middleSpace/testTimeCenter"
+  # header
+  header = {
+    "Content-Type": "application/json"
+  }
+  # body
+  requestBody = start_nodes
+  # response
+  response = requests.post(url, data = json.dumps(requestBody), headers = header)
+  print("response status:", response.status_code)
+  visualize(start_nodes, response, "timeCenter")
 
-print("worst case:", worst)
-print("best case:", best)
-try:
-  os.remove(file_path)
-  print("파일 삭제 성공")
-except OSError as e:
-  print("파일 삭제 에러")
-with open("result.json", 'w', encoding = 'utf-8') as json_file:
-  json.dump(datas, json_file)
+def test(start_nodes):
+  visualize(start_nodes, 0, "test")
+
+
+# =================================================#
+# ====================== MAIN =====================#
+# =================================================#
+TESTCASE = 1
+
+# 테스트 케이스별 시작지점과 도착 지점 저장
+datas = []
+
+# print("사용자 수를 입력하세요: ")
+# n = int(input())
+n = 6
+
+for j in range(TESTCASE):
+  # randNodes = getRandNodes(n)
+
+  # SEND REQUEST
+  
+  start_nodes = [{"latitude": 37.549761122096626, "longitude": 126.95355718344507},
+{"latitude": 37.5566657163955, "longitude": 127.07560102892884},
+{"latitude": 37.496695072551105, "longitude": 127.07554053212785},
+{"latitude": 37.49180959940956, "longitude": 126.95612601973521},]
+  test(start_nodes)
+  testTimeCenter(start_nodes)
+
+  # reponse 파일 읽어오기
+  
 # 좌표, 편차의 차이, 이동시간의 차이
 # 차이에 따라서 다르게 지도에 표현
 # position, gap, sum, missing points([poisiton(latitude, longitude), gap, sum])
