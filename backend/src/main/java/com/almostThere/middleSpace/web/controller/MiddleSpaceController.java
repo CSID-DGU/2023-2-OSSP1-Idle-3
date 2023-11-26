@@ -1,6 +1,7 @@
 package com.almostThere.middleSpace.web.controller;
 
 import com.almostThere.middleSpace.domain.gis.Position;
+import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.service.recommendation.MapGraphService;
 import com.almostThere.middleSpace.web.dto.IndexedPointsDTO;
 import com.almostThere.middleSpace.web.dto.MiddleSpaceResponse;
@@ -30,6 +31,12 @@ public class MiddleSpaceController {
     }
     @PostMapping("/test")
     public ResponseEntity<TestModuleResponse> getTestResult(@RequestBody List<Position> startPoints) {
-        return ResponseEntity.ok(this.mapGraphService.getTestResult(startPoints));
+        List<AverageCost> candidate = this.mapGraphService.findMiddleSpace(startPoints);
+        return ResponseEntity.ok(this.mapGraphService.getTestResult(candidate));
+    }
+    @PostMapping("/testTimeCenter")
+    public ResponseEntity<TestModuleResponse> getTestResultTimeCenter(@RequestBody List<Position> startPoints) {
+        List<AverageCost> candidate = this.mapGraphService.findMiddleSpaceWithWeightedPosition(startPoints);
+        return ResponseEntity.ok(this.mapGraphService.getTestResult(candidate));
     }
 }

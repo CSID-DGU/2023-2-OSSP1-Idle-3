@@ -1,6 +1,7 @@
 package com.almostThere.middleSpace.util;
 
 import com.almostThere.middleSpace.domain.gis.Boundary;
+import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.graph.node.MapNode;
 
 /**
@@ -27,6 +28,29 @@ public class GIS {
 
         return EARTH_RADIUS * c; // 결과는 미터 단위
     }
+    public static double getDistance(Position position, MapNode mapNode) {
+        return getDistance(position.getLatitude(), position.getLongitude(), mapNode);
+    }
+    public static double getDistance(MapNode node1, MapNode node2) {
+        return getDistance(
+                node1.getLatitude(), node1.getLongitude(),
+                node2.getLatitude(), node2.getLongitude()
+        );
+    }
+
+    public static double getDistance(double startLat, double startLong, double endLat, double endLong) {
+        double dLat  = Math.toRadians(endLat - startLat);
+        double dLong = Math.toRadians(endLong - startLong);
+
+        startLat = Math.toRadians(startLat);
+        endLat = Math.toRadians(endLat);
+
+        double a = haversin(dLat) + Math.cos(startLat) * Math.cos(endLat) * haversin(dLong);
+        double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return EARTH_RADIUS * c; // 결과는 미터 단위
+    }
+
 
     // 1. 3m가 위도, 경도 상으로 얼마나 차이나는지 계산
     public static Boundary getWhat3WordsMapBoundaryPoint(double maxLatitude, double minLatitude, double maxLongitude, double minLongitude){

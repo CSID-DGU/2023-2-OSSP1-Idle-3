@@ -36,11 +36,10 @@ public class MapGraphConfig {
 
                 "bus_stop_node_with_transfer.json",
 
-                "subway_node.json"
+                "subway_node.json",
 //                "new_subway_node.json"
 //                ,
-//                "gate_location_in_seoul_ver2.json"
-
+                "gate_location_in_seoul_ver2.json"
         );
         // 간선 파일 리스트
         List<String> edgeFiles = List.of(
@@ -50,8 +49,6 @@ public class MapGraphConfig {
                 "bus_step_edge.json",
 
                 "subway_edge.json",
-                "subway_edge_id.json",
-                "subway_edge_line9.json",
                 "gate_nearest_step_edge.json",
                 "gate_edge.json"
         );

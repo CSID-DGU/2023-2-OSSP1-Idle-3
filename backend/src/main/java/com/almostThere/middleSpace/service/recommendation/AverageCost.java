@@ -3,8 +3,10 @@ package com.almostThere.middleSpace.service.recommendation;
 import com.almostThere.middleSpace.graph.node.MapNode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.Setter;
 
 @Getter
+@Setter
 @AllArgsConstructor
 public class AverageCost {
     private MapNode node;

@@ -23,11 +23,11 @@ public class NormUtil {
         return data;
     }
 
-    private static double calculateMax(List<Double> data) {
+    public static double calculateMax(List<Double> data) {
         return data.stream().max(Double::compareTo).get();
     }
 
-    private static double calculateMean(List<Double> data) {
+    public static double calculateMean(List<Double> data) {
         double sum = 0.0;
         for (double d : data) {
             sum += d;
@@ -35,7 +35,7 @@ public class NormUtil {
         return sum / data.size();
     }
 
-    private static double calculateStandardDeviation(List<Double> data, double mean) {
+    public static double calculateStandardDeviation(List<Double> data, double mean) {
         double sum = 0.0;
         for (double d : data) {
             sum += Math.pow(d - mean, 2);
