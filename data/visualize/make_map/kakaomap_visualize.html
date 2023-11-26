@@ -47,6 +47,16 @@
             var responseDiv = document.getElementById("response");
             responseDiv.innerHTML =
               "서버 응답: " + JSON.stringify(responseData);
+
+            // 서버 응답을 파일로 저장
+            var blob = new Blob([JSON.stringify(responseData)], {
+              type: "application/json",
+            });
+            var link = document.createElement("a");
+            link.href = window.URL.createObjectURL(blob);
+            link.download = "server_response.json";
+            link.click();
+
             alert("데이터가 성공적으로 전송되었습니다.");
           })
           .catch((error) => {
