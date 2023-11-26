@@ -22,7 +22,6 @@
     <div id="clickLatlng"></div>
     <div id="response"></div>
     <button onclick="sendDataToServer()" disabled>전송</button>
-    <button onclick="resetMap()">다시하기</button>
 
     <script>
       var map;
@@ -82,10 +81,18 @@
 
             var position = responseData.answer.position;
 
-            addMarkerWithInfo(
+            addCustomMarker(
               position.latitude,
               position.longitude,
-              responseData
+              responseData,
+              "https://cdn-icons-png.flaticon.com/512/6388/6388034.png"
+            );
+
+            addCustomMarker(
+              responseData.middleSpace.latitude,
+              responseData.middleSpace.longitude,
+              responseData,
+              "https://cdn.pixabay.com/photo/2013/07/13/10/48/check-157822_960_720.png"
             );
 
             alert("데이터가 성공적으로 전송되었습니다.");
@@ -101,11 +108,18 @@
           });
       }
 
-      function addMarkerWithInfo(latitude, longitude, responseData) {
+      function addCustomMarker(latitude, longitude, responseData, imageUrl) {
+        var markerImage = new kakao.maps.MarkerImage(
+          imageUrl,
+          new kakao.maps.Size(50, 50),
+          { offset: new kakao.maps.Point(25, 50) }
+        );
+
         var marker = new kakao.maps.Marker({
           position: new kakao.maps.LatLng(latitude, longitude),
           map: map,
           clickable: true,
+          image: markerImage,
         });
 
         kakao.maps.event.addListener(marker, "click", function () {
@@ -117,33 +131,25 @@
 
       function showInfoWindow(latitude, longitude, responseData) {
         var content =
-          '<div style="font-size: 12px; padding: 12px;">' +
+          '<div style="font-size: 12px; padding: 20px;">' +
           "위도 : " +
           latitude +
           "<br>경도 : " +
           longitude +
+          "<br>Alpha : " +
+          responseData.alpha +
           "<br>Gap : " +
           responseData.answer.gap +
           "<br>Sum : " +
-          responseData.answer.sum;
+          responseData.answer.sum +
+          "<br>Middle Latitude : " +
+          responseData.middleSpace.latitude +
+          "<br>Middle Longitude : " +
+          responseData.middleSpace.longitude;
 
         infoWindow.setContent(content);
         infoWindow.setPosition(new kakao.maps.LatLng(latitude, longitude));
         infoWindow.open(map);
-      }
-
-      function resetMap() {
-        for (var i = 0; i < markers.length; i++) {
-          markers[i].setMap(null);
-        }
-        markers = [];
-
-        infoWindow.close();
-
-        clickedCoordinates = [];
-        clickCount = 0;
-
-        $("button").attr("disabled", true);
       }
 
       kakao.maps.load(function () {
@@ -171,8 +177,8 @@
 
           clickCount++;
 
-          if (clickCount === 1) {
-            addMarkerWithInfo(latlng.getLat(), latlng.getLng());
+          if (clickCount > maxClickCount) {
+            addCustomMarker(latlng.getLat(), latlng.getLng());
           }
 
           if (clickCount === maxClickCount) {
