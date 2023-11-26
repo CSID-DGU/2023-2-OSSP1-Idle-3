@@ -17,6 +17,7 @@ def getRandNodes(n):
 
   randomIds = []
 
+  # 시작 노드 랜덤 선택
   for _ in range(n):
     randId = 0
     while (randId not in nodeIds and randId in randomIds) or randId == 0:
@@ -33,6 +34,20 @@ def getRandNodes(n):
           "latitude": node["position"]["latitude"],
           "longitude": node["position"]["longitude"]
         })
+  # 시작 노드 예시
+  # randNodes = [
+  #   {
+  #     "latitude": 37.525461,
+  #     "longitude": 126.887562
+  #   },
+  #   {
+  #     "latitude": 37.545322,
+  #     "longitude": 127.055797
+  #   },
+  #   {
+  #     "latitude": 37.514366,
+  #     "longitude": 127.110661
+  #   }]
   return randNodes
 
 
@@ -41,7 +56,7 @@ def getRandNodes(n):
 def postPosition(randomIds):
 
   #url
-  url = " https://010f-210-94-220-228.ngrok.io/middleSpace/test"
+  url = " {ngrok 주소}"
   # header
   header = {
     "Content-Type": "application/json"
@@ -73,8 +88,9 @@ def visualize(ps, map, type):
     # sum 정규화한 값을 radius(반지름)에 반영
     # gap 정규화한 값을 fill_opacity(불투명도)에 반영
       popupstr = str(position) + "gapdiff: " + str(p["gapDifference"])
-      folium.Circle(position, radius=100*normSum, fill_opacity=100*normGap, color="red", fill="red",popup=popupstr).add_to(map) 
-    else:
+      folium.Circle(position, radius=100*normSum, fill_opacity=100*normGap, color="red", fill="red",popup=popupstr).add_to(map)
+      return
+    elif type == "start":
       folium.Circle(position, color = "black", fill="black", radius=300, popup=position).add_to(map)
 
 
@@ -82,7 +98,7 @@ def visualize(ps, map, type):
 # =================================================#
 # ====================== MAIN =====================#
 # =================================================#
-TESTCASE = 5
+TESTCASE = 1
 worst = {
   "count": 0
 }
@@ -101,7 +117,7 @@ for j in range(TESTCASE):
 
   # SEND REQUEST
   response = postPosition(randNodes)
-  time.sleep(1)
+  time.sleep(1.5)
   
   missing_points = response["missingPoints"]
   count = len(missing_points)
