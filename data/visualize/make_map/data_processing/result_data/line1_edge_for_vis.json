@@ -1,0 +1,1127 @@
+[
+    {
+        "line": 1,
+        "start": {
+            "id": 1703,
+            "name": "금천구청",
+            "latitude": 37.455626,
+            "longitude": 126.89398,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1714,
+            "name": "독산",
+            "latitude": 37.466613,
+            "longitude": 126.889249,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1714,
+            "name": "독산",
+            "latitude": 37.466613,
+            "longitude": 126.889249,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1703,
+            "name": "금천구청",
+            "latitude": 37.455626,
+            "longitude": 126.89398,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1714,
+            "name": "독산",
+            "latitude": 37.466613,
+            "longitude": 126.889249,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1702,
+            "name": "가산디지털단지",
+            "latitude": 37.481581,
+            "longitude": 126.882581,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1702,
+            "name": "가산디지털단지",
+            "latitude": 37.481581,
+            "longitude": 126.882581,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1714,
+            "name": "독산",
+            "latitude": 37.466613,
+            "longitude": 126.889249,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1702,
+            "name": "가산디지털단지",
+            "latitude": 37.481581,
+            "longitude": 126.882581,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1701,
+            "name": "구로",
+            "latitude": 37.503039,
+            "longitude": 126.881966,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1701,
+            "name": "구로",
+            "latitude": 37.503039,
+            "longitude": 126.881966,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1702,
+            "name": "가산디지털단지",
+            "latitude": 37.481581,
+            "longitude": 126.882581,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1701,
+            "name": "구로",
+            "latitude": 37.503039,
+            "longitude": 126.881966,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1007,
+            "name": "신도림",
+            "latitude": 37.508787,
+            "longitude": 126.891144,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1007,
+            "name": "신도림",
+            "latitude": 37.508787,
+            "longitude": 126.891144,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1701,
+            "name": "구로",
+            "latitude": 37.503039,
+            "longitude": 126.881966,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1007,
+            "name": "신도림",
+            "latitude": 37.508787,
+            "longitude": 126.891144,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1006,
+            "name": "영등포",
+            "latitude": 37.515504,
+            "longitude": 126.907628,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1006,
+            "name": "영등포",
+            "latitude": 37.515504,
+            "longitude": 126.907628,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1007,
+            "name": "신도림",
+            "latitude": 37.508787,
+            "longitude": 126.891144,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1006,
+            "name": "영등포",
+            "latitude": 37.515504,
+            "longitude": 126.907628,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1032,
+            "name": "신길",
+            "latitude": 37.516862,
+            "longitude": 126.917865,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1032,
+            "name": "신길",
+            "latitude": 37.516862,
+            "longitude": 126.917865,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1006,
+            "name": "영등포",
+            "latitude": 37.515504,
+            "longitude": 126.907628,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1032,
+            "name": "신길",
+            "latitude": 37.516862,
+            "longitude": 126.917865,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1005,
+            "name": "대방",
+            "latitude": 37.513342,
+            "longitude": 126.926382,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1005,
+            "name": "대방",
+            "latitude": 37.513342,
+            "longitude": 126.926382,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1032,
+            "name": "신길",
+            "latitude": 37.516862,
+            "longitude": 126.917865,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1005,
+            "name": "대방",
+            "latitude": 37.513342,
+            "longitude": 126.926382,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1004,
+            "name": "노량진",
+            "latitude": 37.514149,
+            "longitude": 126.94271,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1004,
+            "name": "노량진",
+            "latitude": 37.514149,
+            "longitude": 126.94271,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1005,
+            "name": "대방",
+            "latitude": 37.513342,
+            "longitude": 126.926382,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1004,
+            "name": "노량진",
+            "latitude": 37.514149,
+            "longitude": 126.94271,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1003,
+            "name": "용산",
+            "latitude": 37.529849,
+            "longitude": 126.964561,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1003,
+            "name": "용산",
+            "latitude": 37.529849,
+            "longitude": 126.964561,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1004,
+            "name": "노량진",
+            "latitude": 37.514149,
+            "longitude": 126.94271,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1003,
+            "name": "용산",
+            "latitude": 37.529849,
+            "longitude": 126.964561,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1002,
+            "name": "남영",
+            "latitude": 37.541021,
+            "longitude": 126.9713,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1002,
+            "name": "남영",
+            "latitude": 37.541021,
+            "longitude": 126.9713,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1003,
+            "name": "용산",
+            "latitude": 37.529849,
+            "longitude": 126.964561,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1002,
+            "name": "남영",
+            "latitude": 37.541021,
+            "longitude": 126.9713,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1001,
+            "name": "서울역",
+            "latitude": 37.554337,
+            "longitude": 126.971134,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1001,
+            "name": "서울역",
+            "latitude": 37.554337,
+            "longitude": 126.971134,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1002,
+            "name": "남영",
+            "latitude": 37.541021,
+            "longitude": 126.9713,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1001,
+            "name": "서울역",
+            "latitude": 37.554337,
+            "longitude": 126.971134,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 151,
+            "name": "시청",
+            "latitude": 37.565715,
+            "longitude": 126.977088,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 151,
+            "name": "시청",
+            "latitude": 37.565715,
+            "longitude": 126.977088,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1001,
+            "name": "서울역",
+            "latitude": 37.554337,
+            "longitude": 126.971134,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 151,
+            "name": "시청",
+            "latitude": 37.565715,
+            "longitude": 126.977088,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 152,
+            "name": "종각",
+            "latitude": 37.570161,
+            "longitude": 126.982923,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 152,
+            "name": "종각",
+            "latitude": 37.570161,
+            "longitude": 126.982923,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 151,
+            "name": "시청",
+            "latitude": 37.565715,
+            "longitude": 126.977088,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 152,
+            "name": "종각",
+            "latitude": 37.570161,
+            "longitude": 126.982923,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 153,
+            "name": "종로3가",
+            "latitude": 37.570406,
+            "longitude": 126.991847,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 153,
+            "name": "종로3가",
+            "latitude": 37.570406,
+            "longitude": 126.991847,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 152,
+            "name": "종각",
+            "latitude": 37.570161,
+            "longitude": 126.982923,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 153,
+            "name": "종로3가",
+            "latitude": 37.570406,
+            "longitude": 126.991847,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 154,
+            "name": "종로5가",
+            "latitude": 37.570926,
+            "longitude": 127.001849,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 154,
+            "name": "종로5가",
+            "latitude": 37.570926,
+            "longitude": 127.001849,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 153,
+            "name": "종로3가",
+            "latitude": 37.570406,
+            "longitude": 126.991847,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 154,
+            "name": "종로5가",
+            "latitude": 37.570926,
+            "longitude": 127.001849,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 155,
+            "name": "동대문",
+            "latitude": 37.571687,
+            "longitude": 127.01093,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 155,
+            "name": "동대문",
+            "latitude": 37.571687,
+            "longitude": 127.01093,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 154,
+            "name": "종로5가",
+            "latitude": 37.570926,
+            "longitude": 127.001849,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 155,
+            "name": "동대문",
+            "latitude": 37.571687,
+            "longitude": 127.01093,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 159,
+            "name": "동묘앞",
+            "latitude": 37.573197,
+            "longitude": 127.01648,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 159,
+            "name": "동묘앞",
+            "latitude": 37.573197,
+            "longitude": 127.01648,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 155,
+            "name": "동대문",
+            "latitude": 37.571687,
+            "longitude": 127.01093,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 159,
+            "name": "동묘앞",
+            "latitude": 37.573197,
+            "longitude": 127.01648,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 156,
+            "name": "신설동",
+            "latitude": 37.576048,
+            "longitude": 127.024634,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 156,
+            "name": "신설동",
+            "latitude": 37.576048,
+            "longitude": 127.024634,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 159,
+            "name": "동묘앞",
+            "latitude": 37.573197,
+            "longitude": 127.01648,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 156,
+            "name": "신설동",
+            "latitude": 37.576048,
+            "longitude": 127.024634,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 157,
+            "name": "제기동",
+            "latitude": 37.578103,
+            "longitude": 127.034893,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 157,
+            "name": "제기동",
+            "latitude": 37.578103,
+            "longitude": 127.034893,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 156,
+            "name": "신설동",
+            "latitude": 37.576048,
+            "longitude": 127.024634,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 157,
+            "name": "제기동",
+            "latitude": 37.578103,
+            "longitude": 127.034893,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1016,
+            "name": "외대앞",
+            "latitude": 37.596073,
+            "longitude": 127.063549,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1016,
+            "name": "외대앞",
+            "latitude": 37.596073,
+            "longitude": 127.063549,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 157,
+            "name": "제기동",
+            "latitude": 37.578103,
+            "longitude": 127.034893,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1016,
+            "name": "외대앞",
+            "latitude": 37.596073,
+            "longitude": 127.063549,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1017,
+            "name": "신이문",
+            "latitude": 37.601854,
+            "longitude": 127.067325,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1017,
+            "name": "신이문",
+            "latitude": 37.601854,
+            "longitude": 127.067325,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1016,
+            "name": "외대앞",
+            "latitude": 37.596073,
+            "longitude": 127.063549,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1017,
+            "name": "신이문",
+            "latitude": 37.601854,
+            "longitude": 127.067325,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1018,
+            "name": "석계",
+            "latitude": 37.614532,
+            "longitude": 127.065934,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1018,
+            "name": "석계",
+            "latitude": 37.614532,
+            "longitude": 127.065934,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1017,
+            "name": "신이문",
+            "latitude": 37.601854,
+            "longitude": 127.067325,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1018,
+            "name": "석계",
+            "latitude": 37.614532,
+            "longitude": 127.065934,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1019,
+            "name": "광운대",
+            "latitude": 37.623632,
+            "longitude": 127.061835,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1019,
+            "name": "광운대",
+            "latitude": 37.623632,
+            "longitude": 127.061835,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1018,
+            "name": "석계",
+            "latitude": 37.614532,
+            "longitude": 127.065934,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1019,
+            "name": "광운대",
+            "latitude": 37.623632,
+            "longitude": 127.061835,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1020,
+            "name": "월계",
+            "latitude": 37.633212,
+            "longitude": 127.058831,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1020,
+            "name": "월계",
+            "latitude": 37.633212,
+            "longitude": 127.058831,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1019,
+            "name": "광운대",
+            "latitude": 37.623632,
+            "longitude": 127.061835,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1020,
+            "name": "월계",
+            "latitude": 37.633212,
+            "longitude": 127.058831,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1021,
+            "name": "녹천",
+            "latitude": 37.644799,
+            "longitude": 127.051269,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1021,
+            "name": "녹천",
+            "latitude": 37.644799,
+            "longitude": 127.051269,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1020,
+            "name": "월계",
+            "latitude": 37.633212,
+            "longitude": 127.058831,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1021,
+            "name": "녹천",
+            "latitude": 37.644799,
+            "longitude": 127.051269,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1022,
+            "name": "창동",
+            "latitude": 37.653007,
+            "longitude": 127.047806,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1022,
+            "name": "창동",
+            "latitude": 37.653007,
+            "longitude": 127.047806,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1021,
+            "name": "녹천",
+            "latitude": 37.644799,
+            "longitude": 127.051269,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1022,
+            "name": "창동",
+            "latitude": 37.653007,
+            "longitude": 127.047806,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1901,
+            "name": "방학",
+            "latitude": 37.667503,
+            "longitude": 127.044273,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1901,
+            "name": "방학",
+            "latitude": 37.667503,
+            "longitude": 127.044273,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1022,
+            "name": "창동",
+            "latitude": 37.653007,
+            "longitude": 127.047806,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1901,
+            "name": "방학",
+            "latitude": 37.667503,
+            "longitude": 127.044273,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1902,
+            "name": "도봉",
+            "latitude": 37.679563,
+            "longitude": 127.045595,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1902,
+            "name": "도봉",
+            "latitude": 37.679563,
+            "longitude": 127.045595,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1901,
+            "name": "방학",
+            "latitude": 37.667503,
+            "longitude": 127.044273,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1902,
+            "name": "도봉",
+            "latitude": 37.679563,
+            "longitude": 127.045595,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1903,
+            "name": "도봉산",
+            "latitude": 37.689534,
+            "longitude": 127.046049,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1903,
+            "name": "도봉산",
+            "latitude": 37.689534,
+            "longitude": 127.046049,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1902,
+            "name": "도봉",
+            "latitude": 37.679563,
+            "longitude": 127.045595,
+            "line": "1호선"
+        }
+    },
+
+
+
+    {
+        "line": 1,
+        "start": {
+            "id": 1821,
+            "name": "온수(성공회대입구)",
+            "latitude": 37.492433,
+            "longitude": 126.824086,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1802,
+            "name": "오류동",
+            "latitude": 37.494526,
+            "longitude": 126.845365,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1802,
+            "name": "오류동",
+            "latitude": 37.494526,
+            "longitude": 126.845365,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1821,
+            "name": "온수(성공회대입구)",
+            "latitude": 37.492433,
+            "longitude": 126.824086,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1802,
+            "name": "오류동",
+            "latitude": 37.494526,
+            "longitude": 126.845365,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1801,
+            "name": "개봉",
+            "latitude": 37.494594,
+            "longitude": 126.85968,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1801,
+            "name": "개봉",
+            "latitude": 37.494594,
+            "longitude": 126.85968,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1802,
+            "name": "오류동",
+            "latitude": 37.494526,
+            "longitude": 126.845365,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1801,
+            "name": "개봉",
+            "latitude": 37.494594,
+            "longitude": 126.85968,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1813,
+            "name": "구일",
+            "latitude": 37.496756,
+            "longitude": 126.870793,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1813,
+            "name": "구일",
+            "latitude": 37.496756,
+            "longitude": 126.870793,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1801,
+            "name": "개봉",
+            "latitude": 37.494594,
+            "longitude": 126.85968,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1813,
+            "name": "구일",
+            "latitude": 37.496756,
+            "longitude": 126.870793,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1701,
+            "name": "구로",
+            "latitude": 37.503039,
+            "longitude": 126.881966,
+            "line": "1호선"
+        }
+    },
+    {
+        "line": 1,
+        "start": {
+            "id": 1701,
+            "name": "구로",
+            "latitude": 37.503039,
+            "longitude": 126.881966,
+            "line": "1호선"
+        },
+        "end": {
+            "id": 1813,
+            "name": "구일",
+            "latitude": 37.496756,
+            "longitude": 126.870793,
+            "line": "1호선"
+        }
+    }
+]

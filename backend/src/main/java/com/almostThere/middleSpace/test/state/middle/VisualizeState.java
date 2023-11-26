@@ -24,12 +24,13 @@ public class VisualizeState implements TestState {
                 + "3.총합 분포 보기\n"
                 + "4.편차 분포 그래프 보기\n"
                 + "5.총합 분포 그래프 보기\n"
-                + "6.다시 입력");
+                + "6.편차 총합 그래프 보기\n"
+                + "7.다시 입력");
 
         double interval;
         int menu;
         while (true){
-            if (scanner.hasNext())
+            if (scanner.hasNextInt())
             {
                 menu = scanner.nextInt();
                 break ;
@@ -67,6 +68,9 @@ public class VisualizeState implements TestState {
                 StatisticsDrawer.drawSumFrequency(middleSpaces, interval);
                 break;
             case 6:
+                StatisticsDrawer.drawGapSumRelation(middleSpaces);
+                break;
+            case 7:
                 this.context.setState("InputState");
                 break;
         }

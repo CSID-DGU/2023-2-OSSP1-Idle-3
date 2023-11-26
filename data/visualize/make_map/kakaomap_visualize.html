@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kakao Map Click Event</title>
+
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${kakao_api_key}&libraries=services"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script>
+      var clickedCoordinates = [];
+      var markers = [];
+      var clickCount = 0;
+      var maxClickCount;
+
+      function setMaxClickCount() {
+        maxClickCount = parseInt(prompt("최대 클릭 횟수를 입력하세요.", 3), 10);
+
+        if (isNaN(maxClickCount) || maxClickCount < 1) {
+          maxClickCount = 3;
+        }
+
+        $("button").removeAttr("disabled");
+      }
+
+      function sendDataToServer() {
+        if (clickCount < maxClickCount) {
+          alert("최소 " + maxClickCount + "번 클릭해야 합니다.");
+          return;
+        }
+
+        var data = clickedCoordinates;
+        fetch("https://85cb-210-94-220-228.ngrok-free.app/middleSpace/test", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "69420",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log("서버 응답:", responseData);
+            var responseDiv = document.getElementById("response");
+            responseDiv.innerHTML =
+              "서버 응답: " + JSON.stringify(responseData);
+            alert("데이터가 성공적으로 전송되었습니다.");
+          })
+          .catch((error) => {
+            console.error("에러 발생:", error);
+          })
+          .finally(() => {
+            clickedCoordinates = [];
+            clickCount = 0;
+            markers.forEach((marker) => marker.setMap(null));
+            markers = [];
+            $("button").attr("disabled", true);
+          });
+      }
+    </script>
+    <style>
+      #map {
+        width: 1000px;
+        height: 550px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="clickLatlng"></div>
+    <div id="response"></div>
+    <script type="text/javascript">
+      kakao.maps.load(function () {
+        var mapContainer = document.getElementById("map"),
+          mapOption = {
+            center: new kakao.maps.LatLng(37.566826, 126.9786567),
+            level: 3,
+          };
+
+        var map = new kakao.maps.Map(mapContainer, mapOption);
+
+        setMaxClickCount();
+
+        kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+          if (clickCount >= maxClickCount) {
+            alert("최대 " + maxClickCount + "번까지 클릭할 수 있습니다.");
+            return;
+          }
+
+          var latlng = mouseEvent.latLng;
+
+          var marker = new kakao.maps.Marker({
+            position: latlng,
+            map: map,
+          });
+
+          markers.push(marker);
+
+          var message =
+            "위도: " + latlng.getLat() + " 경도: " + latlng.getLng();
+          var resultDiv = document.getElementById("clickLatlng");
+          resultDiv.innerHTML += message + "<br/>";
+
+          clickedCoordinates.push({
+            latitude: latlng.getLat(),
+            longitude: latlng.getLng(),
+          });
+
+          clickCount++;
+
+          if (clickCount === maxClickCount) {
+            $("button").removeAttr("disabled");
+          }
+        });
+
+        $("button").click(function () {
+          sendDataToServer();
+        });
+      });
+    </script>
+    <button onclick="sendDataToServer()" disabled>전송</button>
+  </body>
+</html>

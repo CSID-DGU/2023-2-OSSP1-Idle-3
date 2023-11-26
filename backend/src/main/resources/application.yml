@@ -1,152 +1,152 @@
 server:
   port: 8080
 
-  servlet:
-    context-path: /api
-    encoding:
-      charset: utf-8
-      enabled: true
-      force: true
-
-spring:
-  servlet:
-    multipart:
-      max-file-size: 10MB
-      max-request-size: 10MB
-  jpa:
-    hibernate:
-      ddl-auto: update
-
-    properties:
-      hibernate:
-        format_sql: true
-        jdbc:
-          batch_size: 10000
-          order_inserts: true
-      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
-
-  profiles:
-    active:
-      - ${PROFILE:develop}
-
-    group:
-      green: "server"
-      develop: "dev, env"
-
-  redis:
-    host: almostthere.co.kr # 서버 host
-    port: 6379 # redis 서버 포트
-    password: ${REDIS_PASSWORD} # for. redis 인증
-
-  clova:
-    apiURL: ${CLOVA_APIURL}
-    secretKey: ${CLOVA_SECRETKEY}
-
-redis:
-  locationData:
-    expire-length: 21600 #6시간
-
-logging:
-  level:
-    org.hibernate.SQL: debug
-    org.hibernate.type: trace
-
-springdoc:
-  swagger-ui:
-    path: /api-docs
-    tags-sorter: alpha
-    operations-sorter: alpha
-  packages-to-scan: com.almostThere.domain
-  api-docs:
-    path: /api-docs/json
-    groups:
-      enabled: true
-  cache:
-    disabled: true
-  default-consumes-media-type: application/json;charset=UTF-8
-  default-produces-media-type: application/json;charset=UTF-8
-
----
-spring:
-  config:
-    activate:
-      on-profile: "dev"
-
-server:
-  port: 8080
-
----
-spring:
-  config:
-    activate:
-      on-profile: "server"
-
-  datasource:
-    url: jdbc:mysql://${DATABASE_URL}/almost_there?serverTimeZone=Asia/Seoul
-    username: ${DATABASE_ID}
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: com.mysql.cj.jdbc.Driver
-
-  redis:
-    host: ${REDIS_URL} # 서버 host
-    port: 6379 # redis 서버 포트
-    password: ${REDIS_PASSWORD}
-
-  clova:
-    apiURL: ${CLOVA_APIURL}
-    secretKey: ${CLOVA_SECRETKEY}
-
-  security:
-    oauth2:
-      client:
-        registration:
-          kakao:
-            client-id: ${KAKAO_CLIENT_ID}
-            redirect-uri: ${KAKAO_REDIRECT_URL}
-            client-authentication-method: POST
-            client-secret: ${KAKAO_CLIENT_SECRET}
-            authorization-grant-type: authorization_code
-            scope:
-              - profile_nickname
-              - account_email
-              - profile_image
-            client_name: kakao
-        provider:
-          kakao:
-            authorization-uri: https://kauth.kakao.com/oauth/authorize
-            token-uri: https://kauth.kakao.com/oauth/token
-            user-info-uri: https://kapi.kakao.com/v2/user/me
-            user-name-attribute: id
-
-
-servers:
-  url: https://almostthere.co.kr/
-  description: Production server
-
-springdoc:
-  swagger-ui:
-    path: /api-docs
-    tags-sorter: alpha
-    operations-sorter: alpha
-  packages-to-scan: com.almostThere.domain
-  api-docs:
-    path: /api-docs/json
-    groups:
-      enabled: true
-  cache:
-    disabled: true
-  default-consumes-media-type: application/json;charset=UTF-8
-  default-produces-media-type: application/json;charset=UTF-8
-
-LOGIN_SUCCESS_URL: ${LOGIN_SUCCESS_URL}
-
-server:
-  port: 9999
-
-jwt:
-  token:
-    secret-key: ${JWT_TOKEN_SECRET_KEY}
-  access-token:
-    expire-length: 3600000 # 300000 5분,  36000000 10시간(임시)
-  refresh-token:
-    expire-length: 1209600000 #14일
+servlet:
+  context-path: /api
+  encoding:
+    charset: utf-8
+    enabled: true
+    force: true
+#
+#spring:
+#  servlet:
+#    multipart:
+#      max-file-size: 10MB
+#      max-request-size: 10MB
+#  jpa:
+#    hibernate:
+#      ddl-auto: update
+#
+#    properties:
+#      hibernate:
+#        format_sql: true
+#        jdbc:
+#          batch_size: 10000
+#          order_inserts: true
+#      dialect: org.hibernate.dialect.MySQL8InnoDBDialect
+#
+#  profiles:
+#    active:
+#      - ${PROFILE:develop}
+#
+#    group:
+#      green: "server"
+#      develop: "dev, env"
+#
+#  redis:
+#    host: almostthere.co.kr # 서버 host
+#    port: 6379 # redis 서버 포트
+#    password: ${REDIS_PASSWORD} # for. redis 인증
+#
+#  clova:
+#    apiURL: ${CLOVA_APIURL}
+#    secretKey: ${CLOVA_SECRETKEY}
+#
+#redis:
+#  locationData:
+#    expire-length: 21600 #6시간
+#
+#logging:
+#  level:
+#    org.hibernate.SQL: debug
+#    org.hibernate.type: trace
+#
+#springdoc:
+#  swagger-ui:
+#    path: /api-docs
+#    tags-sorter: alpha
+#    operations-sorter: alpha
+#  packages-to-scan: com.almostThere.domain
+#  api-docs:
+#    path: /api-docs/json
+#    groups:
+#      enabled: true
+#  cache:
+#    disabled: true
+#  default-consumes-media-type: application/json;charset=UTF-8
+#  default-produces-media-type: application/json;charset=UTF-8
+#
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: "dev"
+#
+#server:
+#  port: 8080
+#
+#---
+#spring:
+#  config:
+#    activate:
+#      on-profile: "server"
+#
+#  datasource:
+#    url: jdbc:mysql://${DATABASE_URL}/almost_there?serverTimeZone=Asia/Seoul
+#    username: ${DATABASE_ID}
+#    password: ${DATABASE_PASSWORD}
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#
+#  redis:
+#    host: ${REDIS_URL} # 서버 host
+#    port: 6379 # redis 서버 포트
+#    password: ${REDIS_PASSWORD}
+#
+#  clova:
+#    apiURL: ${CLOVA_APIURL}
+#    secretKey: ${CLOVA_SECRETKEY}
+#
+#  security:
+#    oauth2:
+#      client:
+#        registration:
+#          kakao:
+#            client-id: ${KAKAO_CLIENT_ID}
+#            redirect-uri: ${KAKAO_REDIRECT_URL}
+#            client-authentication-method: POST
+#            client-secret: ${KAKAO_CLIENT_SECRET}
+#            authorization-grant-type: authorization_code
+#            scope:
+#              - profile_nickname
+#              - account_email
+#              - profile_image
+#            client_name: kakao
+#        provider:
+#          kakao:
+#            authorization-uri: https://kauth.kakao.com/oauth/authorize
+#            token-uri: https://kauth.kakao.com/oauth/token
+#            user-info-uri: https://kapi.kakao.com/v2/user/me
+#            user-name-attribute: id
+#
+#
+#servers:
+#  url: https://almostthere.co.kr/
+#  description: Production server
+#
+#springdoc:
+#  swagger-ui:
+#    path: /api-docs
+#    tags-sorter: alpha
+#    operations-sorter: alpha
+#  packages-to-scan: com.almostThere.domain
+#  api-docs:
+#    path: /api-docs/json
+#    groups:
+#      enabled: true
+#  cache:
+#    disabled: true
+#  default-consumes-media-type: application/json;charset=UTF-8
+#  default-produces-media-type: application/json;charset=UTF-8
+#
+#LOGIN_SUCCESS_URL: ${LOGIN_SUCCESS_URL}
+#
+#server:
+#  port: 9999
+#
+#jwt:
+#  token:
+#    secret-key: ${JWT_TOKEN_SECRET_KEY}
+#  access-token:
+#    expire-length: 3600000 # 300000 5분,  36000000 10시간(임시)
+#  refresh-token:
+#    expire-length: 1209600000 #14일

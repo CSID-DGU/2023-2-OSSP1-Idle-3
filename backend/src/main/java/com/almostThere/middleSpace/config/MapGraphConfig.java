@@ -4,10 +4,11 @@ import com.almostThere.middleSpace.graph.edge.MapEdge;
 import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.graph.builder.MapGraphBuilder;
 import com.almostThere.middleSpace.graph.builder.impl.ListMapGraphBuilder;
-import com.almostThere.middleSpace.constant.FILENAME;
 import com.almostThere.middleSpace.graph.loader.GraphLoader;
 import com.almostThere.middleSpace.graph.loader.impl.JSONGraphLoader;
 import com.almostThere.middleSpace.graph.MapGraph;
+import com.almostThere.middleSpace.service.routing.Router;
+import com.almostThere.middleSpace.service.routing.impl.DiRouter;
 import java.io.IOException;
 import java.util.List;
 import org.json.simple.parser.ParseException;
@@ -30,26 +31,29 @@ public class MapGraphConfig {
         MapGraphBuilder graphBuilder = new ListMapGraphBuilder();
 
         // 노드 파일 리스트
-        List<FILENAME> nodeFiles = List.of(
-                FILENAME.STEP_NODE,
+        List<String> nodeFiles = List.of(
+                "step_node.json",
 
-                FILENAME.BUS_STOP_NODE,
-                FILENAME.SUBWAY_NODE
+                "bus_stop_node_with_transfer.json",
+
+                "subway_node.json"
+//                "new_subway_node.json"
 //                ,
-//                FILENAME.STATION_GATE_NODE
+//                "gate_location_in_seoul_ver2.json"
+
         );
         // 간선 파일 리스트
-        List<FILENAME> edgeFiles = List.of(
-                FILENAME.STEP_EDGE,
+        List<String> edgeFiles = List.of(
+                "step_link.json",
 
-                FILENAME.BUS_ROUTER_EDGE,
-                FILENAME.BUS_STEP_EDGE,
+                "bus_router_edge_with_transfer.json",
+                "bus_step_edge.json",
 
-                FILENAME.SUBWAY_EDGE
-//                ,
-//                FILENAME.SUBWAY_GATE_EDGE
-//                ,
-//                FILENAME.GATE_STEP_EDGE
+                "subway_edge.json",
+                "subway_edge_id.json",
+                "subway_edge_line9.json",
+                "gate_nearest_step_edge.json",
+                "gate_edge.json"
         );
 
         List<MapNode> map_nodes = graphLoader.loadNodes(nodeFiles);
@@ -57,5 +61,10 @@ public class MapGraphConfig {
         System.out.printf("node 수는 %d개 입니다.\n", map_nodes.size());
         System.out.printf("edge 수는 %d개 입니다.\n", map_edges.size());
         return graphBuilder.build(map_nodes, map_edges);
+    }
+
+    @Bean
+    public Router router(MapGraph mapGraph) {
+        return new DiRouter(mapGraph);
     }
 }

@@ -1,11 +1,15 @@
 package com.almostThere.middleSpace.domain.routetable.impl;
 
+import com.almostThere.middleSpace.domain.gis.Edge;
+import com.almostThere.middleSpace.domain.gis.Path;
+import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.routetable.RouteInfo;
 import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.graph.MapGraph;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import lombok.Getter;
 
@@ -57,5 +61,32 @@ public class DiRouteTable implements RouteTable {
                 Arrays.stream(dist)
                         .filter(routeInfo -> routeInfo.minCost == Double.MAX_VALUE)
                         .count());
+    }
+
+    @Override
+    public Path extractPath(Integer dest_search_id) {
+        List<Edge> result_route = new ArrayList<>();
+        MapNode startNode = this.mapGraph.findMapNode(startNodeIndex);
+        int temp = dest_search_id;
+        RouteInfo routeInfo = dist[temp];
+        double cost = routeInfo.minCost;
+        while (temp != startNodeIndex) {
+//            routeInfo = dist[temp];
+            MapNode toNode = this.mapGraph.findMapNode(temp);
+            MapNode fromNode = this.mapGraph.findMapNode(dist[temp].fromIndex);
+            result_route.add(new Edge(
+                    new Position(fromNode.getLatitude(), fromNode.getLongitude()),
+                    new Position(toNode.getLatitude(), toNode.getLongitude())
+//                    routeInfo.line
+//                    routeInfo.type
+            ));
+            temp = dist[temp].fromIndex;
+        }
+        Collections.reverse(result_route);
+        return Path.builder()
+                .routes(result_route)
+                .startPoint(new Position(startNode.getLatitude(), startNode.getLongitude()))
+                .cost(cost)
+                .build();
     }
 }
