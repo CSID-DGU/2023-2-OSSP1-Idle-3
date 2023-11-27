@@ -74,7 +74,7 @@ def subVisualize(ps, map, type):
     # sum 정규화한 값을 radius(반지름)에 반영
     # gap 정규화한 값을 fill_opacity(불투명도)에 반영
       popupstr = str(position) + "gapdiff: " + str(p["gapDifference"])
-      folium.Circle(position, radius=100*normSum, fill_opacity=100*normGap, color="red", fill="red",popup=popupstr).add_to(map)
+      folium.Circle(position, radius=200, color="red", fill="red",popup=popupstr).add_to(map)
       return
     elif type == "start":
       position = []
@@ -92,26 +92,6 @@ def visualize(start_nodes, res, type):
   missing_points = response["missingPoints"]
   count = len(missing_points)
   answer = response["answer"]
-  
-  # 정규화
-  normGaps = []
-  normSums = []
-  if len(missing_points) == 0:
-    print("missing point가 없습니다.")
-  else:
-    for mp in missing_points:
-      normGaps.append(mp["gapDifference"])
-      normSums.append(mp["sumDifference"])
-    print("normGaps: ", normGaps)
-    print("normSums: ", normSums)
-    max_gap = max(normGaps)
-    max_sum = max(normSums)
-    for i in range(len(missing_points)):
-      normGaps[i] = normGaps[i]/max_gap
-      normSums[i] = normSums[i]/max_sum
-    for i in range(len(missing_points)):
-      missing_points[i]["norm_gap"] = normGaps[i]
-      missing_points[i]["norm_sum"] = normSums[i]
   # response data 가공
   data = {
     "test_id": j,
