@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kakao Map Mouseover Event</title>
+
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=e35928ebe6ed7be9a8cfca7707778ffc&libraries=services"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+      #map {
+        width: 1000px;
+        height: 550px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="clickLatlng"></div>
+    <div id="response"></div>
+    <button onclick="sendDataToServer()" disabled>전송</button>
+    <button onclick="resetMap()">다시하기</button>
+
+    <script>
+      var map;
+      var infoWindow;
+      var maxClickCount;
+      var clickedCoordinates = [];
+      var markers = [];
+      var clickCount = 0;
+
+      function initMap() {
+        var mapContainer = document.getElementById("map");
+        var mapOption = {
+          center: new kakao.maps.LatLng(37.566826, 126.9786567),
+          level: 3,
+        };
+
+        map = new kakao.maps.Map(mapContainer, mapOption);
+        infoWindow = new kakao.maps.InfoWindow({
+          zIndex: 1,
+          removable: true,
+        });
+
+        setMaxClickCount();
+      }
+
+      function setMaxClickCount() {
+        maxClickCount = parseInt(prompt("최대 클릭 횟수를 입력하세요.", 3), 10);
+
+        if (isNaN(maxClickCount) || maxClickCount < 1) {
+          maxClickCount = 3;
+        }
+
+        $("button").removeAttr("disabled");
+      }
+
+      function sendDataToServer() {
+        if (clickCount < maxClickCount) {
+          alert("최소 " + maxClickCount + "번 클릭해야 합니다.");
+          return;
+        }
+
+        var data = clickedCoordinates;
+
+        $("button").attr("disabled", true);
+
+        fetch("http://localhost:8080/middleSpace/test", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "69420",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log("서버 응답:", responseData);
+
+            var position = responseData.answer.position;
+
+            addCustomMarker(
+              position.latitude,
+              position.longitude,
+              responseData,
+              "https://cdn-icons-png.flaticon.com/512/6388/6388034.png"
+            );
+
+            // addCustomMarker(
+            //   responseData.middleSpace.latitude,
+            //   responseData.middleSpace.longitude,
+            //   responseData,
+            //   "https://cdn.pixabay.com/photo/2013/07/13/10/48/check-157822_960_720.png"
+            // );
+
+            alert("데이터가 성공적으로 전송되었습니다.");
+          })
+          .catch((error) => {
+            console.error("에러 발생:", error);
+          })
+          .finally(() => {
+            $("button").removeAttr("disabled");
+
+            clickedCoordinates = [];
+            clickCount = 0;
+          });
+
+
+          fetch("http://localhost:8080/middleSpace/testStdOnly", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "69420",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log("서버 응답:", responseData);
+
+            var position = responseData.answer.position;
+
+            addCustomMarker(
+              position.latitude,
+              position.longitude,
+              responseData,
+              "https://cdn-icons-png.flaticon.com/512/64/64665.png"
+            );
+
+            // addCustomMarker(
+            //   responseData.middleSpace.latitude,
+            //   responseData.middleSpace.longitude,
+            //   responseData,
+            //   "https://cdn.pixabay.com/photo/2013/07/13/10/48/check-157822_960_720.png"
+            // );
+
+            alert("데이터가 성공적으로 전송되었습니다.");
+          })
+          .catch((error) => {
+            console.error("에러 발생:", error);
+          })
+          .finally(() => {
+            $("button").removeAttr("disabled");
+
+            clickedCoordinates = [];
+            clickCount = 0;
+          });
+      }
+
+      function addCustomMarker(latitude, longitude, responseData, imageUrl) {
+        var markerImage = new kakao.maps.MarkerImage(
+          imageUrl,
+          new kakao.maps.Size(50, 50),
+          { offset: new kakao.maps.Point(25, 50) }
+        );
+
+        var marker = new kakao.maps.Marker({
+          position: new kakao.maps.LatLng(latitude, longitude),
+          map: map,
+          clickable: true,
+          image: markerImage,
+        });
+
+        kakao.maps.event.addListener(marker, "click", function () {
+          showInfoWindow(latitude, longitude, responseData);
+        });
+
+        markers.push(marker);
+      }
+
+      function showInfoWindow(latitude, longitude, responseData) {
+        var content =
+          '<div style="font-size: 12px; padding: 20px;">' +
+          "위도 : " +
+          latitude +
+          "<br>경도 : " +
+          longitude +
+          "<br>Alpha : " +
+          responseData.alpha +
+          "<br>Gap : " +
+          responseData.answer.gap +
+          "<br>Sum : " +
+          responseData.answer.sum +
+          "<br>Middle Latitude : " +
+          responseData.middleSpace.latitude +
+          "<br>Middle Longitude : " +
+          responseData.middleSpace.longitude;
+
+        infoWindow.setContent(content);
+        infoWindow.setPosition(new kakao.maps.LatLng(latitude, longitude));
+        infoWindow.open(map);
+      }
+
+      function resetMap() {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(null);
+        }
+        markers = [];
+
+        infoWindow.close();
+
+        clickedCoordinates = [];
+        clickCount = 0;
+
+        $("button").attr("disabled", true);
+      }
+
+      kakao.maps.load(function () {
+        initMap();
+
+        kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+          var latlng = mouseEvent.latLng;
+
+          var marker = new kakao.maps.Marker({
+            position: latlng,
+            map: map,
+          });
+
+          markers.push(marker);
+
+          var message =
+            "위도: " + latlng.getLat() + " 경도: " + latlng.getLng();
+          var resultDiv = document.getElementById("clickLatlng");
+          resultDiv.innerHTML += message + "<br/>";
+
+          clickedCoordinates.push({
+            latitude: latlng.getLat(),
+            longitude: latlng.getLng(),
+          });
+
+          clickCount++;
+
+          if (clickCount > maxClickCount) {
+            addCustomMarker(latlng.getLat(), latlng.getLng());
+          }
+
+          if (clickCount === maxClickCount) {
+            $("button").removeAttr("disabled");
+          }
+        });
+
+        $("button").click(function () {
+          sendDataToServer();
+        });
+      });
+    </script>
+  </body>
+</html>
