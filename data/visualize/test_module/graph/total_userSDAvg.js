@@ -73,7 +73,7 @@ function generateGraph(data) {
   });
 }
 
-function main() {
+function total_userSDAvg() {
   const inputData = JSON.parse(fs.readFileSync(inputFilePath, "utf-8"));
   const processedData = processData(inputData);
 
@@ -97,4 +97,4 @@ function main() {
   generateGraph(processedData);
 }
 
-main();
+module.exports = total_userSDAvg;

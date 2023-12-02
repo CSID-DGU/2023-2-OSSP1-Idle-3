@@ -52,11 +52,11 @@ function generateGraph(data) {
   }
 }
 
-function main() {
+function userSDAvg() {
   const inputData = JSON.parse(fs.readFileSync(inputFilePath, "utf-8"));
   const processedData = processData(inputData);
 
   generateGraph(processedData);
 }
 
-main();
+module.exports = userSDAvg;
