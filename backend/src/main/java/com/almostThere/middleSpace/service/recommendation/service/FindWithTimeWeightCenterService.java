@@ -1,4 +1,4 @@
-package com.almostThere.middleSpace.service.recommendation.impl;
+package com.almostThere.middleSpace.service.recommendation.service;
 
 import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
@@ -15,14 +15,16 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FindWithTimeWeightCenterService extends FindWithWeightCenterService{
+public class FindWithTimeWeightCenterService extends AbstractMiddleSpaceFindWithCostService {
     public FindWithTimeWeightCenterService(MapGraph mapGraph, Router router) {
         super(mapGraph, router);
     }
+    @Override
     public List<AverageCost> findMiddleSpace(List<Position> startPoints) {
         Result result = this.findMiddleSpaceTest(startPoints);
         return result.getResult();
     }
+    @Override
     public Result findMiddleSpaceTest(List<Position> startPoints) {
         List<RouteTable> tables = startPoints.stream()
                 .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))

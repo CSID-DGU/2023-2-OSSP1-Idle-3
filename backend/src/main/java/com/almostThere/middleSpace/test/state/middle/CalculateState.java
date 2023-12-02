@@ -2,7 +2,7 @@ package com.almostThere.middleSpace.test.state.middle;
 
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.service.recommendation.Result;
-import com.almostThere.middleSpace.service.recommendation.impl.FindWithWeightCenterTimeDistanceService;
+import com.almostThere.middleSpace.service.recommendation.service.FindWithWeightCenterTimeDistanceService;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.service.routing.impl.DiRouter;
 import com.almostThere.middleSpace.test.state.TestState;

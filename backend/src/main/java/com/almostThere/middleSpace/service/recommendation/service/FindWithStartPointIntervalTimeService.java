@@ -1,11 +1,10 @@
-package com.almostThere.middleSpace.service.recommendation.impl;
+package com.almostThere.middleSpace.service.recommendation.service;
 
 import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
-import com.almostThere.middleSpace.service.recommendation.BaseMiddleSpaceFindService;
 import com.almostThere.middleSpace.service.recommendation.Result;
 import com.almostThere.middleSpace.service.routing.Router;
 import java.util.List;
@@ -17,6 +16,7 @@ public class FindWithStartPointIntervalTimeService extends BaseMiddleSpaceFindSe
     public FindWithStartPointIntervalTimeService(MapGraph mapGraph, Router router) {
         super(mapGraph, router);
     }
+    @Override
     public Result findMiddleSpaceTest(List<Position> startPoints) {
         List<RouteTable> tables = startPoints.stream()
                 .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
@@ -38,7 +38,7 @@ public class FindWithStartPointIntervalTimeService extends BaseMiddleSpaceFindSe
                 .cost(null)
                 .build();
     }
-
+    @Override
     public List<AverageCost> findMiddleSpace(List<Position> startPoints) {
         Result result = this.findMiddleSpaceTest(startPoints);
         return result.getResult();

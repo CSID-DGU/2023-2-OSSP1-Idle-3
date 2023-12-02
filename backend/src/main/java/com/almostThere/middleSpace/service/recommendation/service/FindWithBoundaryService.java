@@ -1,11 +1,10 @@
-package com.almostThere.middleSpace.service.recommendation.impl;
+package com.almostThere.middleSpace.service.recommendation.service;
 
 import com.almostThere.middleSpace.domain.gis.Boundary;
 import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
-import com.almostThere.middleSpace.service.recommendation.BaseMiddleSpaceFindService;
 import com.almostThere.middleSpace.service.recommendation.Result;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.util.GIS;
@@ -19,6 +18,7 @@ public class FindWithBoundaryService extends BaseMiddleSpaceFindService {
     public FindWithBoundaryService(MapGraph mapGraph, Router router) {
         super(mapGraph, router);
     }
+    @Override
     public List<AverageCost> findMiddleSpace(List<Position> startPoints) {
         Boundary boundary = GIS.toWhat3WordMapBoundary(GIS.findMaxBoundary(startPoints));
         List<RouteTable> tables = startPoints.stream()
@@ -34,6 +34,7 @@ public class FindWithBoundaryService extends BaseMiddleSpaceFindService {
                 .sorted(Comparator.comparingDouble(AverageCost::getCost))
                 .collect(Collectors.toList());
     }
+    @Override
     public Result findMiddleSpaceTest(List<Position> startPoints) {
         List<AverageCost> averageGap = this.findMiddleSpace(startPoints);
         return Result.builder()
