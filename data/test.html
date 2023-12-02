@@ -191,6 +191,47 @@
             clickedCoordinates = [];
             clickCount = 0;
           });
+
+          fetch("http://localhost:8080/middleSpace/testInterval", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "69420",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log("서버 응답:", responseData);
+
+            var position = responseData.answer.position;
+
+            addCustomMarker(
+              position.latitude,
+              position.longitude,
+              responseData,
+              "https://cdn.icon-icons.com/icons2/567/PNG/512/marker_icon-icons.com_54388.png",
+              "편차만 고려 + 사용자간의 거리보다는 작아야해"
+            );
+
+            // addCustomMarker(
+            //   responseData.middleSpace.latitude,
+            //   responseData.middleSpace.longitude,
+            //   responseData,
+            //   "https://cdn.pixabay.com/photo/2013/07/13/10/48/check-157822_960_720.png"
+            // );
+
+            alert("데이터가 성공적으로 전송되었습니다.");
+          })
+          .catch((error) => {
+            console.error("에러 발생:", error);
+          })
+          .finally(() => {
+            $("button").removeAttr("disabled");
+
+            clickedCoordinates = [];
+            clickCount = 0;
+          });
       }
 
       function addCustomMarker(latitude, longitude, responseData, imageUrl, title) {
