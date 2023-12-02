@@ -138,7 +138,15 @@ public class MapGraphService {
         return maxCost;
     }
 
-
+    private double getIntervalTimeBetweenNodes(long startNodeIndex, long endNodeIndex, List<RouteTable> tables) {
+        int searchId = this.mapGraph.findSearchId(endNodeIndex);
+        for (RouteTable table : tables) {
+            if (table.getStartNode().getMap_id() == startNodeIndex) {
+                return table.getCost(searchId);
+            }
+        }
+        return 0.0; // 해당 경로를 찾지 못할 경우
+    }
 
 
     /**
