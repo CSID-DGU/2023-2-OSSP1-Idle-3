@@ -19,4 +19,8 @@ public class RouteInfo implements Comparable<RouteInfo> {
     public int compareTo(RouteInfo o) {
         return Double.compare(this.minCost, o.minCost);
     }
+
+    public void setMinCost(double minCost) {
+        this.minCost = minCost;
+    }
 }

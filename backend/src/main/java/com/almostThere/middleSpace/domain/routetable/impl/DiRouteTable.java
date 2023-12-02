@@ -34,6 +34,10 @@ public class DiRouteTable implements RouteTable {
     public double getCost(int search_dest_id) {
         return this.dist[search_dest_id].minCost;
     }
+    @Override
+    public RouteInfo getRouteInfo(int search_dest_id) {
+        return this.dist[search_dest_id];
+    }
 
     @Override
     public void showPath(Long map_dest_id) {

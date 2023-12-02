@@ -34,7 +34,7 @@ public class MapGraphService {
     private final Router router;
 
     /**
-     *
+     * 표준편차만 고려하여 선택한 테스트 결과를 반환함.
      */
     public Result findMiddleSpaceStdOnly(List<Position> startPoints) {
         List<RouteTable> tables = startPoints.stream()
@@ -108,6 +108,69 @@ public class MapGraphService {
                 .cost(minScore)
                 .build();
     }
+
+    public Result findMiddleSpaceWithLongestStartPointIntervalTime(List<Position> startPoints) {
+        List<RouteTable> tables = startPoints.stream()
+                .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
+                .map(router::getShortestPath)
+                .collect(Collectors.toList());
+        double maxIntervalTime = getLongestStartPointIntervalTime(tables);
+        for (RouteTable table : tables) {
+            int nodeNum = this.mapGraph.getNodeNum();
+            for (int i = 0 ; i < nodeNum ; i++) {
+                if (table.getCost(i) > maxIntervalTime)
+                    table.getRouteInfo(i).setMinCost(Double.MAX_VALUE);
+            }
+        }
+        List<AverageCost> averageGap = getAverageGap(tables);
+        return Result.builder()
+                .middle(null)
+                .result(averageGap)
+                .alpha(null)
+                .cost(null)
+                .build();
+    }
+
+    /**
+     * 출발지들 사이의 이동시간 중 cost가 가장 큰 cost 구하기
+     * @param tables 출발 좌표들
+     * @return 가장 큰 cost 값
+     */
+    public double getLongestStartPointIntervalTime(List<RouteTable> tables){
+          List<MapNode> startPoints = tables.stream()
+                .map(RouteTable::getStartNode)
+                .collect(Collectors.toList());
+
+        int size = startPoints.size();
+
+        double maxCost = 0.0;
+
+        for (int i = 0; i < size; i++) {
+            MapNode startNode = startPoints.get(i);
+            for (int j = 0; j < size; j++) {
+                if (i == j) continue;
+                MapNode endNode = startPoints.get(j);
+                double cost = getIntervalTimeBetweenNodes(startNode.getMap_id(), endNode.getMap_id(), tables);
+                if (maxCost < cost) {
+                    maxCost = cost;
+                }
+            }
+        }
+
+        return maxCost;
+    }
+
+    private double getIntervalTimeBetweenNodes(long startNodeIndex, long endNodeIndex, List<RouteTable> tables) {
+        int searchId = this.mapGraph.findSearchId(endNodeIndex);
+        for (RouteTable table : tables) {
+            if (table.getStartNode().getMap_id() == startNodeIndex) {
+                return table.getCost(searchId);
+            }
+        }
+        // 못가는 경우는 고려하지 않는다.
+        return 0.0;
+    }
+
 
     /**
      * 시간 무게를 적용한 무게 중심

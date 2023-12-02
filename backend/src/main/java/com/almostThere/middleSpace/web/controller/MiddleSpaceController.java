@@ -56,4 +56,10 @@ public class MiddleSpaceController {
                 .build();
         return ResponseEntity.ok(this.mapGraphService.getTestResult(result));
     }
+    @PostMapping("/testInterval")
+    public ResponseEntity<TestModuleResponse> getTestInterval(@RequestBody List<Position> startPoints) {
+        Result result = this.mapGraphService.findMiddleSpaceWithLongestStartPointIntervalTime(
+                startPoints);
+        return ResponseEntity.ok(this.mapGraphService.getTestResult(result));
+    }
 }
