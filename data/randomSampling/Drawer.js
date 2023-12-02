@@ -54,9 +54,11 @@ class Drawer {
         // 내부 점 표현
         insideDotsCanvas.forEach(dot => {
             ctx.beginPath();
-            ctx.arc(dot.x, dot.y, 3, 0, 2 * Math.PI); // 작은 원으로 점 표현
+            ctx.arc(dot.lng, dot.lat, 1, 0, 2 * Math.PI); // 작은 원으로 점 표현
+            ctx.fillStyle = 'black'; // 원의 채우기 색상을 검은색으로 설정
             ctx.fill();
         });
+
         const out = fs.createWriteStream(__dirname + `/insideConvex${this.id}.png`);
         const stream = canvas.createPNGStream();
         stream.pipe(out);
