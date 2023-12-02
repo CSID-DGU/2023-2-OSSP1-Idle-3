@@ -1,5 +1,7 @@
 // import meetingStore from "./meeting";
 
+// 중간 지점 찾는 store
+
 const halfwayStore = {
   namespaced: true,
   state: {
