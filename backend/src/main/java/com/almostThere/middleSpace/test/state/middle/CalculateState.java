@@ -1,8 +1,8 @@
 package com.almostThere.middleSpace.test.state.middle;
 
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
-import com.almostThere.middleSpace.service.recommendation.MapGraphService;
 import com.almostThere.middleSpace.service.recommendation.Result;
+import com.almostThere.middleSpace.service.recommendation.impl.FindWithWeightCenterTimeDistanceService;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.service.routing.impl.DiRouter;
 import com.almostThere.middleSpace.test.state.TestState;
@@ -18,13 +18,13 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class CalculateState implements TestState {
     private final MiddleContext context;
-    private final MapGraphService service;
+    private final FindWithWeightCenterTimeDistanceService service;
     private final Router router;
 
     public CalculateState(MiddleContext context, MapGraph mapGraph) {
         this.context = context;
         this.router = new DiRouter(mapGraph);
-        this.service = new MapGraphService(mapGraph, router);
+        this.service = new FindWithWeightCenterTimeDistanceService(mapGraph, router);
     }
 
     @Override
@@ -34,7 +34,7 @@ public class CalculateState implements TestState {
                 .map(router::getShortestPath)
                 .collect(Collectors.toList());
 
-        Result middleSpace = service.findMiddleSpaceWithTablesAndCenter(tables);
+        Result middleSpace = service.findMiddleSpaceTest(context.getInputPoints());
 
         this.context.updateMiddleSpace(middleSpace.getResult());
         this.context.updateRouteTables(tables);
