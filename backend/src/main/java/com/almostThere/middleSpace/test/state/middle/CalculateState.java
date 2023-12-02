@@ -1,8 +1,8 @@
 package com.almostThere.middleSpace.test.state.middle;
 
-import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.service.recommendation.MapGraphService;
+import com.almostThere.middleSpace.service.recommendation.Result;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.service.routing.impl.DiRouter;
 import com.almostThere.middleSpace.test.state.TestState;
@@ -34,9 +34,9 @@ public class CalculateState implements TestState {
                 .map(router::getShortestPath)
                 .collect(Collectors.toList());
 
-        List<AverageCost> middleSpace = service.findMiddleSpaceWithTables(tables);
+        Result middleSpace = service.findMiddleSpaceWithTablesAndCenter(tables);
 
-        this.context.updateMiddleSpace(middleSpace);
+        this.context.updateMiddleSpace(middleSpace.getResult());
         this.context.updateRouteTables(tables);
         this.context.setState("VisualizeState");
     }

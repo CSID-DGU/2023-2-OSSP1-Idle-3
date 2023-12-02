@@ -17,10 +17,8 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.OptionalDouble;
 import java.util.stream.Collectors;
 
-import java.util.stream.DoubleStream;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -36,23 +34,40 @@ public class MapGraphService {
     private final Router router;
 
     /**
-     * @param startPoints : 출발점으로 입력된 좌표들
-     * @return (도착노드, 그 노드까지의 각 출발점에서의 소요시간의 편차의 평균)
+     *
      */
-    public List<AverageCost> findMiddleSpace(List<Position> startPoints) {
+    public Result findMiddleSpaceStdOnly(List<Position> startPoints) {
         List<RouteTable> tables = startPoints.stream()
                 .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
                 .map(router::getShortestPath)
                 .collect(Collectors.toList());
-        return findMiddleSpaceWithTables(tables);
+        List<AverageCost> averageGap = getAverageGap(tables);
+        return Result.builder()
+                .result(averageGap)
+                .cost(0.0)
+                .middle(null)
+                .alpha(0.0)
+                .build();
     }
+
     /**
-     * 아직까진 실험 용도로 사용.
-     * 실제로 서비스에 배포할 때는 위의 메서드를 사용하여 구현할 예정
+     * @param startPoints : 출발점으로 입력된 좌표들
+     * @return (도착노드, 그 노드까지의 각 출발점에서의 소요시간의 편차의 평균)
+     */
+    public Result findMiddleSpaceWithCenter(List<Position> startPoints) {
+        List<RouteTable> tables = startPoints.stream()
+                .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
+                .map(router::getShortestPath)
+                .collect(Collectors.toList());
+        return findMiddleSpaceWithTablesAndCenter(tables);
+    }
+
+
+    /**
      * @param tables : (출발노드 인덱스, 그 노드에서 다른 노드까지 걸리는 시간이 기록된 테이블)들
      * @return (도착노드, 소요시간 편차, 총 소요시간)
      */
-    public List<AverageCost> findMiddleSpaceWithTables(List<RouteTable> tables) {
+    public Result findMiddleSpaceWithTablesAndCenter(List<RouteTable> tables) {
         List<AverageCost> results = getAverageGap(tables);
         List<MapNode> startPoints = tables.stream()
                 .map(RouteTable::getStartNode)
@@ -70,12 +85,28 @@ public class MapGraphService {
                 maxLength = distance;
         }
         // 편차를 고려할 가중치
-        double alpha = minLength / maxLength;
+        double alpha = minLength / (maxLength + minLength);
+
+        System.out.println(alpha);
         normalize(results);
         // 계산한 점수를 기준으로 정렬하여 반환
-        return results.stream()
-                .sorted(Comparator.comparingDouble(result -> score(result.getSum(), result.getCost(), alpha)))
+        List<AverageCost> costList = results
+                .stream()
+                .sorted(Comparator.comparingDouble(
+                        result -> cost(result.getSum(), result.getCost(), alpha))
+                )
                 .collect(Collectors.toList());
+
+        double minScore = results.stream()
+                .mapToDouble(result -> cost(result.getSum(), result.getCost(), alpha))
+                .min()
+                .orElseThrow(NoSuchElementException::new);
+        return Result.builder()
+                .middle(centerOfPosition)
+                .result(costList)
+                .alpha(alpha)
+                .cost(minScore)
+                .build();
     }
 
     /**
@@ -83,7 +114,7 @@ public class MapGraphService {
      * @param startPoints 출발 좌표들
      * @return
      */
-    public List<AverageCost> findMiddleSpaceWithWeightedPosition(List<Position> startPoints) {
+    public Result findMiddleSpaceWithWeightedPosition(List<Position> startPoints) {
         List<RouteTable> tables = startPoints.stream()
                 .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
                 .map(router::getShortestPath)
@@ -98,15 +129,41 @@ public class MapGraphService {
                 .max().orElseThrow(NoSuchElementException::new);
         double minTime = tables.stream().mapToDouble(table -> table.getCost(searchId))
                 .min().orElseThrow(NoSuchElementException::new);
-        double alpha = minTime / maxTime;
+        double alpha = minTime / (maxTime + minTime);
+        System.out.println(alpha);
         // 정규화
         normalize(results);
-        // score 기준 정렬하기
-        return results.stream()
-                .sorted(Comparator.comparingDouble(result->score(result.getSum(), result.getCost(), alpha)))
+        // cost 기준 정렬하기
+        double minScore = results.stream()
+                .mapToDouble(result -> cost(result.getSum(), result.getCost(), alpha))
+                .min()
+                .orElseThrow(NoSuchElementException::new);
+        List<AverageCost> costList = results.stream()
+                .sorted(Comparator.comparingDouble(result -> cost(result.getSum(), result.getCost(), alpha)))
                 .collect(Collectors.toList());
+
+        return Result.builder().result(costList)
+                .middle(center)
+                .alpha(alpha)
+                .cost(minScore)
+                .build();
     }
-    
+
+    /**
+     * 3*3을 적용한 결과
+     * @param startPoints
+     * @return
+     */
+    public List<AverageCost> findMiddleSpaceWithBoundary(List<Position> startPoints) {
+        List<RouteTable> tables = startPoints.stream()
+                .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
+                .map(router::getShortestPath)
+                .collect(Collectors.toList());
+        List<AverageCost> results = getAverageGap(tables);
+        List<AverageCost> middleSpaceWithBoundary = findMiddleSpaceWithBoundary(results, startPoints);
+        return middleSpaceWithBoundary;
+    }
+
     private static void normalize(List<AverageCost> results) {
         // 정규화
         List<Double> sumList = results.stream().mapToDouble(AverageCost::getSum).boxed().collect(Collectors.toList());
@@ -179,8 +236,10 @@ public class MapGraphService {
      * @param alpha 편차를 고려하는 정도 [0, 1]
      * @return
      */
-    private Double score(Double sum, Double gap, double alpha) {
+    private Double cost(Double sum, Double gap, double alpha) {
         return alpha * gap + (1 - alpha) * sum;
+//        return sum;
+//        return gap;
     }
 
     /**
@@ -195,10 +254,11 @@ public class MapGraphService {
                 .map(id -> router.getShortestPath(id))
                 .collect(Collectors.toList());
 
-        List<AverageCost> middleSpace = this.findMiddleSpaceWithTables(tables);
-        middleSpace = this.findMiddleSpaceWithBoundary(middleSpace, startPoints);
+        Result middleSpace = this.findMiddleSpaceWithTablesAndCenter(tables);
+        List<AverageCost> candidate = this.findMiddleSpaceWithBoundary(middleSpace.getResult(),
+                startPoints);
 
-        AverageCost selectedNode = middleSpace.get(index);
+        AverageCost selectedNode = candidate.get(index);
         MapNode destNode = selectedNode.getNode();
 
         Integer searchId = this.mapGraph.findSearchId(destNode.getMap_id());
@@ -214,11 +274,13 @@ public class MapGraphService {
 
     /**
      * 랜덤 샘플 테스트용 메서드
-     * @param candidates 후보 군
+     * @param result
      * @return (정답 정보, 놓친 점의 개수)
      */
-    public TestModuleResponse getTestResult(List<AverageCost> candidates) {
+    public TestModuleResponse getTestResult(Result result) {
         // 정답 선택
+        List<AverageCost> candidates = result.getResult();
+
         AverageCost answer = candidates.get(0);
         MapNode answerNode = answer.getNode();
 
@@ -244,6 +306,9 @@ public class MapGraphService {
                 .builder()
                 .answer(answerPoint)
                 .missingPoints(missingPoints)
+                .alpha(result.getAlpha())
+                .middleSpace(result.getMiddle())
+                .cost(result.getCost())
                 .build();
     }
 
