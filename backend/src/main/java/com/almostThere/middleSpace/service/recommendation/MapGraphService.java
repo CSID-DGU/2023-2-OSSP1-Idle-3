@@ -110,6 +110,19 @@ public class MapGraphService {
     }
 
     /**
+     * 출발지들 사이의 이동시간 중 cost가 가장 큰 cost 구하기
+     * @param startPoints 출발 좌표들
+     * @return 가장 큰 cost 값
+     */
+    public double getLongestStartPointIntervalTime(List<Position> startPoints, List<RouteTable> tables){
+        double cost = 0.0;
+
+        
+
+        return cost;
+    }
+
+    /**
      * 시간 무게를 적용한 무게 중심
      * @param startPoints 출발 좌표들
      * @return
