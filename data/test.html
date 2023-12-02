@@ -86,7 +86,8 @@
               position.latitude,
               position.longitude,
               responseData,
-              "https://cdn-icons-png.flaticon.com/512/6388/6388034.png"
+              "https://cdn-icons-png.flaticon.com/512/6388/6388034.png",
+              "무게중심"
             );
 
             // addCustomMarker(
@@ -127,7 +128,90 @@
               position.latitude,
               position.longitude,
               responseData,
-              "https://cdn-icons-png.flaticon.com/512/64/64665.png"
+              "https://cdn-icons-png.flaticon.com/512/64/64665.png",
+              "편차만 고려"
+            );
+
+            // addCustomMarker(
+            //   responseData.middleSpace.latitude,
+            //   responseData.middleSpace.longitude,
+            //   responseData,
+            //   "https://cdn.pixabay.com/photo/2013/07/13/10/48/check-157822_960_720.png"
+            // );
+
+            alert("데이터가 성공적으로 전송되었습니다.");
+          })
+          .catch((error) => {
+            console.error("에러 발생:", error);
+          })
+          .finally(() => {
+            $("button").removeAttr("disabled");
+
+            clickedCoordinates = [];
+            clickCount = 0;
+          });
+
+          fetch("http://localhost:8080/middleSpace/testTimeCenter", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "69420",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log("서버 응답:", responseData);
+
+            var position = responseData.answer.position;
+
+            addCustomMarker(
+              position.latitude,
+              position.longitude,
+              responseData,
+              "https://cdn-icons-png.flaticon.com/512/4467/4467108.png",
+              "시간무게 무게중심"
+            );
+
+            // addCustomMarker(
+            //   responseData.middleSpace.latitude,
+            //   responseData.middleSpace.longitude,
+            //   responseData,
+            //   "https://cdn.pixabay.com/photo/2013/07/13/10/48/check-157822_960_720.png"
+            // );
+
+            alert("데이터가 성공적으로 전송되었습니다.");
+          })
+          .catch((error) => {
+            console.error("에러 발생:", error);
+          })
+          .finally(() => {
+            $("button").removeAttr("disabled");
+
+            clickedCoordinates = [];
+            clickCount = 0;
+          });
+
+          fetch("http://localhost:8080/middleSpace/testInterval", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "69420",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log("서버 응답:", responseData);
+
+            var position = responseData.answer.position;
+
+            addCustomMarker(
+              position.latitude,
+              position.longitude,
+              responseData,
+              "https://cdn.icon-icons.com/icons2/567/PNG/512/marker_icon-icons.com_54388.png",
+              "편차만 고려 + 사용자간의 거리보다는 작아야해"
             );
 
             // addCustomMarker(
@@ -150,7 +234,7 @@
           });
       }
 
-      function addCustomMarker(latitude, longitude, responseData, imageUrl) {
+      function addCustomMarker(latitude, longitude, responseData, imageUrl, title) {
         var markerImage = new kakao.maps.MarkerImage(
           imageUrl,
           new kakao.maps.Size(50, 50),
@@ -162,6 +246,7 @@
           map: map,
           clickable: true,
           image: markerImage,
+          title: title,
         });
 
         kakao.maps.event.addListener(marker, "click", function () {
@@ -169,6 +254,18 @@
         });
 
         markers.push(marker);
+
+        var iwContent = `<div style="padding:5px;">${title}<br></div>`;
+        iwPosition = new kakao.maps.LatLng(latitude, longitude); //인포윈도우 표시 위치입니다
+
+        // 인포윈도우를 생성합니다
+        var infowindow = new kakao.maps.InfoWindow({
+            position : iwPosition, 
+            content : iwContent 
+        });
+          
+        // 마커 위에 인포윈도우를 표시합니다. 두번째 파라미터인 marker를 넣어주지 않으면 지도 위에 표시됩니다
+        infowindow.open(map, marker); 
       }
 
       function showInfoWindow(latitude, longitude, responseData) {
