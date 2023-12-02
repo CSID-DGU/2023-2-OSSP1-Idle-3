@@ -86,7 +86,8 @@
               position.latitude,
               position.longitude,
               responseData,
-              "https://cdn-icons-png.flaticon.com/512/6388/6388034.png"
+              "https://cdn-icons-png.flaticon.com/512/6388/6388034.png",
+              "무게중심"
             );
 
             // addCustomMarker(
@@ -127,7 +128,49 @@
               position.latitude,
               position.longitude,
               responseData,
-              "https://cdn-icons-png.flaticon.com/512/64/64665.png"
+              "https://cdn-icons-png.flaticon.com/512/64/64665.png",
+              "편차만 고려"
+            );
+
+            // addCustomMarker(
+            //   responseData.middleSpace.latitude,
+            //   responseData.middleSpace.longitude,
+            //   responseData,
+            //   "https://cdn.pixabay.com/photo/2013/07/13/10/48/check-157822_960_720.png"
+            // );
+
+            alert("데이터가 성공적으로 전송되었습니다.");
+          })
+          .catch((error) => {
+            console.error("에러 발생:", error);
+          })
+          .finally(() => {
+            $("button").removeAttr("disabled");
+
+            clickedCoordinates = [];
+            clickCount = 0;
+          });
+
+          fetch("http://localhost:8080/middleSpace/testTimeCenter", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "69420",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log("서버 응답:", responseData);
+
+            var position = responseData.answer.position;
+
+            addCustomMarker(
+              position.latitude,
+              position.longitude,
+              responseData,
+              "https://cdn-icons-png.flaticon.com/512/4467/4467108.png",
+              "시간무게 무게중심"
             );
 
             // addCustomMarker(
@@ -150,7 +193,7 @@
           });
       }
 
-      function addCustomMarker(latitude, longitude, responseData, imageUrl) {
+      function addCustomMarker(latitude, longitude, responseData, imageUrl, title) {
         var markerImage = new kakao.maps.MarkerImage(
           imageUrl,
           new kakao.maps.Size(50, 50),
@@ -163,6 +206,8 @@
           clickable: true,
           image: markerImage,
         });
+
+        marker.setTitle(title);
 
         kakao.maps.event.addListener(marker, "click", function () {
           showInfoWindow(latitude, longitude, responseData);
