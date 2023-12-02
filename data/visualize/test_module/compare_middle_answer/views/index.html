@@ -60,8 +60,8 @@
         $("button").removeAttr("disabled");
       }
 
-      function sendToSpringServer(data){
-        console.log(data)
+      function sendToSpringServer(data) {
+        console.log(data);
         fetch("http://localhost:8080/middleSpace/test", {
           method: "POST",
           headers: {
@@ -84,10 +84,10 @@
             showInfoWindow(position.latitude, position.longitude, responseData);
 
             // 무게 중심 계산
-            clickedCoordinates.forEach(function(pos){
-              avgLat += pos['latitude'];
-              avgLon += pos['longitude'];
-            })
+            clickedCoordinates.forEach(function (pos) {
+              avgLat += pos["latitude"];
+              avgLon += pos["longitude"];
+            });
             avgLat /= maxClickCount;
             avgLon /= maxClickCount;
 
@@ -99,41 +99,42 @@
             );
             showInfoWindow(avgLat, avgLon, responseData);
             alert("데이터가 성공적으로 전송되었습니다.");
-            
+
             // 노드 서버로 전송
             answerWithMiddle = {
-              'answer': answer,
-              'middle': {
-                'middleLat': avgLat,
-                'middleLon': avgLon
-              }
-            }
+              answer: answer,
+              middle: {
+                middleLat: avgLat,
+                middleLon: avgLon,
+              },
+            };
             sendDataToNodeServer(answerWithMiddle);
           })
           .catch((error) => {
             console.error("에러 발생:", error);
-          })
+          });
       }
 
       // 직접 입력한 경위도를 스프링 서버로 전달하여 answer 받는 함수
       function sendInputDataToSpringServer() {
-        const inputLatlng = document.getElementById('inputLatlng');
-        const valueArr = inputLatlng.value.split('\n');
+        const inputLatlng = document.getElementById("inputLatlng");
+        const valueArr = inputLatlng.value.split("\n");
 
-        for (let i = 0;i<valueArr.length;i++){
+        for (let i = 0; i < valueArr.length; i++) {
           pos = valueArr[i].split(" ");
           clickedCoordinates.push({
-            'latitude': parseFloat(pos[0]),
-            'longitude': parseFloat(pos[1])
+            latitude: parseFloat(pos[0]),
+            longitude: parseFloat(pos[1]),
           });
         }
         const sendData = clickedCoordinates;
         sendData.forEach((data) => {
           addCustomMarker(
-            data.latitude, 
-            data.longitude, 
-            'https://cdn.pixabay.com/photo/2015/12/14/20/29/tracker-1093167_1280.png')
-        })
+            data.latitude,
+            data.longitude,
+            "https://cdn.pixabay.com/photo/2015/12/14/20/29/tracker-1093167_1280.png"
+          );
+        });
         // 스프링 서버로 보내기
         sendToSpringServer(sendData);
       }
@@ -153,14 +154,14 @@
       }
 
       // 노드 서버로 answer + 시작지점 데이터 넘겨주는 함수
-      function sendDataToNodeServer(answerWithMiddle){
-        var data = clickedCoordinates; 
+      function sendDataToNodeServer(answerWithMiddle) {
+        var data = clickedCoordinates;
         //answerWithMiddle.startPos = data;
         // node.js 서버로 전달
         bodyData = {
-          'startPos': data,
-          'answerWithMiddle': answerWithMiddle
-        }
+          startPos: data,
+          answerWithMiddle: answerWithMiddle,
+        };
         fetch("http://localhost:3000/save/startPos", {
           method: "POST",
           headers: {
@@ -168,24 +169,24 @@
           },
           body: JSON.stringify(bodyData),
         })
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('네트워크 상태가 좋지 않습니다.'); // HTTP 상태 코드에 따라 에러를 던질 수 있음
-          }
-          return response.json(); // JSON 형태로 파싱된 응답 데이터를 반환
-        })
-        .then(data => {
-          console.log("서버 응답:", data);
-          // 서버로부터 받은 데이터를 처리할 수 있는 로직 추가
-        })
-        .catch(error => {
-          console.error("요청 에러:", error);
-          // 요청 실패 또는 처리 과정에서 발생한 에러 처리
-        })
-        .finally(()=>{
-          clickedCoordinates = [];
-          clickCount = 0;
-        });
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("네트워크 상태가 좋지 않습니다."); // HTTP 상태 코드에 따라 에러를 던질 수 있음
+            }
+            return response.json(); // JSON 형태로 파싱된 응답 데이터를 반환
+          })
+          .then((data) => {
+            console.log("서버 응답:", data);
+            // 서버로부터 받은 데이터를 처리할 수 있는 로직 추가
+          })
+          .catch((error) => {
+            console.error("요청 에러:", error);
+            // 요청 실패 또는 처리 과정에서 발생한 에러 처리
+          })
+          .finally(() => {
+            clickedCoordinates = [];
+            clickCount = 0;
+          });
       }
 
       function addCustomMarker(latitude, longitude, imageUrl) {
@@ -202,8 +203,7 @@
           image: markerImage,
         });
 
-        kakao.maps.event.addListener(marker, "click", function () {
-        });
+        kakao.maps.event.addListener(marker, "click", function () {});
 
         markers.push(marker);
       }
@@ -229,7 +229,7 @@
         infoWindow.setContent(content);
         infoWindow.setPosition(new kakao.maps.LatLng(latitude, longitude));
         infoWindow.open(map);
-        //sendDataToNodeServer();    
+        //sendDataToNodeServer();
       }
 
       kakao.maps.load(function () {
@@ -246,14 +246,13 @@
 
           markers.push(marker);
 
-          var message =
-            latlng.getLat() + " " + latlng.getLng();
+          var message = latlng.getLat() + " " + latlng.getLng();
           var resultDiv = document.getElementById("clickLatlng");
           resultDiv.innerHTML += message + "<br/>";
 
           clickedCoordinates.push({
-            "latitude": latlng.getLat(),
-            "longitude": latlng.getLng(),
+            latitude: latlng.getLat(),
+            longitude: latlng.getLng(),
           });
 
           clickCount++;
