@@ -9,10 +9,14 @@ module.exports = class InsidePointsGenerator {
         return Math.random() * (maxLng - minLng + 1) + minLng;
     }
 
-    // 점 구하기
-    // polygon: 도형 좌표 배열
-    // count: 찍을 점 개수
-    generate(polygon, count){
+    /**
+     * 다각형 내부의 점을 랜덤으로 생성합니다.
+     * 1000번 시도시 Error를 발생시킨다. 
+     * @param {*} polygon : 들어갈 다각형의 좌표들 (시계 방향 정렬)
+     * @param {*} count : 출력할 내부 점의 개수
+     * @returns : 랜덤으로 뽑힌 내부 점의 좌표들
+     */
+    generate(polygon, count, tryNumber = 1000){
         let minLat = 1000;
         let maxLat = 0;
         let minLng = 1000;
@@ -38,13 +42,13 @@ module.exports = class InsidePointsGenerator {
             let randLng;
             let isInside = false;
             let test = 0
-            while(!isInside && test < 1000){
+            while(!isInside && test < tryNumber){
                 test++;
                 randLat = this.getRandomLat(minLat, maxLat);
                 randLng = this.getRandomLng(minLng, maxLng);
                 isInside = this.isInsidePolygon(randLat, randLng, polygon);
             }
-            if (test == 1000) throw Error("fail");
+            if (test == tryNumber) throw Error("fail");
             selected_dots.push({ lat: randLat, lng: randLng});
         }
         

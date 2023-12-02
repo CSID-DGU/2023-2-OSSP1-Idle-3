@@ -1,6 +1,9 @@
 const { createCanvas } = require('canvas');
 const fs = require('fs');
 
+/**
+ * 만들어진 점의 위치 관계를 테스트하기 위한 객체
+ */
 class Drawer {
     constructor(canvasWidth, canvasHeight, minLat, maxLat, minLng, maxLng) {
         this.canvasWidth = canvasWidth;
@@ -59,7 +62,7 @@ class Drawer {
             ctx.fill();
         });
 
-        const out = fs.createWriteStream(__dirname + `/insideConvex${this.id}.png`);
+        const out = fs.createWriteStream(__dirname + `/result/insideConvex${this.id}.png`);
         const stream = canvas.createPNGStream();
         stream.pipe(out);
         out.on('finish', () => console.log('The PNG file was created.'));
