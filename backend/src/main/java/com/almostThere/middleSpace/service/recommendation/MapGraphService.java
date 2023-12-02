@@ -173,6 +173,46 @@ public class MapGraphService {
 
 
     /**
+     * 출발지들 사이의 이동시간 중 cost가 가장 큰 cost 구하기
+     * @param startPoints 출발 좌표들
+     * @return 가장 큰 cost 값
+     */
+    public double getLongestStartPointIntervalTime(List<RouteTable> tables){
+          List<MapNode> startPoints = tables.stream()
+                .map(RouteTable::getStartNode)
+                .collect(Collectors.toList());
+
+        int size = startPoints.size();
+
+        double maxCost = 0.0;
+
+        for (int i = 0; i < size; i++) {
+            MapNode startNode = startPoints.get(i);
+            for (int j = 0; j < size; j++) {
+                if (i == j) continue;
+                MapNode endNode = startPoints.get(j);
+                double cost = getIntervalTimeBetweenNodes(startNode.getMap_id(), endNode.getMap_id(), tables);
+                if (maxCost < cost) {
+                    maxCost = cost;
+                }
+            }
+        }
+
+        return maxCost;
+    }
+
+    private double getIntervalTimeBetweenNodes(long startNodeIndex, long endNodeIndex, List<RouteTable> tables) {
+        int searchId = this.mapGraph.findSearchId(endNodeIndex);
+        for (RouteTable table : tables) {
+            if (table.getStartNode().getMap_id() == startNodeIndex) {
+                return table.getCost(searchId);
+            }
+        }
+        return 0.0; // 해당 경로를 찾지 못할 경우
+    }
+
+
+    /**
      * 시간 무게를 적용한 무게 중심
      * @param startPoints 출발 좌표들
      * @return
