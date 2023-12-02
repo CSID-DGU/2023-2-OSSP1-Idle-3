@@ -45,7 +45,6 @@ public class MiddleSpaceController {
         Result result = this.baseMiddleSpaceFindService.findMiddleSpaceTest(startPoints);
         return ResponseEntity.ok(this.baseMiddleSpaceFindService.getTestResult(result));
     }
-
     @PostMapping("/test")
     public ResponseEntity<TestModuleResponse> getTestResult(@RequestBody List<Position> startPoints) {
         Result candidate = this.findWithWeightCenterService.findMiddleSpaceTest(startPoints);
@@ -58,12 +57,7 @@ public class MiddleSpaceController {
     }
     @PostMapping("/testBoundary")
     public ResponseEntity<TestModuleResponse> getTestBoundary(@RequestBody List<Position> startPoints) {
-        List<AverageCost> middleSpaceWithBoundary = this.findWithBoundaryService.findMiddleSpace(startPoints);
-        Result result = Result.builder()
-                .result(middleSpaceWithBoundary)
-                .alpha(0.0)
-                .middle(null)
-                .build();
+        Result result = this.findWithBoundaryService.findMiddleSpaceTest(startPoints);
         return ResponseEntity.ok(this.findWithBoundaryService.getTestResult(result));
     }
     @PostMapping("/testCenterTimeDistance")

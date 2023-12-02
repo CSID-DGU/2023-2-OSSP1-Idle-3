@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FindWithStartPointIntervalTimeService extends BaseMiddleSpaceFindService {
+public class FindWithStartPointIntervalTimeService extends AbstractMiddleSpaceFindService {
     public FindWithStartPointIntervalTimeService(MapGraph mapGraph, Router router) {
         super(mapGraph, router);
     }
@@ -32,10 +32,10 @@ public class FindWithStartPointIntervalTimeService extends BaseMiddleSpaceFindSe
         }
         List<AverageCost> averageGap = getAverageGap(tables);
         return Result.builder()
-                .middle(null)
+                .middle(new Position(0.0 ,0.0))
                 .result(averageGap)
-                .alpha(null)
-                .cost(null)
+                .alpha(0.0)
+                .cost(0.0)
                 .build();
     }
     @Override

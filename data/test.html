@@ -25,16 +25,18 @@
     <button onclick="resetMap()">다시하기</button>
 
     <script>
-      var map;
-      var infoWindow;
-      var maxClickCount;
-      var clickedCoordinates = [];
-      var markers = [];
-      var clickCount = 0;
-
+      const protocol = "http://"
+      const host = "localhost:8080/"
+      let map;
+      let infoWindow;
+      let maxClickCount;
+      let clickedCoordinates = [];
+      let markers = [];
+      let clickCount = 0;
+    
       function initMap() {
-        var mapContainer = document.getElementById("map");
-        var mapOption = {
+        let mapContainer = document.getElementById("map");
+        let mapOption = {
           center: new kakao.maps.LatLng(37.566826, 126.9786567),
           level: 3,
         };
@@ -58,190 +60,110 @@
         $("button").removeAttr("disabled");
       }
 
+      /**
+       * @param {
+       *  uri : string,
+       *  imageUrl : string,
+       *  label : string,
+       *  data : object
+       * }
+       * @return : promise
+       **/
+      function requestMiddleSpace(param) {
+        return fetch(`${protocol}${host}${param.uri}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            "ngrok-skip-browser-warning": "69420",
+          },
+          body: JSON.stringify(param.data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log("서버 응답:", responseData);
+
+            let position = responseData.answer.position;
+
+            addCustomMarker(
+              position.latitude,
+              position.longitude,
+              responseData,
+              param.imageUrl,
+              param.label
+            );
+          })
+          .catch((error) => {
+            console.error("에러 발생:", error);
+          });
+      }
+
       function sendDataToServer() {
         if (clickCount < maxClickCount) {
           alert("최소 " + maxClickCount + "번 클릭해야 합니다.");
           return;
         }
 
-        var data = clickedCoordinates;
+        let data = clickedCoordinates;
 
         $("button").attr("disabled", true);
-
-        fetch("http://localhost:8080/middleSpace/test", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "69420",
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => response.json())
-          .then((responseData) => {
-            console.log("서버 응답:", responseData);
-
-            var position = responseData.answer.position;
-
-            addCustomMarker(
-              position.latitude,
-              position.longitude,
-              responseData,
-              "https://cdn-icons-png.flaticon.com/512/6388/6388034.png",
-              "무게중심"
-            );
-
-            // addCustomMarker(
-            //   responseData.middleSpace.latitude,
-            //   responseData.middleSpace.longitude,
-            //   responseData,
-            //   "https://cdn.pixabay.com/photo/2013/07/13/10/48/check-157822_960_720.png"
-            // );
-
-            alert("데이터가 성공적으로 전송되었습니다.");
+        
+        let requestPromises = [];
+        requestPromises.push(
+          requestMiddleSpace({
+            uri: "middleSpace/test",
+            imageUrl: "https://cdn-icons-png.flaticon.com/512/6388/6388034.png",
+            label : "무게 중심",
+            data: data,
           })
-          .catch((error) => {
-            console.error("에러 발생:", error);
+        );
+        requestPromises.push(
+          requestMiddleSpace({
+            uri: "middleSpace/testStdOnly",
+            imageUrl: "https://cdn-icons-png.flaticon.com/512/64/64665.png",
+            label : "편차만 고려",
+            data: data,
           })
-          .finally(() => {
-            $("button").removeAttr("disabled");
-
-            clickedCoordinates = [];
-            clickCount = 0;
-          });
-
-
-          fetch("http://localhost:8080/middleSpace/testStdOnly", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "69420",
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => response.json())
-          .then((responseData) => {
-            console.log("서버 응답:", responseData);
-
-            var position = responseData.answer.position;
-
-            addCustomMarker(
-              position.latitude,
-              position.longitude,
-              responseData,
-              "https://cdn-icons-png.flaticon.com/512/64/64665.png",
-              "편차만 고려"
-            );
-
-            // addCustomMarker(
-            //   responseData.middleSpace.latitude,
-            //   responseData.middleSpace.longitude,
-            //   responseData,
-            //   "https://cdn.pixabay.com/photo/2013/07/13/10/48/check-157822_960_720.png"
-            // );
-
-            alert("데이터가 성공적으로 전송되었습니다.");
+        );
+        requestPromises.push(
+          requestMiddleSpace({
+            uri: "middleSpace/testTimeCenter",
+            imageUrl: "https://cdn-icons-png.flaticon.com/512/4467/4467108.png",
+            label : "시간무게 무게중심",
+            data: data,
           })
-          .catch((error) => {
-            console.error("에러 발생:", error);
+        );
+        requestPromises.push(
+          requestMiddleSpace({
+            uri: "middleSpace/testBoundary",
+            imageUrl: "https://cdn-icons-png.flaticon.com/512/6139/6139316.png",
+            label : "가두리 양식",
+            data: data,
           })
-          .finally(() => {
-            $("button").removeAttr("disabled");
-
-            clickedCoordinates = [];
-            clickCount = 0;
-          });
-
-          fetch("http://localhost:8080/middleSpace/testTimeCenter", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "69420",
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => response.json())
-          .then((responseData) => {
-            console.log("서버 응답:", responseData);
-
-            var position = responseData.answer.position;
-
-            addCustomMarker(
-              position.latitude,
-              position.longitude,
-              responseData,
-              "https://cdn-icons-png.flaticon.com/512/4467/4467108.png",
-              "시간무게 무게중심"
-            );
-
-            // addCustomMarker(
-            //   responseData.middleSpace.latitude,
-            //   responseData.middleSpace.longitude,
-            //   responseData,
-            //   "https://cdn.pixabay.com/photo/2013/07/13/10/48/check-157822_960_720.png"
-            // );
-
-            alert("데이터가 성공적으로 전송되었습니다.");
+        );
+        requestPromises.push(
+          requestMiddleSpace({
+            uri: "middleSpace/testInterval",
+            imageUrl: "https://cdn.icon-icons.com/icons2/567/PNG/512/marker_icon-icons.com_54388.png",
+            label : "편차만 고려 + 사용자간의 거리보다는 작아야해",
+            data: data,
           })
-          .catch((error) => {
-            console.error("에러 발생:", error);
-          })
-          .finally(() => {
-            $("button").removeAttr("disabled");
-
-            clickedCoordinates = [];
-            clickCount = 0;
-          });
-
-          fetch("http://localhost:8080/middleSpace/testInterval", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "ngrok-skip-browser-warning": "69420",
-          },
-          body: JSON.stringify(data),
-        })
-          .then((response) => response.json())
-          .then((responseData) => {
-            console.log("서버 응답:", responseData);
-
-            var position = responseData.answer.position;
-
-            addCustomMarker(
-              position.latitude,
-              position.longitude,
-              responseData,
-              "https://cdn.icon-icons.com/icons2/567/PNG/512/marker_icon-icons.com_54388.png",
-              "편차만 고려 + 사용자간의 거리보다는 작아야해"
-            );
-
-            // addCustomMarker(
-            //   responseData.middleSpace.latitude,
-            //   responseData.middleSpace.longitude,
-            //   responseData,
-            //   "https://cdn.pixabay.com/photo/2013/07/13/10/48/check-157822_960_720.png"
-            // );
-
-            alert("데이터가 성공적으로 전송되었습니다.");
-          })
-          .catch((error) => {
-            console.error("에러 발생:", error);
-          })
-          .finally(() => {
-            $("button").removeAttr("disabled");
-
-            clickedCoordinates = [];
-            clickCount = 0;
-          });
+        );
+        Promise.allSettled(requestPromises).finally(() => {
+          $("button").removeAttr("disabled");
+          clickedCoordinates = [];
+          clickCount = 0;
+        });
+        
       }
 
       function addCustomMarker(latitude, longitude, responseData, imageUrl, title) {
-        var markerImage = new kakao.maps.MarkerImage(
+        let markerImage = new kakao.maps.MarkerImage(
           imageUrl,
           new kakao.maps.Size(50, 50),
           { offset: new kakao.maps.Point(25, 50) }
         );
 
-        var marker = new kakao.maps.Marker({
+        let marker = new kakao.maps.Marker({
           position: new kakao.maps.LatLng(latitude, longitude),
           map: map,
           clickable: true,
@@ -255,11 +177,11 @@
 
         markers.push(marker);
 
-        var iwContent = `<div style="padding:5px;">${title}<br></div>`;
+        let iwContent = `<div style="padding:5px;">${title}<br></div>`;
         iwPosition = new kakao.maps.LatLng(latitude, longitude); //인포윈도우 표시 위치입니다
 
         // 인포윈도우를 생성합니다
-        var infowindow = new kakao.maps.InfoWindow({
+        let infowindow = new kakao.maps.InfoWindow({
             position : iwPosition, 
             content : iwContent 
         });
@@ -269,7 +191,7 @@
       }
 
       function showInfoWindow(latitude, longitude, responseData) {
-        var content =
+        let content =
           '<div style="font-size: 12px; padding: 20px;">' +
           "위도 : " +
           latitude +
@@ -292,7 +214,7 @@
       }
 
       function resetMap() {
-        for (var i = 0; i < markers.length; i++) {
+        for (let i = 0; i < markers.length; i++) {
           markers[i].setMap(null);
         }
         markers = [];
@@ -309,18 +231,18 @@
         initMap();
 
         kakao.maps.event.addListener(map, "click", function (mouseEvent) {
-          var latlng = mouseEvent.latLng;
+          let latlng = mouseEvent.latLng;
 
-          var marker = new kakao.maps.Marker({
+          let marker = new kakao.maps.Marker({
             position: latlng,
             map: map,
           });
 
           markers.push(marker);
 
-          var message =
+          let message =
             "위도: " + latlng.getLat() + " 경도: " + latlng.getLng();
-          var resultDiv = document.getElementById("clickLatlng");
+          let resultDiv = document.getElementById("clickLatlng");
           resultDiv.innerHTML += message + "<br/>";
 
           clickedCoordinates.push({

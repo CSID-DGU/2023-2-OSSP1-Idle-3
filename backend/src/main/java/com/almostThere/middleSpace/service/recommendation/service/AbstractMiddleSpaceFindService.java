@@ -14,12 +14,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class AbstractMiddleSpaceFindService {
-    @Autowired
     protected final MapGraph mapGraph;
-    @Autowired
     protected final Router router;
     public AbstractMiddleSpaceFindService(MapGraph mapGraph, Router router) {
         this.mapGraph = mapGraph;
