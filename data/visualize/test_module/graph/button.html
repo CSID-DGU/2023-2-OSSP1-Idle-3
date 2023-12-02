@@ -5,14 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Graphs</title>
     <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  </head>
-  <body>
-    <div id="graph-container"></div>
-    <button onclick="drawGraph(1)">1번</button>
-    <button onclick="drawGraph(2)">2번</button>
-    <button onclick="drawGraph(3)">3번</button>
-    <button onclick="drawGraph(4)">4번</button>
-
+    <script type = "text/javascript" src="./total_userSDAvg.js"></script>
+    <script type = "text/javascript" src="./total_userSum.js"></script>
+    <script type = "text/javascript" src="./userSDAvg.js"></script>
+    <script type = "text/javascript" src="./userSum.js"></script>
     <script>
       async function drawGraph(buttonNumber) {
         const graphContainer = document.getElementById("graph-container");
@@ -21,28 +17,39 @@
         let script;
         switch (buttonNumber) {
           case 1:
-            script = "total_userSDAvg.js";
+            total_userSDAvg();
+            // script = "total_userSDAvg.js";
             break;
           case 2:
-            script = "total_userSum.js";
+            total_userSum();
+            // script = "total_userSum.js";
             break;
           case 3:
-            script = "userSDAvg.js";
+            userSDAvg();
+            // script = "userSDAvg.js";
             break;
           case 4:
-            script = "userSum.js";
+            userSum();
+            // script = "userSum.js";
             break;
           default:
             console.error("Invalid button number");
             return;
         }
 
-        const response = await fetch(script);
-        const scriptContent = await response.text();
-        const scriptElement = document.createElement("script");
-        scriptElement.innerHTML = scriptContent;
-        document.head.appendChild(scriptElement);
+        // const response = await fetch(script);
+        // const scriptContent = await response.text();
+        // const scriptElement = document.createElement("script");
+        // scriptElement.innerHTML = scriptContent;
+        // document.head.appendChild(scriptElement);
       }
     </script>
+  </head>
+  <body>
+    <div id="graph-container"></div>
+    <button onclick="drawGraph(1)">1번</button>
+    <button onclick="drawGraph(2)">2번</button>
+    <button onclick="drawGraph(3)">3번</button>
+    <button onclick="drawGraph(4)">4번</button>
   </body>
 </html>
