@@ -265,6 +265,11 @@ export default {
       return result;
     },
 
+    // 중간 지점 찾기 부분 확인 (중간 지점 찾는 함수 호출)
+    // 1. 출발지가 2개 이상인지 체크
+    // 2. 출발지가 2개 이상이면 출발지의 좌표를 이용하여 중간 지점을 찾음
+    // 3. 중간 지점을 찾으면 중간 지점을 출발지로 추가
+    
     findHalfway() {
       for (let i = 0; i < this.starts.length; i++) {
         if (this.starts[i] == null) {
