@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kakao Map Mouseover Event</title>
+
+    <script
+      type="text/javascript"
+      src="https://dapi.kakao.com/v2/maps/sdk.js?appkey=047edbbe6eee326e52f54082f12991e4&libraries=services"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+      #map {
+        width: 1000px;
+        height: 550px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <textarea id="inputLatlng"></textarea>
+    <button onclick="sendInputDataToSpringServer()">직접 입력 전송</button>
+    <div id="clickLatlng"></div>
+    <div id="response"></div>
+    <button onclick="sendDataToSpringServer()" disabled>전송</button>
+
+    <script>
+      var map;
+      var infoWindow;
+      var maxClickCount;
+      var clickedCoordinates = [];
+      var markers = [];
+      var clickCount = 0;
+      var avgLat = 0;
+      var avgLon = 0;
+
+      function initMap() {
+        var mapContainer = document.getElementById("map");
+        var mapOption = {
+          center: new kakao.maps.LatLng(37.566826, 126.9786567),
+          level: 3,
+        };
+
+        map = new kakao.maps.Map(mapContainer, mapOption);
+        infoWindow = new kakao.maps.InfoWindow({
+          zIndex: 1,
+          removable: true,
+        });
+
+        setMaxClickCount();
+      }
+
+      function setMaxClickCount() {
+        maxClickCount = parseInt(prompt("최대 클릭 횟수를 입력하세요.", 3), 10);
+
+        if (isNaN(maxClickCount) || maxClickCount < 1) {
+          maxClickCount = 3;
+        }
+        $("button").removeAttr("disabled");
+      }
+
+      function sendToSpringServer(data) {
+        console.log(data);
+        fetch("http://localhost:8080/middleSpace/test", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((responseData) => {
+            console.log("서버 응답:", responseData);
+            var answer = responseData.answer;
+            var position = answer.position;
+
+            // 선정 지점 찍기
+            addCustomMarker(
+              position.latitude,
+              position.longitude,
+              "https://cdn-icons-png.flaticon.com/512/6388/6388034.png"
+            );
+            showInfoWindow(position.latitude, position.longitude, responseData);
+
+            // 무게 중심 계산
+            clickedCoordinates.forEach(function (pos) {
+              avgLat += pos["latitude"];
+              avgLon += pos["longitude"];
+            });
+            avgLat /= maxClickCount;
+            avgLon /= maxClickCount;
+
+            // 무게중심 찍기
+            addCustomMarker(
+              avgLat,
+              avgLon,
+              "https://cdn.pixabay.com/photo/2013/07/13/10/48/check-157822_960_720.png"
+            );
+            showInfoWindow(avgLat, avgLon, responseData);
+            alert("데이터가 성공적으로 전송되었습니다.");
+
+            // 노드 서버로 전송
+            answerWithMiddle = {
+              answer: answer,
+              middle: {
+                middleLat: avgLat,
+                middleLon: avgLon,
+              },
+            };
+            sendDataToNodeServer(answerWithMiddle);
+          })
+          .catch((error) => {
+            console.error("에러 발생:", error);
+          });
+      }
+
+      // 직접 입력한 경위도를 스프링 서버로 전달하여 answer 받는 함수
+      function sendInputDataToSpringServer() {
+        const inputLatlng = document.getElementById("inputLatlng");
+        const valueArr = inputLatlng.value.split("\n");
+
+        for (let i = 0; i < valueArr.length; i++) {
+          pos = valueArr[i].split(" ");
+          clickedCoordinates.push({
+            latitude: parseFloat(pos[0]),
+            longitude: parseFloat(pos[1]),
+          });
+        }
+        const sendData = clickedCoordinates;
+        sendData.forEach((data) => {
+          addCustomMarker(
+            data.latitude,
+            data.longitude,
+            "https://cdn.pixabay.com/photo/2015/12/14/20/29/tracker-1093167_1280.png"
+          );
+        });
+        // 스프링 서버로 보내기
+        sendToSpringServer(sendData);
+      }
+
+      // 클릭으로 입력한 경위도를 스프링 서버로 전달하여 answer 받는 함수
+      function sendDataToSpringServer() {
+        if (clickCount < maxClickCount) {
+          alert("최소 " + maxClickCount + "번 클릭해야 합니다.");
+          return;
+        }
+
+        var data = clickedCoordinates;
+
+        $("button").attr("disabled", true);
+
+        sendToSpringServer(data);
+      }
+
+      // 노드 서버로 answer + 시작지점 데이터 넘겨주는 함수
+      function sendDataToNodeServer(answerWithMiddle) {
+        var data = clickedCoordinates;
+        //answerWithMiddle.startPos = data;
+        // node.js 서버로 전달
+        bodyData = {
+          startPos: data,
+          answerWithMiddle: answerWithMiddle,
+        };
+        fetch("http://localhost:3000/save/startPos", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bodyData),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error("네트워크 상태가 좋지 않습니다."); // HTTP 상태 코드에 따라 에러를 던질 수 있음
+            }
+            return response.json(); // JSON 형태로 파싱된 응답 데이터를 반환
+          })
+          .then((data) => {
+            console.log("서버 응답:", data);
+            // 서버로부터 받은 데이터를 처리할 수 있는 로직 추가
+          })
+          .catch((error) => {
+            console.error("요청 에러:", error);
+            // 요청 실패 또는 처리 과정에서 발생한 에러 처리
+          })
+          .finally(() => {
+            clickedCoordinates = [];
+            clickCount = 0;
+          });
+      }
+
+      function addCustomMarker(latitude, longitude, imageUrl) {
+        var markerImage = new kakao.maps.MarkerImage(
+          imageUrl,
+          new kakao.maps.Size(50, 50),
+          { offset: new kakao.maps.Point(25, 50) }
+        );
+
+        var marker = new kakao.maps.Marker({
+          position: new kakao.maps.LatLng(latitude, longitude),
+          map: map,
+          clickable: true,
+          image: markerImage,
+        });
+
+        kakao.maps.event.addListener(marker, "click", function () {});
+
+        markers.push(marker);
+      }
+
+      function showInfoWindow(latitude, longitude, responseData) {
+        var content =
+          '<div style="font-size: 12px; padding: 20px;">' +
+          "위도 : " +
+          latitude +
+          "<br>경도 : " +
+          longitude +
+          "<br>Alpha : " +
+          responseData.alpha +
+          "<br>Gap : " +
+          responseData.answer.gap +
+          "<br>Sum : " +
+          responseData.answer.sum +
+          "<br>Middle Latitude : " +
+          avgLat +
+          "<br>Middle Longitude : " +
+          avgLon;
+
+        infoWindow.setContent(content);
+        infoWindow.setPosition(new kakao.maps.LatLng(latitude, longitude));
+        infoWindow.open(map);
+        //sendDataToNodeServer();
+      }
+
+      kakao.maps.load(function () {
+        initMap();
+
+        //
+        kakao.maps.event.addListener(map, "click", function (mouseEvent) {
+          var latlng = mouseEvent.latLng;
+
+          var marker = new kakao.maps.Marker({
+            position: latlng,
+            map: map,
+          });
+
+          markers.push(marker);
+
+          var message = latlng.getLat() + " " + latlng.getLng();
+          var resultDiv = document.getElementById("clickLatlng");
+          resultDiv.innerHTML += message + "<br/>";
+
+          clickedCoordinates.push({
+            latitude: latlng.getLat(),
+            longitude: latlng.getLng(),
+          });
+
+          clickCount++;
+
+          if (clickCount > maxClickCount) {
+            addCustomMarker(latlng.getLat(), latlng.getLng());
+          }
+
+          if (clickCount === maxClickCount) {
+            $("button").removeAttr("disabled");
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
