@@ -17,7 +17,7 @@ export default class OvalConvexPointsGenerater {
         let lngRange = maxLng - minLng;
         
         let points = angles.map(angle => {
-            let latitude = parseFloat((Math.sin(angle) * latRange / 2 + (minLat + maxLat) / 2).toFixed(10));
+            let latitude =  parseFloat((Math.sin(angle) * latRange / 2 + (minLat + maxLat) / 2).toFixed(10));
             let longitude = parseFloat((Math.cos(angle) * lngRange / 2 + (minLng + maxLng) / 2).toFixed(10));    
             return { latitude, longitude };
         });
@@ -37,8 +37,8 @@ export default class OvalConvexPointsGenerater {
         let latRange = maxLat - minLat;
 
         let points = angles.map(angle => {
-            let latitude = parseFloat((Math.sin(angle) * latRange / 2 + (minLat + maxLat) / 2).toFixed(10));
-            let longitude = parseFloat((Math.cos(angle) * width / 2 + (minLng + minLng + width) / 2).toFixed(10));    
+            let latitude = (Math.sin(angle) * latRange / 2 + (minLat + maxLat) / 2)
+            let longitude = (Math.cos(angle) * width / 2 + (minLng + minLng + width) / 2)    
             return { latitude, longitude };
         });
         return points;
@@ -57,8 +57,8 @@ export default class OvalConvexPointsGenerater {
         let lngRange = maxLng - minLng;
 
         let points = angles.map(angle => {
-            let latitude = parseFloat((Math.sin(angle) * height / 2 + (minLat + minLat + height) / 2).toFixed(10));
-            let longitude = parseFloat((Math.cos(angle) * lngRange / 2 + (minLng + maxLng) / 2).toFixed(10));    
+            let latitude = (Math.sin(angle) * height / 2 + (minLat + minLat + height) / 2)
+            let longitude = (Math.cos(angle) * lngRange / 2 + (minLng + maxLng) / 2)    
             return { latitude, longitude };
         });
         return points;
@@ -76,8 +76,8 @@ export default class OvalConvexPointsGenerater {
         let angles = this.sortedAngles(numVertices);
 
         let points = angles.map(angle => {
-            let latitude = parseFloat((Math.sin(angle) * height / 2 + (minLat + minLat + height) / 2).toFixed(10));
-            let longitude = parseFloat((Math.cos(angle) * width / 2 + (minLng + minLng + width) / 2).toFixed(10));    
+            let latitude = (Math.sin(angle) * height / 2 + (minLat + minLat + height) / 2)
+            let longitude = (Math.cos(angle) * width / 2 + (minLng + minLng + width) / 2)    
             return { latitude, longitude };
         });
         return points;

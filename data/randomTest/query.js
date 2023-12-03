@@ -70,3 +70,5 @@ async function test() {
         console.log(err);
     })
 }
+
+test();

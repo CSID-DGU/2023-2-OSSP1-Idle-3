@@ -20,6 +20,7 @@ export default class ConvexInsidePointGenerator {
      * @Param (number) tryNumber : 랜덤 시도 횟수
      */
     generate(n, insideDotNumber, tryNumber = 1000) {
+
         const minLocalLat = this.getRandomBetween(this.minLat, this.maxLat)
         const maxLocalLat = this.getRandomBetween(minLocalLat, this.maxLat)
 
@@ -27,11 +28,17 @@ export default class ConvexInsidePointGenerator {
         const maxLocalLng = this.getRandomBetween(minLocalLng, this.maxLng)
 
         const polygon = this.polygonSupplier.generate(n, minLocalLat, maxLocalLat, minLocalLng, maxLocalLng);
+        for (let dot of polygon) {
+            if ((this.minLat <= dot.latitude && dot.latitude <= this.maxLat) && 
+                (this.minLng <= dot.longitude && dot.longitude <= this.maxLng))
+                continue;
+            throw Error(`서울 밖의 점 ${dot.latitude} ${dot.longitude}`);
+        }
         const inside = this.insideDotSupplier.generate(polygon, insideDotNumber, tryNumber);
         return [...polygon, ...inside];
     }
 
     getRandomBetween(min, max){
-        return Math.random() * (max - min + 1) + min;
+        return Math.random() * (max - min) + min;
     }
 };
