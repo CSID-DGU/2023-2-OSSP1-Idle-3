@@ -9,7 +9,6 @@
     /* 그래프 스타일 */
     .line {
       fill: none;
-      stroke: steelblue;
       stroke-width: 2px;
     }
     .g{
@@ -24,7 +23,8 @@
 
   <script>
     // JSON 파일에서 데이터 가져오기
-    d3.json("output.json").then(function(data) {
+    const fileName = "test_4_1_50.json"
+    d3.json(fileName).then(function(data) {
       // SVG 요소 선택
       const svg = d3.select("svg");
 
@@ -35,7 +35,7 @@
 
       // y축 스케일 설정
       const yScale = d3.scaleLinear()
-        .domain([-2, 0])
+        .domain([0, 3000])
         .range([100, 0]);
 
       // x축 생성
@@ -50,16 +50,40 @@
 
 
       // 선 생성
-      const line = d3.line()
+      const line_sum = d3.line()
         .x(d => xScale(d.index))
         .y(d => yScale(d.sum));
+
+      const line_gap = d3.line()
+        .x(d => xScale(d.index))
+        .y(d => yScale(d.gap));
+
+      // const line_alpha = d3.line()
+      // .x(d => xScale(d.index))
+      // .y(d => yScale(d.alpha));
 
       // 선 그래프 그리기
       svg.append("path")
         .datum(data)
         .attr("class", "line")
         .attr("transform", "translate(40, 0)")
-        .attr("d", line);
+        .attr("d", line_sum)
+        .attr("stroke", "green");
+
+      svg.append("path")
+        .datum(data)
+        .attr("class", "line")
+        .attr("transform", "translate(40, 0)")
+        .attr("d", line_gap)
+        .attr("stroke", "steelblue");
+
+      svg.append("path")
+        .datum(data)
+        .attr("class", "line")
+        .attr("transform", "translate(40, 0)")
+        .attr("d", line_alpha)
+        .attr("stroke", "red");
+
     }).catch(function(error) {
       // 에러 처리
       console.error("데이터를 불러오는 중 에러 발생:", error);
