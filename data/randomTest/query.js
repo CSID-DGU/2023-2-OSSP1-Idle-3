@@ -28,6 +28,7 @@ async function test() {
 
     let completed = 0;
     let result = [];
+    let result_for_data = [];
     let requestPromises = [];
     for (let i = 0 ; i < batchSizes ; i++) {
         await wait(300);
@@ -36,9 +37,15 @@ async function test() {
             let promise = sender.requestTest(type, data)
             .then( response => {
                 result.push({
+                    "index": i,
                     "inputPoints": data,
                     ...response
                 });
+                result_for_data.push({
+                    "index": i,
+                    "inputPoints": data,
+                    
+                })
                 completed++;
                 console.log(`Progress: ${completed}\r`);
             });
@@ -70,3 +77,5 @@ async function test() {
         console.log(err);
     })
 }
+
+test();
