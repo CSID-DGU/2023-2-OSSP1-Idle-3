@@ -58,13 +58,13 @@ export default class InsidePointsGenerator {
 
     // 점이 다각형 내부에 있는지 확인하는 함수
     isInsidePolygon(lat, lng, polygon) {
-        var isInside = false;
+        var isInside = true;
         var i, j = polygon.length - 1;
 
         for (i = 0; i < polygon.length; i++) {
             if ((polygon[i].lng > lng) !== (polygon[j].lng > lng) &&
                 lat < (polygon[j].lat - polygon[i].lat) * (lng - polygon[i].lng) / (polygon[j].lng - polygon[i].lng) + polygon[i].lat) {
-                isInside = !isInside;
+                isInside = false;
             }
             j = i;
         }
