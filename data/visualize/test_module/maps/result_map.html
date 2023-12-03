@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kakao Map Mouseover Event</title>
+    <script
+      type="text/javascript"
+      src="//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&libraries=services"
+    ></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <style>
+      #map {
+        width: 1000px;
+        height: 550px;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <div id="buttons"></div>
+    <div>
+      <label for="jsonFileName">JSON 파일명 입력: </label>
+      <input type="text" id="jsonFileName" />
+      <button onclick="loadJsonData()">데이터 로드</button>
+    </div>
+
+    <script>
+      var map;
+      var infoWindow;
+      var markers = [];
+
+      function initMap() {
+        var mapContainer = document.getElementById("map");
+        var mapOption = {
+          center: new kakao.maps.LatLng(37.566826, 126.9786567),
+          level: 3,
+        };
+
+        map = new kakao.maps.Map(mapContainer, mapOption);
+        infoWindow = new kakao.maps.InfoWindow({
+          zIndex: 1,
+          removable: true,
+        });
+      }
+
+      function loadJsonData(fileName) {
+        var userInput = document.getElementById("jsonFileName").value;
+        fileName = userInput.trim() || fileName;
+
+        fetch(fileName)
+          .then((response) => response.json())
+          .then((jsonData) => {
+            addButtons(jsonData.result);
+          })
+          .catch((error) => {
+            console.error("에러 발생:", error);
+          });
+      }
+
+      function addButtons(results) {
+        var buttonsContainer = document.getElementById("buttons");
+
+        buttonsContainer.innerHTML = "";
+
+        results.forEach((result) => {
+          var button = document.createElement("button");
+          button.textContent = "Index " + result.index;
+          button.addEventListener("click", function () {
+            addMarkers(result.inputPoints);
+            addCustomMarker(
+              result.answer.position.latitude,
+              result.answer.position.longitude,
+              "https://cdn-icons-png.flaticon.com/512/6388/6388034.png"
+            );
+          });
+          buttonsContainer.appendChild(button);
+        });
+      }
+
+      function addMarkers(inputPoints) {
+        markers.forEach(function (marker) {
+          marker.setMap(null);
+        });
+        markers = [];
+
+        inputPoints.forEach((point) => {
+          addMarker(point.latitude, point.longitude);
+        });
+      }
+
+      function addMarker(latitude, longitude) {
+        var marker = new kakao.maps.Marker({
+          position: new kakao.maps.LatLng(latitude, longitude),
+          map: map,
+        });
+        markers.push(marker);
+      }
+
+      function addCustomMarker(latitude, longitude, imageUrl) {
+        var markerImage = new kakao.maps.MarkerImage(
+          imageUrl,
+          new kakao.maps.Size(50, 50),
+          { offset: new kakao.maps.Point(25, 50) }
+        );
+
+        var marker = new kakao.maps.Marker({
+          position: new kakao.maps.LatLng(latitude, longitude),
+          map: map,
+          clickable: true,
+          image: markerImage,
+        });
+
+        kakao.maps.event.addListener(marker, "click", function () {
+          showInfoWindow(latitude, longitude);
+        });
+
+        markers.push(marker);
+      }
+
+      function showInfoWindow(latitude, longitude) {
+        var content =
+          '<div style="font-size: 12px; padding: 20px;">' +
+          "위도 : " +
+          latitude +
+          "<br>경도 : " +
+          longitude;
+
+        infoWindow.setContent(content);
+        infoWindow.setPosition(new kakao.maps.LatLng(latitude, longitude));
+        infoWindow.open(map);
+      }
+
+      kakao.maps.load(function () {
+        initMap();
+      });
+    </script>
+  </body>
+</html>
