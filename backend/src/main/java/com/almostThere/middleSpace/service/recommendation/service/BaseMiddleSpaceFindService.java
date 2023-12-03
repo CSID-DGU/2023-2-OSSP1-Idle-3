@@ -30,6 +30,7 @@ public class BaseMiddleSpaceFindService extends AbstractMiddleSpaceFindService {
     public Result findMiddleSpaceTest(List<Position> startPoints) {
         List<AverageCost> averageGap = findMiddleSpace(startPoints);
         return Result.builder()
+                .normalizedResult(averageGap)
                 .result(averageGap)
                 .cost(0.0)
                 .middle(new Position(0.0,0.0))

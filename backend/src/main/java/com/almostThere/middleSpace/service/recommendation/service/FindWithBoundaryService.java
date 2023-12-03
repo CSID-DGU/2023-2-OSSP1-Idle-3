@@ -38,6 +38,7 @@ public class FindWithBoundaryService extends AbstractMiddleSpaceFindWithBoundary
     public Result findMiddleSpaceTest(List<Position> startPoints) {
         List<AverageCost> averageGap = this.findMiddleSpace(startPoints);
         return Result.builder()
+                .normalizedResult(averageGap)
                 .result(averageGap)
                 .cost(0.0)
                 .middle(new Position(0.0,0.0))

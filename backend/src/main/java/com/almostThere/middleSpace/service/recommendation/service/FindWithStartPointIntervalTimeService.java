@@ -33,6 +33,7 @@ public class FindWithStartPointIntervalTimeService extends AbstractMiddleSpaceFi
         List<AverageCost> averageGap = getAverageGap(tables);
         return Result.builder()
                 .middle(new Position(0.0 ,0.0))
+                .normalizedResult(averageGap)
                 .result(averageGap)
                 .alpha(0.0)
                 .cost(0.0)
