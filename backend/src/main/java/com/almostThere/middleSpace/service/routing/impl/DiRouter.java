@@ -1,5 +1,6 @@
 package com.almostThere.middleSpace.service.routing.impl;
 
+import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.routetable.RouteInfo;
 import com.almostThere.middleSpace.graph.edge.OwnEdge;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
@@ -8,6 +9,7 @@ import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.service.routing.Router;
 import java.util.List;
 import java.util.PriorityQueue;
+import java.util.stream.Collectors;
 
 /**
  * 다익스트라 알고리즘을 이용해 최소 경로 비용 테이블을 구하는 Router
@@ -47,5 +49,12 @@ public class DiRouter implements Router {
             }
         }
         return new DiRouteTable(startNodeIndex, dist, mapGraph);
+    }
+    @Override
+    public List<RouteTable> getRouteTables(List<Position> positions) {
+        return positions.stream()
+                .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
+                .map(this::getShortestPath)
+                .collect(Collectors.toList());
     }
 }

@@ -2,8 +2,13 @@ package com.almostThere.middleSpace.web.controller;
 
 import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
-import com.almostThere.middleSpace.service.recommendation.MapGraphService;
+import com.almostThere.middleSpace.service.recommendation.service.BaseMiddleSpaceFindService;
 import com.almostThere.middleSpace.service.recommendation.Result;
+import com.almostThere.middleSpace.service.recommendation.service.FindWithBoundaryService;
+import com.almostThere.middleSpace.service.recommendation.service.FindWithStartPointIntervalTimeService;
+import com.almostThere.middleSpace.service.recommendation.service.FindWithTimeWeightCenterService;
+import com.almostThere.middleSpace.service.recommendation.service.FindWithWeightCenterService;
+import com.almostThere.middleSpace.service.recommendation.service.FindWithWeightCenterTimeDistanceService;
 import com.almostThere.middleSpace.web.dto.IndexedPointsDTO;
 import com.almostThere.middleSpace.web.dto.MiddleSpaceResponse;
 import com.almostThere.middleSpace.web.dto.TestModuleResponse;
@@ -21,45 +26,48 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:5500")
 @RequiredArgsConstructor
 public class MiddleSpaceController {
-    private final MapGraphService mapGraphService;
+    private final BaseMiddleSpaceFindService baseMiddleSpaceFindService;
+    private final FindWithBoundaryService findWithBoundaryService;
+    private final FindWithStartPointIntervalTimeService findWithStartPointIntervalTimeService;
+    private final FindWithWeightCenterService findWithWeightCenterService;
+    private final FindWithWeightCenterTimeDistanceService findWithWeightCenterTimeDistanceService;
+    private final FindWithTimeWeightCenterService findWithTimeWeightCenterService;
 
     @PostMapping("/")
     public ResponseEntity<MiddleSpaceResponse> getMiddleSpacePaths(@RequestBody IndexedPointsDTO indexedPointsDTO) {
-        return ResponseEntity.ok(this.mapGraphService.findMostFairMiddleSpaceWithPathIndexed(
+        return ResponseEntity.ok(this.baseMiddleSpaceFindService.findMostFairMiddleSpaceWithPathIndexed(
                 indexedPointsDTO.getStartPoints(),
                 indexedPointsDTO.getIndex()
         ));
     }
     @PostMapping("/testStdOnly")
     public ResponseEntity<TestModuleResponse> getTestResultStdOnly(@RequestBody List<Position> startPoints) {
-        Result candidate = this.mapGraphService.findMiddleSpaceStdOnly(startPoints);
-        return ResponseEntity.ok(this.mapGraphService.getTestResult(candidate));
+        Result result = this.baseMiddleSpaceFindService.findMiddleSpaceTest(startPoints);
+        return ResponseEntity.ok(this.baseMiddleSpaceFindService.getTestResult(result));
     }
-
     @PostMapping("/test")
     public ResponseEntity<TestModuleResponse> getTestResult(@RequestBody List<Position> startPoints) {
-        Result candidate = this.mapGraphService.findMiddleSpaceWithCenter(startPoints);
-        return ResponseEntity.ok(this.mapGraphService.getTestResult(candidate));
+        Result candidate = this.findWithWeightCenterService.findMiddleSpaceTest(startPoints);
+        return ResponseEntity.ok(this.findWithWeightCenterService.getTestResult(candidate));
     }
     @PostMapping("/testTimeCenter")
     public ResponseEntity<TestModuleResponse> getTestResultTimeCenter(@RequestBody List<Position> startPoints) {
-        Result candidate = this.mapGraphService.findMiddleSpaceWithWeightedPosition(startPoints);
-        return ResponseEntity.ok(this.mapGraphService.getTestResult(candidate));
+        Result candidate = this.findWithTimeWeightCenterService.findMiddleSpaceTest(startPoints);
+        return ResponseEntity.ok(this.findWithTimeWeightCenterService.getTestResult(candidate));
     }
     @PostMapping("/testBoundary")
     public ResponseEntity<TestModuleResponse> getTestBoundary(@RequestBody List<Position> startPoints) {
-        List<AverageCost> middleSpaceWithBoundary = this.mapGraphService.findMiddleSpaceWithBoundary(startPoints);
-        Result result = Result.builder()
-                .result(middleSpaceWithBoundary)
-                .alpha(0.0)
-                .middle(null)
-                .build();
-        return ResponseEntity.ok(this.mapGraphService.getTestResult(result));
+        Result result = this.findWithBoundaryService.findMiddleSpaceTest(startPoints);
+        return ResponseEntity.ok(this.findWithBoundaryService.getTestResult(result));
+    }
+    @PostMapping("/testCenterTimeDistance")
+    public ResponseEntity<TestModuleResponse> getTestCenterTimeDistance(@RequestBody List<Position> startPoints) {
+        Result candidate = this.findWithWeightCenterTimeDistanceService.findMiddleSpaceTest(startPoints);
+        return ResponseEntity.ok(this.findWithWeightCenterTimeDistanceService.getTestResult(candidate));
     }
     @PostMapping("/testInterval")
     public ResponseEntity<TestModuleResponse> getTestInterval(@RequestBody List<Position> startPoints) {
-        Result result = this.mapGraphService.findMiddleSpaceWithLongestStartPointIntervalTime(
-                startPoints);
-        return ResponseEntity.ok(this.mapGraphService.getTestResult(result));
+        Result result = this.findWithStartPointIntervalTimeService.findMiddleSpaceTest(startPoints);
+        return ResponseEntity.ok(this.findWithStartPointIntervalTimeService.getTestResult(result));
     }
 }
