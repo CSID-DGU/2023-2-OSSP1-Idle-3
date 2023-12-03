@@ -2,11 +2,11 @@ module.exports = class InsidePointsGenerator {
     constructor() {}
     
     getRandomLat(minLat, maxLat){
-        return Math.random() * (maxLat - minLat + 1) + minLat;
+        return Math.random() * (maxLat - minLat) + minLat;
     }
     
     getRandomLng(minLng, maxLng){
-        return Math.random() * (maxLng - minLng + 1) + minLng;
+        return Math.random() * (maxLng - minLng) + minLng;
     }
 
     /**
