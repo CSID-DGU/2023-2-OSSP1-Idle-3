@@ -1,7 +1,6 @@
-const fs = require("fs");
-const { plot } = require("nodeplotlib");
+import fs from 'fs';
+// const { plot } = require("nodeplotlib");
 
-const inputFilePath = "input.json";
 function processData(inputData) {
   const resultData = {};
   const maxData = { y: -Infinity, data: null };
@@ -16,21 +15,21 @@ function processData(inputData) {
       resultData[userTotalCnt] = { sum: 0, count: 0 };
     }
 
-    resultData[userTotalCnt].sum += serverResponse.SDAvg;
+    resultData[userTotalCnt].sum += serverResponse.sum;
     resultData[userTotalCnt].count += 1;
 
-    const userSDAvg = serverResponse.SDAvg;
-    if (userSDAvg > maxData.y) {
-      maxData.y = userSDAvg;
+    const userSum = serverResponse.sum;
+    if (userSum > maxData.y) {
+      maxData.y = userSum;
       maxData.data = entry;
     }
 
-    if (userSDAvg < minData.y) {
-      minData.y = userSDAvg;
+    if (userSum < minData.y) {
+      minData.y = userSum;
       minData.data = entry;
     }
 
-    avgData.y += userSDAvg;
+    avgData.y += userSum;
     avgData.count += 1;
   }
 
@@ -50,51 +49,50 @@ function processData(inputData) {
   return { resultData, maxData, minData, avgData };
 }
 
-function generateGraph(data) {
-  const xValues = Object.keys(data.resultData);
-  const yValues = xValues.map(
-    (userTotalCnt) =>
-      data.resultData[userTotalCnt].sum / data.resultData[userTotalCnt].count
-  );
+// function generateGraph(data) {
+//   const xValues = Object.keys(data.resultData);
+//   const yValues = xValues.map(
+//     (userTotalCnt) =>
+//       data.resultData[userTotalCnt].sum / data.resultData[userTotalCnt].count
+//   );
 
-  const plotData = [
-    {
-      x: xValues,
-      y: yValues,
-      type: "line",
-      name: "Average userSDAvg",
-    },
-  ];
+//   const plotData = [
+//     {
+//       x: xValues,
+//       y: yValues,
+//       type: "line",
+//       name: "Average userSum",
+//     },
+//   ];
 
-  plot(plotData, {
-    xaxis: { title: "userTotalCnt" },
-    yaxis: { title: "Average userSDAvg" },
-    title: "Average userSDAvg vs userTotalCnt",
-  });
-}
+//   plot(plotData, {
+//     xaxis: { title: "userTotalCnt" },
+//     yaxis: { title: "Average userSum" },
+//     title: "Average userSum vs userTotalCnt",
+//   });
+// }
 
-function total_userSDAvg() {
+
+export default function total_userSum(inputFilePath) {
   const inputData = JSON.parse(fs.readFileSync(inputFilePath, "utf-8"));
   const processedData = processData(inputData);
 
   fs.writeFileSync(
-    "total_userSDAvg.json",
+    "total_userSum.json",
     JSON.stringify(processedData.resultData, null, 2)
   );
   fs.writeFileSync(
-    "result_max_total_userSDAvg.json",
+    "result_max_total_userSum.json",
     JSON.stringify(processedData.maxData.data, null, 2)
   );
   fs.writeFileSync(
-    "result_min_total_userSDAvg.json",
+    "result_min_total_userSum.json",
     JSON.stringify(processedData.minData.data, null, 2)
   );
   fs.writeFileSync(
-    "result_avg_total_userSDAvg.json",
+    "result_avg_total_userSum.json",
     JSON.stringify(processedData.avgData.data, null, 2)
   );
 
-  generateGraph(processedData);
+  // generateGraph(processedData);
 }
-
-module.exports = total_userSDAvg;

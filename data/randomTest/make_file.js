@@ -66,4 +66,3 @@ fs.writeFile("input.json", jsonData, "utf8", (err) => {
     console.log("Data has been written to input.json");
   }
 });
-
