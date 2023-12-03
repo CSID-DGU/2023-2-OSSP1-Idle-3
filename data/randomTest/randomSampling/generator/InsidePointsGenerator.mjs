@@ -2,11 +2,12 @@ export default class InsidePointsGenerator {
     constructor() {}
     
     getRandomLat(minLat, maxLat){
-        return Math.random() * (maxLat - minLat + 1) + minLat;
+        // console.log(maxLat - minLat);
+        return Math.random() * (maxLat - minLat) + minLat;
     }
     
     getRandomLng(minLng, maxLng){
-        return Math.random() * (maxLng - minLng + 1) + minLng;
+        return Math.random() * (maxLng - minLng) + minLng;
     }
 
     /**
@@ -20,18 +21,18 @@ export default class InsidePointsGenerator {
         let minLat = 1000;
         let maxLat = 0;
         let minLng = 1000;
-        let maxLng = 0 ;
+        let maxLng = 0;
         // lat, lng의 최소 최대값 찾기
         for(let i=0; i<polygon.length;i++){
-            if(minLat > polygon[i].lat){
-                minLat = polygon[i].lat;
-            } else if(maxLat < polygon[i].lat) {
-                maxLat = polygon[i].lat;
+            if(minLat > polygon[i].latitude){
+                minLat = polygon[i].latitude;
+            } else if(maxLat < polygon[i].latitude) {
+                maxLat = polygon[i].latitude;
             }
-            if(minLng > polygon[i].lng){
-                minLng = polygon[i].lng;
-            } else if(maxLng < polygon[i].lng) {
-                maxLng = polygon[i].lng;
+            if(minLng > polygon[i].longitude){
+                minLng = polygon[i].longitude;
+            } else if(maxLng < polygon[i].longitude) {
+                maxLng = polygon[i].longitude;
             }
         }
     
@@ -46,6 +47,7 @@ export default class InsidePointsGenerator {
                 test++;
                 randLat = this.getRandomLat(minLat, maxLat);
                 randLng = this.getRandomLng(minLng, maxLng);
+                // console.log(randLat, randLng);
                 isInside = this.isInsidePolygon(randLat, randLng, polygon);
             }
             if (test == tryNumber) throw Error("fail");
@@ -56,18 +58,29 @@ export default class InsidePointsGenerator {
     }
 
 
+    ccw(a, b, p) {
+        let lat = p[0], lng = p[1];
+        let k = a.latitude*b.longitude + b.latitude*lng + lat*a.longitude
+        - b.latitude*a.longitude - lat*b.longitude - a.latitude*lng;
+        if(k>0) return 1;
+        if(k<0) return -1;
+        return 0;
+    }
+
     // 점이 다각형 내부에 있는지 확인하는 함수
     isInsidePolygon(lat, lng, polygon) {
-        var isInside = true;
-        var i, j = polygon.length - 1;
+        let one = false, mone = false;
+        let point = [lat, lng];
+        for (let i=0;i<polygon.length;i++){
 
-        for (i = 0; i < polygon.length; i++) {
-            if ((polygon[i].lng > lng) !== (polygon[j].lng > lng) &&
-                lat < (polygon[j].lat - polygon[i].lat) * (lng - polygon[i].lng) / (polygon[j].lng - polygon[i].lng) + polygon[i].lat) {
-                isInside = false;
+            let k = this.ccw(polygon[i], polygon[(i+1)%polygon.length], point);
+            if(k==1){
+                one = true;
             }
-            j = i;
+            if(k==-1){
+                mone = true;
+            }
         }
-        return isInside;
+        return !(one && mone);
     }
 }

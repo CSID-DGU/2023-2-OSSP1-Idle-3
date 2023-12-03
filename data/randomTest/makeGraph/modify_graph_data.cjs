@@ -18,13 +18,18 @@ fs.readFile(`C:/Users/cjm95/Desktop/2023-2-OSSP1-Idle-3/data/randomTest/testResu
     let graphData = [];
 
     resultData.forEach((element, index) => {
-      data = {index: index, sum: element.answer.sum}
+      data = {
+        index: index, 
+        sum: element.answer.sum, 
+        gap: element.answer.gap,
+        alpha: element.alpha
+      }
       graphData.push(data);
     });
     console.log(graphData)
 
     // 새로운 JSON 파일로 작성
-    fs.writeFile('output.json', JSON.stringify(graphData, null, 2), 'utf8', (err) => {
+    fs.writeFile(`${fileName}`, JSON.stringify(graphData, null, 2), 'utf8', (err) => {
       if (err) {
         console.error('파일을 쓰는 중 에러 발생:', err);
         return;
