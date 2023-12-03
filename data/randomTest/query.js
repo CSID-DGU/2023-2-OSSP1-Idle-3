@@ -57,16 +57,16 @@ async function test() {
         //     if (minGap > item.min)
         // }
 
-        fs.writeFileSync(`./testResult/${type}_${n}_${insideDots}_${batchSizes}.json`, JSON.stringify({
-            'algorithm': type,
-            'polygon': n,
-            'insideDots': insideDots,
-            'result' : [...result]
+
+
+    fs.writeFileSync(`./testResult/${type}_${n}_${insideDots}_${batchSizes}.json`, JSON.stringify({
+        'algorithm': type,
+        'polygon': n,
+        'insideDots': insideDots,
+        'result' : [...result]
         }));
     })
     .catch(err => {
         console.log(err);
-    });
+    })
 }
-
-test();

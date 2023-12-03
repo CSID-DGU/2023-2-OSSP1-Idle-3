@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>D3.js Line Chart from JSON Data</title>
+  <!-- D3.js 라이브러리 추가 -->
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <style>
+    /* 그래프 스타일 */
+    .line {
+      fill: none;
+      stroke: steelblue;
+      stroke-width: 2px;
+    }
+    .g{
+      padding: 30px;
+    }
+  </style>
+</head>
+<body>
+  <h1>JSON 데이터를 이용한 선 그래프</h1>
+  <!-- SVG 요소를 담을 공간 -->
+  <svg width="510" height="300"></svg>
+
+  <script>
+    // JSON 파일에서 데이터 가져오기
+    d3.json("output.json").then(function(data) {
+      // SVG 요소 선택
+      const svg = d3.select("svg");
+
+      // x축 스케일 설정
+      const xScale = d3.scaleLinear()
+        .domain([0, data.length - 1])
+        .range([0, 500]);
+
+      // y축 스케일 설정
+      const yScale = d3.scaleLinear()
+        .domain([-2, 0])
+        .range([100, 0]);
+
+      // x축 생성
+      svg.append("g")
+        .attr("transform", "translate(40, 100)")
+        .call(d3.axisBottom(xScale));
+
+      // y축 생성
+      svg.append("g")
+        .attr("transform", "translate(40, 0)")
+        .call(d3.axisLeft(yScale));
+
+
+      // 선 생성
+      const line = d3.line()
+        .x(d => xScale(d.index))
+        .y(d => yScale(d.sum));
+
+      // 선 그래프 그리기
+      svg.append("path")
+        .datum(data)
+        .attr("class", "line")
+        .attr("transform", "translate(40, 0)")
+        .attr("d", line);
+    }).catch(function(error) {
+      // 에러 처리
+      console.error("데이터를 불러오는 중 에러 발생:", error);
+    });
+  </script>
+</body>
+</html>
