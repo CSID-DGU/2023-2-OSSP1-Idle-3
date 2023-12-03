@@ -14,7 +14,7 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 @Service
-public class FindWithBoundaryService extends BaseMiddleSpaceFindService {
+public class FindWithBoundaryService extends AbstractMiddleSpaceFindWithBoundaryService {
     public FindWithBoundaryService(MapGraph mapGraph, Router router) {
         super(mapGraph, router);
     }

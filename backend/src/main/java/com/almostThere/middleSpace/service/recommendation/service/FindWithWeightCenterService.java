@@ -54,19 +54,18 @@ public class FindWithWeightCenterService extends AbstractMiddleSpaceFindWithCost
         // 편차를 고려할 가중치
         double alpha = minLength / (maxLength + minLength);
         // 정규화
-        normalize(results);
+        List<AverageCost> normalizedResults = normalize(results);
         // cost 기준 정렬하기
-        double minScore = results.stream()
-                .mapToDouble(result -> cost(result.getSum(), result.getCost(), alpha))
-                .min()
-                .orElseThrow(NoSuchElementException::new);
+        Double minCost = minimumCost(normalizedResults, alpha);
         List<AverageCost> sortedCostList = results.stream()
                 .sorted(Comparator.comparingDouble(result -> cost(result.getSum(), result.getCost(), alpha)))
                 .collect(Collectors.toList());
-        return Result.builder().result(sortedCostList)
+        return Result.builder()
+                .result(results)
+                .normalizedResult(sortedCostList)
                 .middle(centerOfPosition)
                 .alpha(alpha)
-                .cost(minScore)
+                .cost(minCost)
                 .build();
     }
 

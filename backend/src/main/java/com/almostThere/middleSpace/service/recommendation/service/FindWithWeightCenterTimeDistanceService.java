@@ -35,9 +35,9 @@ public class FindWithWeightCenterTimeDistanceService extends AbstractMiddleSpace
                 .orElseThrow(NoSuchElementException::new);
         double alpha = minTimes / (maxTimes + minTimes);
         // 정규화하기
-        normalize(results);
+        List<AverageCost> normalizedResults = normalize(results);
         // 최소 코스트 자체 구하기
-        double minCost = results.stream()
+        double minCost = normalizedResults.stream()
                 .mapToDouble(result -> cost(result.getSum(), result.getCost(), alpha))
                 .min()
                 .orElseThrow(NoSuchElementException::new);
@@ -45,7 +45,9 @@ public class FindWithWeightCenterTimeDistanceService extends AbstractMiddleSpace
         List<AverageCost> sortedCostList = results.stream()
                 .sorted(Comparator.comparingDouble(result -> cost(result.getSum(), result.getCost(), alpha)))
                 .collect(Collectors.toList());
-        return Result.builder().result(sortedCostList)
+        return Result.builder()
+                .result(results)
+                .normalizedResult(sortedCostList)
                 .middle(center)
                 .alpha(alpha)
                 .cost(minCost)

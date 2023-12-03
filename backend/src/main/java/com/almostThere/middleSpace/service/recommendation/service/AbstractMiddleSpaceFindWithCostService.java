@@ -5,6 +5,7 @@ import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.util.NormUtil;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public abstract class AbstractMiddleSpaceFindWithCostService extends AbstractMiddleSpaceFindService{
@@ -16,7 +17,7 @@ public abstract class AbstractMiddleSpaceFindWithCostService extends AbstractMid
      * 편차와 이동거리 합 모두 정규화
      * @param results
      */
-    protected static void normalize(List<AverageCost> results) {
+    protected List<AverageCost> normalize(List<AverageCost> results) {
         // 정규화
         List<Double> sumList = results.stream().mapToDouble(AverageCost::getSum).boxed().collect(Collectors.toList());
         List<Double> gapList = results.stream().mapToDouble(AverageCost::getCost).boxed().collect(Collectors.toList());
@@ -24,13 +25,24 @@ public abstract class AbstractMiddleSpaceFindWithCostService extends AbstractMid
         double sumStd = NormUtil.calculateStandardDeviation(sumList, sumMean);
         double gapMean = NormUtil.calculateMean(gapList);
         double gapStd = NormUtil.calculateStandardDeviation(gapList, gapMean);
-        results.stream().forEach(result-> {
+        return results.stream().map(result-> {
             Double gap = result.getCost(), sum = result.getSum();
-            result.setCost((gap - gapMean) / gapStd);
-            result.setSum((sum - sumMean) / sumStd);
-        });
+            return new AverageCost(result.getNode(), (gap - gapMean) / gapStd, (sum - sumMean) / sumStd);
+        }).collect(Collectors.toList());
     }
 
+    /**
+     * 최소 비용 구하는 함수
+     * @param costs
+     * @param alpha
+     * @return
+     */
+    protected Double minimumCost(List<AverageCost> costs, Double alpha) {
+        return costs.stream()
+                .mapToDouble(item -> cost(item.getSum(), item.getCost(), alpha))
+                .min()
+                .orElseThrow(NoSuchElementException::new);
+    }
     /**
      *
      * @param sum 그 지점까지 가는데 걸리는 시간의 평균

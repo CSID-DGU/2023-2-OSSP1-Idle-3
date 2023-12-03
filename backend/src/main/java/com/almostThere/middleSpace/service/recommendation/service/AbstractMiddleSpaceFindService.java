@@ -13,6 +13,7 @@ import com.almostThere.middleSpace.web.dto.TestModuleResponse;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public abstract class AbstractMiddleSpaceFindService {
@@ -81,16 +82,21 @@ public abstract class AbstractMiddleSpaceFindService {
      */
     public TestModuleResponse getTestResult(Result result) {
         // 정답 선택
-        List<AverageCost> candidates = result.getResult();
+        List<AverageCost> candidates = result.getNormalizedResult();
 
         AverageCost answer = candidates.get(0);
         MapNode answerNode = answer.getNode();
 
+        AverageCost original = result.getResult().stream()
+                .filter(item -> item.getNode().getMap_id() == answerNode.getMap_id())
+                .findAny()
+                .orElseThrow(NoSuchElementException::new);
+
         // 반환형 만드는 부분
         AnswerPoint answerPoint = AnswerPoint.builder()
                 .position(new Position(answerNode.getLatitude(), answerNode.getLongitude()))
-                .gap(answer.getCost())
-                .sum(answer.getSum())
+                .gap(original.getCost())
+                .sum(original.getSum())
                 .build();
 
         List<MissingPoint> missingPoints = candidates.stream().filter(candidate ->

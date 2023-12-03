@@ -13,6 +13,7 @@ import lombok.Setter;
 @Builder
 public class Result {
     private List<AverageCost> result;
+    private List<AverageCost> normalizedResult;
     private Position middle;
     private Double alpha;
     private Double cost;

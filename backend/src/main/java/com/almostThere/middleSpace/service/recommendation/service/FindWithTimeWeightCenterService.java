@@ -43,17 +43,15 @@ public class FindWithTimeWeightCenterService extends AbstractMiddleSpaceFindWith
         double alpha = minTime / (maxTime + minTime);
         System.out.println(alpha);
         // 정규화
-        normalize(results);
+        List<AverageCost> normalizedResult = normalize(results);
         // cost 기준 정렬하기
-        double minScore = results.stream()
-                .mapToDouble(result -> cost(result.getSum(), result.getCost(), alpha))
-                .min()
-                .orElseThrow(NoSuchElementException::new);
-        List<AverageCost> costList = results.stream()
+        double minScore = minimumCost(normalizedResult, alpha);
+        List<AverageCost> costList = normalizedResult.stream()
                 .sorted(Comparator.comparingDouble(result -> cost(result.getSum(), result.getCost(), alpha)))
                 .collect(Collectors.toList());
-
-        return Result.builder().result(costList)
+        return Result.builder()
+                .result(results)
+                .normalizedResult(costList)
                 .middle(center)
                 .alpha(alpha)
                 .cost(minScore)
