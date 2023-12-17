@@ -1,5 +1,6 @@
 import {APISender, HTTPResponseError} from "../APISender.mjs"
 import ConvexInsidePointGenerator from "../randomSampling/generator/ConvexInsidePointGenerator.mjs";
+import wait from "waait";
 // import Drawer from "../randomSampling/Drawer";
 // const Drawer = require("../randomSampling/Drawer");
 
@@ -24,22 +25,47 @@ export default class FinalTester {
 
         this.supplier = new ConvexInsidePointGenerator(minLat, maxLat, minLng, maxLng);
         this.sender = new APISender(protocol, hostname, port);
-        this.drawer = new Drawer(500, 500, minLat, maxLat, minLng, maxLng);
+        // this.drawer = new Drawer(500, 500, minLat, maxLat, minLng, maxLng);
     }
 
-    async testRegularPolygon(n, inside) {
-        const result = this.supplier.generateRegularPolygon(n, inside, this.deltaLatitude, this.deltaLongitude);
-    }
+    async testRegularPolygon(n, inside, uri, testCase) {
+        let promises = [];
+        let result = [];
+        let completed = 0;
 
-    async testFarwayPolygon(n) {
-        const result = this.supplier.generateOneFromAnother(n, this.deltaLatitude, this.deltaLongitude,
-            this.deltaLatitude  * 10, this.deltaLongitude * 10,
-            this.deltaLatitude * 5, this.deltaLongitude * 5
-        );
+        for (let i = 0 ; i < testCase ; i++) {
+            try {
+                await wait(300);
+                const dots = this.supplier.generateRegularPolygon(n, inside, this.deltaLatitude, this.deltaLongitude);
+                let promise = this.sender.requestTest(uri, dots)
+                .then( response => {
+                    result.push({
+                        "index" : i,
+                        "start": dots,
+                        ...response
+                    });
+                    completed++;
+                    console.log(`Progress: ${completed}\n`);
+                });
+                promises.push(promise);
+            }catch (err) {
+                i--;
+                console.log(err);
+            }
+        }
+        await Promise.all(promises);
         return result;
     }
 
-    async testFlatHorizonalPolygon(n, inside) {
-        const result = this.supplier.generate(n, 0);
+    testFarwayPolygon(n) {
+        const result = this.supplier.generateOneFromAnother(n, this.deltaLatitude, this.deltaLongitude,
+            this.deltaLatitude  * 7, this.deltaLongitude * 7,
+            this.deltaLatitude * 3, this.deltaLongitude * 3
+        );
+        return result;
+    }
+    testIsoscelesTriangleAngles() {
+        const result = this.supplier.generateIsoscelesTriangle();
+        return result;
     }
 }

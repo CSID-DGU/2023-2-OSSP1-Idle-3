@@ -1,7 +1,7 @@
-const createCanvas  = require('canvas');
-const fs = require('fs');
-// import {createCanvas} from 'canvas'
-// import fs from 'fs';
+// const createCanvas  = require('canvas');
+// const fs = require('fs');
+import {createCanvas} from 'canvas'
+import fs from 'fs';
 
 /**
  * 만들어진 점의 위치 관계를 테스트하기 위한 객체
