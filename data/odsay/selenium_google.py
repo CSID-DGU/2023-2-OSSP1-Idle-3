@@ -8,8 +8,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 
 # --크롬창을 숨기고 실행-- driver에 options를 추가해주면된다
-# options = webdriver.ChromeOptions()
-# options.add_argument('headless')
+options = webdriver.ChromeOptions()
+options.add_argument('headless')
 with open('regularPolygon.json', 'r') as file:
   algorResult = json.load(file)
 
@@ -24,7 +24,7 @@ driver = webdriver.Chrome(options=chrome_options)  # 드라이버 경로
 testCase = len(algorResult)
 
 for T in range(testCase):
-  sum = 0
+  cost_sum = 0
   cost_list = []
   caseT = algorResult[T]
   start = []
@@ -33,9 +33,10 @@ for T in range(testCase):
       str(caseT["start"][i]["latitude"]) + ', ' + str(caseT["start"][i]["longitude"])
     )
   for i in range(len(algorithms)): 
+    end = str(caseT[algorithms[i]]["end"]["latitude"]) + ', ' + str(caseT[algorithms[i]]["end"]["longitude"])
+    print('end' + end)
     for st in start:
-      end = str(caseT[algorithms[i]]["end"]["latitude"]) + ', ' + str(caseT[algorithms[i]]["end"]["longitude"])
-      print(end)
+      print('start' + st) 
       driver.implicitly_wait(5) # 페이지 로딩 완료될 때가지 3초 wait
       # driver = webdriver.Chrome('./chromedriver',chrome_options=options) # 크롬창 숨기기
       driver.get(url)
@@ -68,21 +69,24 @@ for T in range(testCase):
       cost = driver.find_element(By.XPATH,'//*[@id="section-directions-trip-0"]/div[1]/div/div[1]/div').text
       if len(cost) > 3:
         # 문자열에서 시간과 분을 추출하여 숫자로 변환
-        hours, minutes = map(int, cost.split('시간')[0].split())
+        split_time = cost.split()
+        hours = int(split_time[0][:-2]) if '시간' in split_time[0] else 0
+        minutes = int(split_time[1][:-1]) if '분' in split_time[1] else 0
+
         # 시간을 분으로 변환하고 분과 합산하여 총 분으로 계산
-        cost = hours * 60 + minutes[:-1]
+        cost = hours * 60 + minutes
+      else:
+        cost = int(cost[:-1])
+      cost_sum += int(cost)
 
-      sum += int(cost[:-1])
+      cost_list.append(cost)
 
-      cost_list.append(cost[:-1])
-
-      # driver.close()
-      print(cost[:-1])
-    mean = sum/len(start)
+    mean = cost_sum/len(start)
+    # print(cost_list)
     for i in range(len(cost_list)):
       cost_list[i] -= mean
       cost_list[i] = abs(cost_list[i])
     gap = sum(cost_list)
-    print(gap)
-    print(sum)
-    print(result)
+    # print('gap: ' + str(gap))
+    # print('sum: ' + str(cost_sum))
+    # print(result)
