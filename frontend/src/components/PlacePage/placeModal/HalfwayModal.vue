@@ -88,6 +88,8 @@
             <v-row>
               <v-col class="search_halfway">
                 <v-btn
+                  font-size="9px"
+                  font-weight="bold"
                   elevation="0"
                   color="var(--main-col-1)"
                   dark
@@ -96,6 +98,60 @@
                   @click="findHalfway"
                 >
                   중간 위치 찾기
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+          <v-card-text style="overflow: visible">
+            <v-row>
+              <v-col class="search_halfway">
+                <v-btn
+                  class = "small-text"
+                  elevation="0"
+                  color="var(--main-col-1)"
+                  dark
+                  rounded
+                  block
+                  @click="findCenterWay"
+                >
+                  공평하고 총 이동시간이 적은 지역에서 만나고 싶어요.
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+          <v-card-text style="overflow: visible">
+            <v-row>
+              <v-col class="search_halfway">
+                <v-btn
+                  class = "small-text"
+                  elevation="0"
+                  color="var(--main-col-1)"
+                  dark
+                  rounded
+                  block
+                  @click="findIntervalWay"
+                >
+                  공평한 중간 지역에서 만나고 싶어요.
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+          <v-card-text style="overflow: visible">
+            <v-row>
+              <v-col class="search_halfway">
+                <v-btn
+                  class = "small-text"
+                  elevation="0"
+                  color="var(--main-col-1)"
+                  dark
+                  rounded
+                  block
+                  @click="findTotalTimeWay"
+                >
+                  총 이동시간이 가장 적은 지역에서 만나고 싶어요.
                 </v-btn>
               </v-col>
             </v-row>
@@ -148,6 +204,7 @@
 import CloseButton from "@/common/component/button/CloseButton.vue";
 import { mapActions, mapState } from "vuex";
 import NoImageDefault from "@/common/component/dialog/NoImageDefault.vue";
+import { getCenterWay, getIntervalWay, getTotalTimeWay } from "@/api/modules/meeting.js";
 // import  from "../SearchPlace/SearchPlacePage2.vue";
 
 export default {
@@ -265,6 +322,113 @@ export default {
       return result;
     },
 
+    // 중간 지점 찾기 부분 확인 (중간 지점 찾는 함수 호출)
+    // 1. 출발지가 2개 이상인지 체크
+    // 2. 출발지가 2개 이상이면 출발지의 좌표를 이용하여 중간 지점을 찾음
+    // 3. halfwayStore에 중간 지점을 추가
+
+    // 여기다가 새로운 중간지점 로직을 추가하면 됨.
+
+    // halfwayStore 라는 State 관리 라이브러리에서 관리함.
+    // 여기에는 startPlaces와 middlePlace가 있음.
+
+  
+    // 가중치를 이용한 알고리즘 호출해서 중간지점을 찾는 함수
+    async findCenterWay(){
+      for (let i = 0; i < this.starts.length; i++) {
+        if (this.starts[i] == null) {
+          this.errorTitle = "<span>출발지를</span><span>입력하세요!</span>";
+          this.$refs.error.openDialog();
+          // this.dialogError = true;
+          // this.errorMsg = "출발지를 입력하세요!";
+          return;
+        }
+      }
+      this.size = this.startPlaces.length;
+
+      const reqStartPlaces = this.startPlaces.map((place) => {
+        return {
+          longitude : place.get("x"),
+          latitude : place.get("y"),
+        };
+      });
+
+      await getCenterWay(reqStartPlaces).then((res) => {
+      if (res) {
+        let middle = res;
+
+        this.addMiddlePlace({middleAvergeX : middle.longitude,  middleAvergeY : middle.latitude });
+      }
+      this.dialog = false;
+    });
+
+    },
+
+    // 표준편차를 이용한 알고리즘 호출해서 중간지점을 찾는 함수
+    async findIntervalWay(){
+      for (let i = 0; i < this.starts.length; i++) {
+        if (this.starts[i] == null) {
+          this.errorTitle = "<span>출발지를</span><span>입력하세요!</span>";
+          this.$refs.error.openDialog();
+          // this.dialogError = true;
+          // this.errorMsg = "출발지를 입력하세요!";
+          return;
+        }
+      }
+      this.size = this.startPlaces.length;
+
+      const reqStartPlaces = this.startPlaces.map((place) => {
+        return {
+          longitude : place.get("x"),
+          latitude : place.get("y"),
+        };
+      });
+
+      await getIntervalWay(reqStartPlaces).then((res) => {
+        console.log(res);
+        if (res) {
+          let middle = res;
+          
+          this.addMiddlePlace({middleAvergeX : middle.longitude,  middleAvergeY : middle.latitude });
+        }
+        this.dialog = false;
+      });
+
+    },
+
+    // 총 이동시간을 고려한 알고리즘 호출해서 중간지점을 찾는 함수
+    async findTotalTimeWay(){
+      for (let i = 0; i < this.starts.length; i++) {
+        if (this.starts[i] == null) {
+          this.errorTitle = "<span>출발지를</span><span>입력하세요!</span>";
+          this.$refs.error.openDialog();
+          // this.dialogError = true;
+          // this.errorMsg = "출발지를 입력하세요!";
+          return;
+        }
+      }
+      this.size = this.startPlaces.length;
+
+      const reqStartPlaces = this.startPlaces.map((place) => {
+        return {
+          longitude : place.get("x"),
+          latitude : place.get("y"),
+        };
+      });
+
+
+      await getTotalTimeWay(reqStartPlaces).then((res) => {
+      if (res) {
+        let middle = res;
+
+        this.addMiddlePlace({middleAvergeX : middle.longitude,  middleAvergeY : middle.latitude });
+      }
+      this.dialog = false;
+    });
+
+    },
+
+    
     findHalfway() {
       for (let i = 0; i < this.starts.length; i++) {
         if (this.starts[i] == null) {
@@ -307,6 +471,8 @@ export default {
       this.addMiddlePlace({ middleAvergeX, middleAvergeY });
       this.dialog = false;
     },
+
+
   },
 };
 </script>
@@ -362,6 +528,11 @@ span {
 .input {
   position: relative;
   z-index: 2;
+}
+
+.small-text{
+  font-size: 9px;
+  font-weight: bold;
 }
 
 .error {
