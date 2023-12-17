@@ -229,7 +229,7 @@ async function getCenterWay(startPlaceInfo){
 
   let data = JSON.stringify(startPlaceInfo);
 
-  await axios.post('https://4018-1-210-139-91.ngrok-free.app/middleSpace/testCenterTimeDistance', data, {
+  await axios.post('${process.env.VUE_APP_API_BASE_URL}/middleSpace/testCenterTimeDistance', data, {
     headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer '
@@ -253,7 +253,7 @@ async function getIntervalWay(startPlaceInfo){
 
   let data = JSON.stringify(startPlaceInfo);
 
-  await axios.post('https://4018-1-210-139-91.ngrok-free.app/middleSpace/testInterval', data, {
+  await axios.post('${process.env.VUE_APP_API_BASE_URL}/middleSpace/testInterval', data, {
     headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer '
