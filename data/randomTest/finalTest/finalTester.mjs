@@ -50,7 +50,10 @@ export default class FinalTester {
                     });
                     completed++;
                     console.log(`Progress: ${completed}\n`);
-                });
+                }).catch(err=> {
+                    console.log(err);
+                    i--;
+                })
                 promises.push(promise);
             }catch (err) {
                 i--;
@@ -62,10 +65,10 @@ export default class FinalTester {
         return result;
     }
 
-    testFarwayPolygon(n) {
+    testFarwayPolygon(n, avgCloseDistance) {
         const result = this.supplier.generateOneFromAnother(n, this.deltaLatitude, this.deltaLongitude,
-            this.deltaLatitude  * 7, this.deltaLongitude * 7,
-            this.deltaLatitude * 3, this.deltaLongitude * 3
+            this.deltaLatitude  * 5, this.deltaLongitude * 5,
+            this.deltaLatitude * 1, this.deltaLongitude * 1
         );
         return result;
     }
