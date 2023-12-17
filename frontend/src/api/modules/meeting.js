@@ -1,4 +1,5 @@
 import { apiInstance } from "../index";
+import axios from "axios";
 
 const api = apiInstance();
 
@@ -226,10 +227,17 @@ async function saveMemberStartPlace(startPlaceInfo) {
 async function getCenterWay(startPlaceInfo){
   var result = null;
 
-  await api.post('/middleSpace/testCenterTimeDistance',JSON.stringify(startPlaceInfo))
+  let data = JSON.stringify(startPlaceInfo);
+
+  await axios.post('https://4018-1-210-139-91.ngrok-free.app/middleSpace/testCenterTimeDistance', data, {
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '
+    }
+  })
   .then((res) => {
     // console.log("#[meeting]# api - response 확인: ", res);
-    result = res;
+    result = res.data.answer.position;
   })
   .catch((error) => {
     error
@@ -243,14 +251,21 @@ async function getCenterWay(startPlaceInfo){
 async function getIntervalWay(startPlaceInfo){
   var result = null;
 
-  await api.post('/middleSpace/testInterval', JSON.stringify(startPlaceInfo))
+  let data = JSON.stringify(startPlaceInfo);
+
+  await axios.post('https://4018-1-210-139-91.ngrok-free.app/middleSpace/testInterval', data, {
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '
+    }
+  })
   .then((res) => {
-    // console.log("#[meeting]# api - response 확인: ", res);
-    result = res;
+    console.log("#[meeting]# api - response 확인: ", res);
+    result = res.data.answer.position;
   })
   .catch((error) => {
     error
-    // console.log("#[meeting]# 출발장소 저장 error: ", error);
+    console.log("에러 출력 error: ", error);
   });
 
   return await Promise.resolve(result);
@@ -259,7 +274,7 @@ async function getIntervalWay(startPlaceInfo){
 async function getTotalTimeWay(startPlaceInfo){
   var result = null;
 
-  await api.post('/middleSpace/????', JSON.stringify(startPlaceInfo))
+  await api.post('/middleSpace/?????', JSON.stringify(startPlaceInfo))
   .then((res) => {
     // console.log("#[meeting]# api - response 확인: ", res);
     result = res;
