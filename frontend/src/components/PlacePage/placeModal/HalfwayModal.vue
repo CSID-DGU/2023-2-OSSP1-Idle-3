@@ -332,6 +332,15 @@ export default {
 
       const middlePlace = [];
 
+      await getIntervalWay(combinations).then((res) => {
+      if (res) {
+        let middle = res;
+
+        this.addMiddlePlace({middleAvergeX : middle.longitude,  middleAvergeY : middle.latitude });
+      }
+      this.dialog = false;
+    });
+
     },
 
     // 총 이동시간을 고려한 알고리즘 호출해서 중간지점을 찾는 함수
