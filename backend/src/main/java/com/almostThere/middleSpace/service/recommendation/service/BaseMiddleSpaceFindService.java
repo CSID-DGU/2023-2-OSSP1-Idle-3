@@ -7,6 +7,7 @@ import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.service.recommendation.Result;
 import com.almostThere.middleSpace.service.routing.Router;
+import com.almostThere.middleSpace.web.dto.FinalTestResult;
 import com.almostThere.middleSpace.web.dto.MiddleSpaceResponse;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -37,6 +38,18 @@ public class BaseMiddleSpaceFindService extends AbstractMiddleSpaceFindService {
                 .alpha(0.0)
                 .build();
     }
+
+    public FinalTestResult findMiddleSpaceWithRouterAndSum(List<RouteTable> routeTables) {
+        List<AverageCost> averageSum = getAverageSum(routeTables);
+        AverageCost cost = averageSum.get(0);
+        MapNode node = cost.getNode();
+        return FinalTestResult.builder()
+                .sum(cost.getSum())
+                .gap(cost.getCost())
+                .end(new Position(node.getLatitude(), node.getLongitude()))
+                .build();
+    }
+
     /**
      * 경로 검증 용도
      * @param startPoints

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Result {
+public class FinalTestResult {
     private Position end;
     private Double gap;
     private Double sum;

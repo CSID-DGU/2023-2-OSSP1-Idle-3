@@ -1,7 +1,7 @@
 package com.almostThere.middleSpace.web.controller;
 
 import com.almostThere.middleSpace.domain.gis.Position;
-import com.almostThere.middleSpace.service.recommendation.AverageCost;
+import com.almostThere.middleSpace.service.recommendation.SelectionService;
 import com.almostThere.middleSpace.service.recommendation.service.BaseMiddleSpaceFindService;
 import com.almostThere.middleSpace.service.recommendation.Result;
 import com.almostThere.middleSpace.service.recommendation.service.FindWithBoundaryService;
@@ -9,6 +9,7 @@ import com.almostThere.middleSpace.service.recommendation.service.FindWithStartP
 import com.almostThere.middleSpace.service.recommendation.service.FindWithTimeWeightCenterService;
 import com.almostThere.middleSpace.service.recommendation.service.FindWithWeightCenterService;
 import com.almostThere.middleSpace.service.recommendation.service.FindWithWeightCenterTimeDistanceService;
+import com.almostThere.middleSpace.web.dto.AllResponse;
 import com.almostThere.middleSpace.web.dto.IndexedPointsDTO;
 import com.almostThere.middleSpace.web.dto.MiddleSpaceResponse;
 import com.almostThere.middleSpace.web.dto.TestModuleResponse;
@@ -26,6 +27,7 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(origins = "http://localhost:5500")
 @RequiredArgsConstructor
 public class MiddleSpaceController {
+    private final SelectionService selectionService;
     private final BaseMiddleSpaceFindService baseMiddleSpaceFindService;
     private final FindWithBoundaryService findWithBoundaryService;
     private final FindWithStartPointIntervalTimeService findWithStartPointIntervalTimeService;
@@ -69,5 +71,11 @@ public class MiddleSpaceController {
     public ResponseEntity<TestModuleResponse> getTestInterval(@RequestBody List<Position> startPoints) {
         Result result = this.findWithStartPointIntervalTimeService.findMiddleSpaceTest(startPoints);
         return ResponseEntity.ok(this.findWithStartPointIntervalTimeService.getTestResult(result));
+    }
+
+    @PostMapping("/testAll")
+    public ResponseEntity<AllResponse> getTestAll(@RequestBody List<Position> startPoints) {
+        AllResponse allResponses = selectionService.getAllResponses(startPoints);
+        return ResponseEntity.ok(allResponses);
     }
 }
