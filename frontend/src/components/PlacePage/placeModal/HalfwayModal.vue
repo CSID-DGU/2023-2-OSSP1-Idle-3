@@ -346,21 +346,14 @@ export default {
       }
       this.size = this.startPlaces.length;
 
-      const combinations = [];
-      for (let i = 1; i <= this.size; i++) {
-        const result = this.combine(this.startPlaces, i);
-        combinations.push(...result);
-      }
+      const reqStartPlaces = this.startPlaces.map((place) => {
+        return {
+          longitude : place.get("x"),
+          latitude : place.get("y"),
+        };
+      });
 
-      // const reqStartPlaces = startPlaces.map((place) => {
-      //   return {
-      //     longitude : place.get("x"),
-      //     latitude : place.get("y"),
-      //   };
-      // });
-
-
-      await getCenterWay(combinations).then((res) => {
+      await getCenterWay(reqStartPlaces).then((res) => {
       if (res) {
         let middle = res;
 
@@ -384,27 +377,22 @@ export default {
       }
       this.size = this.startPlaces.length;
 
-      const combinations = [];
-      for (let i = 1; i <= this.size; i++) {
-        const result = this.combine(this.startPlaces, i);
-        combinations.push(...result);
-      }
+      const reqStartPlaces = this.startPlaces.map((place) => {
+        return {
+          longitude : place.get("x"),
+          latitude : place.get("y"),
+        };
+      });
 
-      // const reqStartPlaces = startPlaces.map((place) => {
-      //   return {
-      //     longitude : place.get("x"),
-      //     latitude : place.get("y"),
-      //   };
-      // });
-
-      await getIntervalWay(combinations).then((res) => {
-      if (res) {
-        let middle = res;
-
-        this.addMiddlePlace({middleAvergeX : middle.longitude,  middleAvergeY : middle.latitude });
-      }
-      this.dialog = false;
-    });
+      await getIntervalWay(reqStartPlaces).then((res) => {
+        console.log(res);
+        if (res) {
+          let middle = res;
+          
+          this.addMiddlePlace({middleAvergeX : middle.longitude,  middleAvergeY : middle.latitude });
+        }
+        this.dialog = false;
+      });
 
     },
 
