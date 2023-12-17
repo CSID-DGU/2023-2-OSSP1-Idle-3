@@ -87,8 +87,8 @@ export default class FinalTester {
                         i--;
                     }else {
                         result.push({
-                            "index" : i,
-                            "n": n,
+                            // "index" : i,
+                            // "n": n,
                             // "inside" : inside,
                             "start": dots,
                             ...response
@@ -101,7 +101,6 @@ export default class FinalTester {
             }catch (err) {
                 i--;
                 console.log(dots);
-                fs.writeFileSync(`oneFarwayFromOther${n}.json` ,JSON.stringify(result), 'utf8');
                 // console.log(err);
             }
         }
@@ -111,8 +110,84 @@ export default class FinalTester {
         
     }
 
-    testIsoscelesTriangleAngles() {
-        const result = this.supplier.generateIsoscelesTriangle();
+    async testIsoscelesTriangleAngles(uri, testCase) {
+        let promises = [];
+        let result = [];
+        let completed = 0;
+
+        for (let i = 0 ; i < testCase ; i++) {
+            try {
+                await wait(300);
+                const dots = this.supplier.generateIsoscelesTriangle();
+                let promise = this.sender.requestTest(uri, dots)
+                .then( response => {
+                    if (response.original == null) { 
+                        i--;
+                    } else {
+                        result.push({
+                            "index" : i,
+                            // "n": n,
+                            // "inside" : inside,
+                            "start": dots,
+                            ...response
+                        });
+                        completed++;
+                        console.log(`Progress: ${completed}\n`);
+                    }
+                }).catch(err => {
+                    i--;
+                    // console.log(dots);
+                    console.log(`Error at iteration ${i}:`, err.message);
+                });
+                promises.push(promise);
+            }catch (err) {
+                console.log(err.message);
+            }
+        }
+        await Promise.all(promises);
+        fs.writeFileSync(`IsoscelesTriangle.json` ,JSON.stringify(result), 'utf8');
+        return result;
+    }
+
+    async testFlatPolygon(n, uri, testCase) {
+        let promises = [];
+        let result = [];
+        let completed = 0;
+
+        for (let i = 0 ; i < testCase ; i++) {
+            try {
+                await wait(300);
+                const dots = this.supplier.generateFlatPolygon(n);
+                dots.forEach(dot=> {
+                    console.log(`(${dot.longitude}, ${dot.latitude})`)
+                })
+                let promise = this.sender.requestTest(uri, dots)
+                .then( response => {
+                    if (response.original == null) { 
+                        i--;
+                    } else {
+                        result.push({
+                            // "index" : i,
+                            // "n": n,
+                            // "inside" : inside,
+                            "start": dots,
+                            ...response
+                        });
+                        completed++;
+                        console.log(`Progress: ${completed}\n`);
+                    }
+                }).catch(err => {
+                    i--;
+                    // console.log(dots);
+                    console.log(`Error at iteration ${i}:`, err.message);
+                });
+                promises.push(promise);
+            }catch (err) {
+                console.log(err.message);
+            }
+        }
+        await Promise.all(promises);
+        fs.writeFileSync(`IsoscelesTriangle.json` ,JSON.stringify(result), 'utf8');
         return result;
     }
 }

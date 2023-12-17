@@ -100,9 +100,20 @@ export default class ConvexInsidePointGenerator {
         let polygon = this.polygonSupplier.generateIsoscelesTriangle(minLocalLat, minLocalLng, maxLocalLat, maxLocalLng);
         let inside = this.insideDotSupplier.generate(polygon, insideDotNumber);
         return [...polygon, ...inside];
-    } 
+    }
+    
+    generateFlatPolygon(n, height) {
+        const minLocalLat = this.getRandomBetween(this.minLat, this.maxLat - height)
+        const maxLocalLat = this.getRandomBetween(minLocalLat, minLocalLat + height)
+        
+        const minLocalLng = this.getRandomBetween(this.minLng, this.maxLng)
+        const maxLocalLng = this.getRandomBetween(minLocalLng, this.maxLng)
+
+        let polygon = this.polygonSupplier.generate(n, minLocalLat, maxLocalLat, minLocalLng, maxLocalLng);
+        return [...polygon];
+    }
 
     getRandomBetween(min, max){
         return Math.random() * (max - min) + min;
     }
-};
+}

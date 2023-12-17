@@ -8,5 +8,4 @@ const tester = new FinalTester(minLat, maxLat, minLng, maxLng);
 
 
 // tester.testRegularPolygon(3, 0, 'testAll', 100);
-tester.testFarwayPolygon(4, 'testAll', 50);
-console.log('done');
+tester.testFlatPolygon(4, 'testAll', 1);

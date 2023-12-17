@@ -179,18 +179,19 @@
               "sum": []
             }
           };
-    const jsonFilePath = "regularPolygon_4_1_350.json";
-    const jsonFilePath = "oneFarwayFromOther4.json";
+    const jsonFilePath = "regularPolygon_5_1.json";
     // json 파일 읽어오기
     fetch(jsonFilePath)
       .then(response => response.json())
       .then(data => {
+          // const n = data[0]["start"].length;
+          const n = 1;
           console.log(data);
-          count = [0, 0, 0, 0, 0, 0];
+          const count = [0, 0, 0, 0, 0, 0];
           //데이터 가공 후 집어 넣기
           for(let i=0;i<data.length;i++){
             item = data[i];
-            console.log(i, item.original);
+            console.log(item);
             origin_gap = item["original"]["gap"];
             origin_sum = item["original"]["sum"];
 
@@ -240,12 +241,12 @@
           for (let i = 0; i<6; i++){
             document.getElementById(`percentage${i+1}`).textContent = percent(count[i], algorData["original"]["gap"].length) + '%';
           }
-          document.getElementById('gap1').textContent = '평균 편차 ' + (calculateAverage(algorData["original"]["gap"]) - calculateAverage(algorData["stdOnlyAlgorithm"]["gap"])).toFixed(2) + '초 절약';
-          document.getElementById('gap2').textContent = '평균 편차 ' + (calculateAverage(algorData["original"]["gap"]) - calculateAverage(algorData["weightAlgorithm"]["gap"])).toFixed(2) + '초 절약';
-          document.getElementById('gap3').textContent = '평균 편차 ' + (calculateAverage(algorData["original"]["gap"]) - calculateAverage(algorData["distanceOnlyAlgorithm"]["gap"])).toFixed(2) + '초 절약';
-          document.getElementById('sum1').textContent = '평균 이동시간 ' + (calculateAverage(algorData["original"]["sum"]) - calculateAverage(algorData["stdOnlyAlgorithm"]["sum"])).toFixed(2) + '초 절약';
-          document.getElementById('sum2').textContent = '평균 이동시간 ' + (calculateAverage(algorData["original"]["sum"]) - calculateAverage(algorData["weightAlgorithm"]["sum"])).toFixed(2) + '초 절약';
-          document.getElementById('sum3').textContent = '평균 이동시간 ' + (calculateAverage(algorData["original"]["sum"]) - calculateAverage(algorData["distanceOnlyAlgorithm"]["sum"])).toFixed(2) + '초 절약';
+          document.getElementById('gap1').textContent = '평균 편차 ' + ((calculateAverage(algorData["original"]["gap"]) - calculateAverage(algorData["stdOnlyAlgorithm"]["gap"]))/n).toFixed(2) + '초 절약';
+          document.getElementById('gap2').textContent = '평균 편차 ' + ((calculateAverage(algorData["original"]["gap"]) - calculateAverage(algorData["weightAlgorithm"]["gap"]))/n).toFixed(2) + '초 절약';
+          document.getElementById('gap3').textContent = '평균 편차 ' + ((calculateAverage(algorData["original"]["gap"]) - calculateAverage(algorData["distanceOnlyAlgorithm"]["gap"]))/n).toFixed(2) + '초 절약';
+          document.getElementById('sum1').textContent = '평균 이동시간 ' + ((calculateAverage(algorData["original"]["sum"]) - calculateAverage(algorData["stdOnlyAlgorithm"]["sum"]))/n).toFixed(2) + '초 절약';
+          document.getElementById('sum2').textContent = '평균 이동시간 ' + ((calculateAverage(algorData["original"]["sum"]) - calculateAverage(algorData["weightAlgorithm"]["sum"]))/n).toFixed(2) + '초 절약';
+          document.getElementById('sum3').textContent = '평균 이동시간 ' + ((calculateAverage(algorData["original"]["sum"]) - calculateAverage(algorData["distanceOnlyAlgorithm"]["sum"]))/n).toFixed(2) + '초 절약';
           
           // 차트 생성
           const myChart1 = makeChart(algorData, "stdOnlyAlgorithm", "gap", ctx1);
