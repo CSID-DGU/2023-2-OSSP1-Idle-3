@@ -364,6 +364,15 @@ export default {
 
       const middlePlace = [];
 
+      await getTotalTimeWay(combinations).then((res) => {
+      if (res) {
+        let middle = res;
+
+        this.addMiddlePlace({middleAvergeX : middle.longitude,  middleAvergeY : middle.latitude });
+      }
+      this.dialog = false;
+    });
+
     },
 
     
