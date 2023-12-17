@@ -284,17 +284,70 @@ export default {
 
     // 가중치를 이용한 알고리즘 호출해서 중간지점을 찾는 함수
     findCenterWay(){
-      
+      for (let i = 0; i < this.starts.length; i++) {
+        if (this.starts[i] == null) {
+          this.errorTitle = "<span>출발지를</span><span>입력하세요!</span>";
+          this.$refs.error.openDialog();
+          // this.dialogError = true;
+          // this.errorMsg = "출발지를 입력하세요!";
+          return;
+        }
+      }
+      this.size = this.startPlaces.length;
+
+      const combinations = [];
+      for (let i = 1; i <= this.size; i++) {
+        const result = this.combine(this.startPlaces, i);
+        combinations.push(...result);
+      }
+
+      const middlePlace = [];
 
     },
 
     // 표준편차를 이용한 알고리즘 호출해서 중간지점을 찾는 함수
     findIntervalWay(){
+      for (let i = 0; i < this.starts.length; i++) {
+        if (this.starts[i] == null) {
+          this.errorTitle = "<span>출발지를</span><span>입력하세요!</span>";
+          this.$refs.error.openDialog();
+          // this.dialogError = true;
+          // this.errorMsg = "출발지를 입력하세요!";
+          return;
+        }
+      }
+      this.size = this.startPlaces.length;
+
+      const combinations = [];
+      for (let i = 1; i <= this.size; i++) {
+        const result = this.combine(this.startPlaces, i);
+        combinations.push(...result);
+      }
+
+      const middlePlace = [];
 
     },
 
     // 총 이동시간을 고려한 알고리즘 호출해서 중간지점을 찾는 함수
     findTotalTimeWay(){
+      for (let i = 0; i < this.starts.length; i++) {
+        if (this.starts[i] == null) {
+          this.errorTitle = "<span>출발지를</span><span>입력하세요!</span>";
+          this.$refs.error.openDialog();
+          // this.dialogError = true;
+          // this.errorMsg = "출발지를 입력하세요!";
+          return;
+        }
+      }
+      this.size = this.startPlaces.length;
+
+      const combinations = [];
+      for (let i = 1; i <= this.size; i++) {
+        const result = this.combine(this.startPlaces, i);
+        combinations.push(...result);
+      }
+
+      const middlePlace = [];
 
     },
 
