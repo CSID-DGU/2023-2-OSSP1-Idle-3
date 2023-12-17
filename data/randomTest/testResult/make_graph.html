@@ -23,43 +23,58 @@
       width: 600px;
       height: 25px;
     }
+    .div_column{
+      flex-direction: column;
+    }
   </style>
 </head>
 <body>
   <!-- <div class="div_style"> -->
     <div class="div_style">
       <canvas id="myChart1" class="canvas"></canvas>
-      <h2 id="percentage1" class="text_style">hi</h2>
-      <h2 id="gap1" class="text_style">hi</h2>
+      <div class="div_column">
+        <h2 id="percentage1" class="text_style">hi</h2>
+        <h2 id="gap1" class="text_style">hi</h2>
+      </div>
     </div>
     <div class="div_style">
       <canvas id="myChart2" class="canvas"></canvas>
-      <h2 id="percentage2" class="text_style">hi</h2>
-      <h2 id="sum1" class="text_style">hi</h2>
+      <div class="div_column">
+        <h2 id="percentage2" class="text_style">hi</h2>
+        <h2 id="sum1" class="text_style">hi</h2>
+      </div>
     </div>
   <!-- </div> -->
   <!-- <div class="div_style"> -->
     <div class="div_style">
       <canvas id="myChart3" class="canvas"></canvas>
-      <h2 id="percentage3" class="text_style">hi</h2>
-      <h2 id="gap2" class="text_style">hi</h2>
+      <div class="div_column">
+        <h2 id="percentage3" class="text_style">hi</h2>
+        <h2 id="gap2" class="text_style">hi</h2>
+      </div>
     </div>
     <div class="div_style">
       <canvas id="myChart4" class="canvas"></canvas>
-      <h2 id="percentage4" class="text_style">hi</h2>
-      <h2 id="sum2" class="text_style">hi</h2>
+      <div class="div_column">
+        <h2 id="percentage4" class="text_style">hi</h2>
+        <h2 id="sum2" class="text_style">hi</h2>
+      </div>
     </div>
   <!-- </div> -->
   <!-- <div class="div_style"> -->
     <div class="div_style">
       <canvas id="myChart5" class="canvas"></canvas>
-      <h2 id="percentage5" class="text_style">hi</h2>
-      <h2 id="gap3" class="text_style">hi</h2>
+      <div class="div_column">
+        <h2 id="percentage5" class="text_style">hi</h2>
+        <h2 id="gap3" class="text_style">hi</h2>
+      </div>
     </div>
     <div class="div_style">
       <canvas id="myChart6" class="canvas"></canvas>
-      <h2 id="percentage6" class="text_style">hi</h2>
-      <h2 id="sum3" class="text_style">hi</h2>
+      <div class="div_column">
+        <h2 id="percentage6" class="text_style">hi</h2>
+        <h2 id="sum3" class="text_style">hi</h2>
+      </div>
     </div>
   <!-- </div> -->
   <div class="blank">
@@ -127,7 +142,7 @@
                   // }
                   y: {
                     min: -5000,
-                    max: 10000
+                    max: 8000
                   }
               }
           }
@@ -137,6 +152,12 @@
 
     function percent(child, parent){
       return (child/parent * 100).toFixed(2);
+    }
+
+    function calculateAverage(arr) {
+      const sum = arr.reduce((acc, val) => acc + val, 0);
+      const average = sum / arr.length;
+      return average.toFixed(2);
     }
 
     // 알고리즘 데이터
@@ -218,9 +239,12 @@
           for (let i = 0; i<6; i++){
             document.getElementById(`percentage${i+1}`).textContent = percent(count[i], algorData["original"]["gap"].length) + '%';
           }
-          document.getElementById('gap1').textContent = average(algorData["stdOnlyAlgorithm"]["gap"]);
-          document.getElementById('gap2').textContent = average(algorData["weightAlgorithm"]["gap"]);
-          document.getElementById('gap3').textContent = average(algorData["distanceOnlyAlgorithm"]["gap"]);
+          document.getElementById('gap1').textContent = '평균 편차 ' + (calculateAverage(algorData["original"]["gap"]) - calculateAverage(algorData["stdOnlyAlgorithm"]["gap"])).toFixed(2) + '초 절약';
+          document.getElementById('gap2').textContent = '평균 편차 ' + (calculateAverage(algorData["original"]["gap"]) - calculateAverage(algorData["weightAlgorithm"]["gap"])).toFixed(2) + '초 절약';
+          document.getElementById('gap3').textContent = '평균 편차 ' + (calculateAverage(algorData["original"]["gap"]) - calculateAverage(algorData["distanceOnlyAlgorithm"]["gap"])).toFixed(2) + '초 절약';
+          document.getElementById('sum1').textContent = '평균 이동시간 ' + (calculateAverage(algorData["original"]["sum"]) - calculateAverage(algorData["stdOnlyAlgorithm"]["sum"])).toFixed(2) + '초 절약';
+          document.getElementById('sum2').textContent = '평균 이동시간 ' + (calculateAverage(algorData["original"]["sum"]) - calculateAverage(algorData["weightAlgorithm"]["sum"])).toFixed(2) + '초 절약';
+          document.getElementById('sum3').textContent = '평균 이동시간 ' + (calculateAverage(algorData["original"]["sum"]) - calculateAverage(algorData["distanceOnlyAlgorithm"]["sum"])).toFixed(2) + '초 절약';
           
           // 차트 생성
           const myChart1 = makeChart(algorData, "stdOnlyAlgorithm", "gap", ctx1);
