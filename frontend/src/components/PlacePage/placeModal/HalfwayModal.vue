@@ -347,8 +347,6 @@ export default {
         combinations.push(...result);
       }
 
-      const middlePlace = [];
-
       // combination 여기서 정제 작업 한번 필요할 듯
 
       await getCenterWay(combinations).then((res) => {
@@ -381,8 +379,6 @@ export default {
         combinations.push(...result);
       }
 
-      const middlePlace = [];
-
       await getIntervalWay(combinations).then((res) => {
       if (res) {
         let middle = res;
@@ -413,7 +409,6 @@ export default {
         combinations.push(...result);
       }
 
-      const middlePlace = [];
 
       await getTotalTimeWay(combinations).then((res) => {
       if (res) {
