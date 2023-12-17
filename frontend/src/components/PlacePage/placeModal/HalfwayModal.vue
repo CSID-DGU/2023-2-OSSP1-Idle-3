@@ -347,7 +347,13 @@ export default {
         combinations.push(...result);
       }
 
-      // combination 여기서 정제 작업 한번 필요할 듯
+      // const reqStartPlaces = startPlaces.map((place) => {
+      //   return {
+      //     longitude : place.get("x"),
+      //     latitude : place.get("y"),
+      //   };
+      // });
+
 
       await getCenterWay(combinations).then((res) => {
       if (res) {
@@ -379,6 +385,13 @@ export default {
         combinations.push(...result);
       }
 
+      // const reqStartPlaces = startPlaces.map((place) => {
+      //   return {
+      //     longitude : place.get("x"),
+      //     latitude : place.get("y"),
+      //   };
+      // });
+
       await getIntervalWay(combinations).then((res) => {
       if (res) {
         let middle = res;
@@ -408,6 +421,13 @@ export default {
         const result = this.combine(this.startPlaces, i);
         combinations.push(...result);
       }
+
+      // const reqStartPlaces = startPlaces.map((place) => {
+      //   return {
+      //     longitude : place.get("x"),
+      //     latitude : place.get("y"),
+      //   };
+      // });
 
 
       await getTotalTimeWay(combinations).then((res) => {
