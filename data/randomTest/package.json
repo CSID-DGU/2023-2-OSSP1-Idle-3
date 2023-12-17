@@ -4,7 +4,6 @@
   "description": "",
   "main": "testMain.js",
   "dependencies": {
-    "canvas": "^2.11.2",
     "node-fetch": "^3.3.2",
     "waait": "^1.0.5"
   },

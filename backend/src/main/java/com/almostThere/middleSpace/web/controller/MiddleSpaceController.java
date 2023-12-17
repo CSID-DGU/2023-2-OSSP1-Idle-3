@@ -14,7 +14,10 @@ import com.almostThere.middleSpace.web.dto.IndexedPointsDTO;
 import com.almostThere.middleSpace.web.dto.MiddleSpaceResponse;
 import com.almostThere.middleSpace.web.dto.TestModuleResponse;
 import java.util.List;
+import java.util.NoSuchElementException;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -81,7 +84,11 @@ public class MiddleSpaceController {
 
     @PostMapping("/testAll")
     public ResponseEntity<AllResponse> getTestAll(@RequestBody List<Position> startPoints) {
-        AllResponse allResponses = selectionService.getAllResponses(startPoints);
-        return ResponseEntity.ok(allResponses);
+        try {
+            AllResponse allResponses = selectionService.getAllResponses(startPoints);
+            return ResponseEntity.ok(allResponses);
+        }catch (NoSuchElementException exception) {
+            return ResponseEntity.ok(new AllResponse());
+        }
     }
 }

@@ -77,7 +77,7 @@ export default class ConvexInsidePointGenerator {
         const minLargeOvalLocalLng = this.getRandomBetween(this.minLng + smallOvalMaximumLongitude, this.maxLng - largeOvalMinimumLongitude)
         const maxLargeOvalLocalLng = this.getRandomBetween(minLargeOvalLocalLng + largeOvalMinimumLongitude, this.maxLng - smallOvalMaximumLongitude)
         
-        let opposites = this.polygonSupplier.generateOppositeDots(minLargeOvalLocalLng, minLargeOvalLocalLng, maxLargeOvalLocalLat, maxLargeOvalLocalLng);
+        let opposites = this.polygonSupplier.generateOppositeDots(minLargeOvalLocalLat, minLargeOvalLocalLng, maxLargeOvalLocalLat, maxLargeOvalLocalLng);
         let far = opposites[0];
         let center = opposites[1];
         

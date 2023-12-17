@@ -145,7 +145,7 @@
               "sum": []
             }
           };
-    const jsonFilePath = "regularPolygon.json";
+    const jsonFilePath = "oneFarwayFromOther4.json";
     // json 파일 읽어오기
     fetch(jsonFilePath)
       .then(response => response.json())
@@ -153,7 +153,7 @@
           count = [0, 0, 0, 0, 0, 0];
           for(let i=0;i<data.length;i++){
             item = data[i];
-            console.log(item);
+            console.log(i, item.original);
             origin_gap = item["original"]["gap"];
             origin_sum = item["original"]["sum"];
 
