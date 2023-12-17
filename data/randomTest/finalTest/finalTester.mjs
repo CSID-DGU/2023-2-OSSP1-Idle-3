@@ -43,7 +43,7 @@ export default class FinalTester {
                 .then( response => {
                     result.push({
                         "index" : i,
-                        "n": 3,
+                        "n": n,
                         "inside" : inside,
                         "start": dots,
                         ...response

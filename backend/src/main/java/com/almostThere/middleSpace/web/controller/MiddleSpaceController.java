@@ -47,6 +47,17 @@ public class MiddleSpaceController {
         Result result = this.baseMiddleSpaceFindService.findMiddleSpaceTest(startPoints);
         return ResponseEntity.ok(this.baseMiddleSpaceFindService.getTestResult(result));
     }
+    @PostMapping("/testSumOnly")
+    public ResponseEntity<TestModuleResponse> getTestResultSumOnly(@RequestBody List<Position> startPoints) {
+        Result result = this.baseMiddleSpaceFindService.findMiddleSpaceSumTest(startPoints);
+        return ResponseEntity.ok(this.baseMiddleSpaceFindService.getTestResult(result));
+    }
+    @PostMapping("/testCenterTimeDistance")
+    public ResponseEntity<TestModuleResponse> getTestCenterTimeDistance(@RequestBody List<Position> startPoints) {
+        Result candidate = this.findWithWeightCenterTimeDistanceService.findMiddleSpaceTest(startPoints);
+        return ResponseEntity.ok(this.findWithWeightCenterTimeDistanceService.getTestResult(candidate));
+    }
+
     @PostMapping("/test")
     public ResponseEntity<TestModuleResponse> getTestResult(@RequestBody List<Position> startPoints) {
         Result candidate = this.findWithWeightCenterService.findMiddleSpaceTest(startPoints);
@@ -62,18 +73,13 @@ public class MiddleSpaceController {
         Result result = this.findWithBoundaryService.findMiddleSpaceTest(startPoints);
         return ResponseEntity.ok(this.findWithBoundaryService.getTestResult(result));
     }
-    @PostMapping("/testCenterTimeDistance")
-    public ResponseEntity<TestModuleResponse> getTestCenterTimeDistance(@RequestBody List<Position> startPoints) {
-        Result candidate = this.findWithWeightCenterTimeDistanceService.findMiddleSpaceTest(startPoints);
-        return ResponseEntity.ok(this.findWithWeightCenterTimeDistanceService.getTestResult(candidate));
-    }
     @PostMapping("/testInterval")
     public ResponseEntity<TestModuleResponse> getTestInterval(@RequestBody List<Position> startPoints) {
         Result result = this.findWithStartPointIntervalTimeService.findMiddleSpaceTest(startPoints);
         return ResponseEntity.ok(this.findWithStartPointIntervalTimeService.getTestResult(result));
     }
 
-    @PostMapping("/testAll")
+        @PostMapping("/testAll")
     public ResponseEntity<AllResponse> getTestAll(@RequestBody List<Position> startPoints) {
         AllResponse allResponses = selectionService.getAllResponses(startPoints);
         return ResponseEntity.ok(allResponses);

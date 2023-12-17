@@ -9,6 +9,7 @@ import com.almostThere.middleSpace.service.recommendation.Result;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.web.dto.FinalTestResult;
 import com.almostThere.middleSpace.web.dto.MiddleSpaceResponse;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
@@ -36,6 +37,21 @@ public class BaseMiddleSpaceFindService extends AbstractMiddleSpaceFindService {
                 .cost(0.0)
                 .middle(new Position(0.0,0.0))
                 .alpha(0.0)
+                .build();
+    }
+    public List<AverageCost> findMiddleSpaceSum(List<Position> startPoints) {
+        List<RouteTable> routeTables = this.router.getRouteTables(startPoints);
+        return this.getAverageSum(routeTables);
+    }
+    public Result findMiddleSpaceSumTest(List<Position> startPoints) {
+        List<AverageCost> averageSum = findMiddleSpaceSum(startPoints);
+        AverageCost cost = averageSum.get(0);
+        return Result.builder()
+                .middle(new Position(0.0, 0.0))
+                .alpha(0.0)
+                .cost(cost.getCost())
+                .normalizedResult(new ArrayList<>())
+                .result(averageSum)
                 .build();
     }
 
