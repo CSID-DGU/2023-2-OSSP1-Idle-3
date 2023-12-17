@@ -7,6 +7,7 @@ import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.service.recommendation.Result;
 import com.almostThere.middleSpace.service.routing.Router;
+import com.almostThere.middleSpace.web.dto.FinalTestResult;
 import java.util.List;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
@@ -39,6 +40,29 @@ public class FindWithStartPointIntervalTimeService extends AbstractMiddleSpaceFi
                 .cost(0.0)
                 .build();
     }
+
+    public FinalTestResult findMiddleSpaceWithRouter(List<RouteTable> tables){
+        double maxIntervalTime = getLongestStartPointIntervalTime(tables);
+        List<RouteTable> newTables = tables.stream().map(routeTable -> {
+            RouteTable clonedTable = routeTable.clone();
+
+            int nodeNum = this.mapGraph.getNodeNum();
+            for (int i = 0; i < nodeNum; i++) {
+                if (clonedTable.getCost(i) > maxIntervalTime)
+                    clonedTable.getRouteInfo(i).setMinCost(Double.MAX_VALUE);
+            }
+            return clonedTable;
+        }).collect(Collectors.toList());
+        List<AverageCost> averageGap = getAverageGap(newTables);
+        AverageCost selected = averageGap.get(0);
+        MapNode node = selected.getNode();
+        return FinalTestResult.builder()
+                .gap(selected.getCost())
+                .sum(selected.getSum())
+                .end(new Position(node.getLatitude(), node.getLongitude()))
+                .build();
+    }
+
     @Override
     public List<AverageCost> findMiddleSpace(List<Position> startPoints) {
         Result result = this.findMiddleSpaceTest(startPoints);

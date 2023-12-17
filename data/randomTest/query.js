@@ -28,7 +28,6 @@ async function test() {
 
     let completed = 0;
     let result = [];
-    let result_for_data = [];
     let requestPromises = [];
     for (let i = 0 ; i < batchSizes ; i++) {
         await wait(300);
@@ -41,11 +40,6 @@ async function test() {
                     "inputPoints": data,
                     ...response
                 });
-                result_for_data.push({
-                    "index": i,
-                    "inputPoints": data,
-                    
-                })
                 completed++;
                 console.log(`Progress: ${completed}\r`);
             });

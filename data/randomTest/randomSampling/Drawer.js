@@ -1,5 +1,7 @@
-const { createCanvas } = require('canvas');
-const fs = require('fs');
+// const createCanvas  = require('canvas');
+// const fs = require('fs');
+import {createCanvas} from 'canvas'
+import fs from 'fs';
 
 /**
  * 만들어진 점의 위치 관계를 테스트하기 위한 객체
@@ -24,7 +26,7 @@ class Drawer {
      * @param {*} polygon 
      * @param {*} insideDots 
      */
-    drawInsideConvex(polygon, insideDots) {    
+    async drawInsideConvex(polygon, insideDots) {    
         const canvas = createCanvas(this.canvasWidth, this.canvasHeight);
         const ctx = canvas.getContext('2d');
         // 배경을 흰색으로 설정
@@ -45,7 +47,7 @@ class Drawer {
     
             return { lat, lng };
         });
-
+        console.log('after convereteed')
 
         // 다각형 그리기
         ctx.beginPath(); // 이 부분이 추가되어야 합니다
@@ -53,7 +55,9 @@ class Drawer {
         polygonCanvas.forEach(point => ctx.lineTo(point.lng, point.lat));
         ctx.closePath();
         ctx.stroke();
-        
+
+        console.log('after draw out')
+
         // 내부 점 표현
         insideDotsCanvas.forEach(dot => {
             ctx.beginPath();
@@ -62,7 +66,9 @@ class Drawer {
             ctx.fill();
         });
 
-        const out = fs.createWriteStream(__dirname + `/result/insideConvex${this.id}.png`);
+        console.log('after draw in')
+        
+        const out = fs.createWriteStream(`C:/intellij/idle_almost_there/data/randomTest/finalTest/result/insideConvex${this.id}.png`);
         const stream = canvas.createPNGStream();
         stream.pipe(out);
         out.on('finish', () => console.log('The PNG file was created.'));
@@ -70,3 +76,4 @@ class Drawer {
 };
 
 module.exports = Drawer;
+

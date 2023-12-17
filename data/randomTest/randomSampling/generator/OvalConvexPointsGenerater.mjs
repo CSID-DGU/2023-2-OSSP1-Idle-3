@@ -83,6 +83,59 @@ export default class OvalConvexPointsGenerater {
         return points;
     }
 
+    /**
+     * @param {integer} numVertices 
+     * @param {number} minLat : 최소 위도
+     * @param {number} minLng : 최소 경도
+     * @param {number} maxLat : 최대 위도
+     * @param {number} maxLng : 최대 경도
+     */
+    generateRegularPolygon(numVertices, minLat, minLng, maxLat, maxLng) {
+        let angles = this.regularAngles(numVertices);
+        let latRange = maxLat - minLat;
+        let lngRange = maxLng - minLng;
+
+        let points = angles.map(angle=> {
+            let latitude = (Math.sin(angle) * latRange / 2 + (minLat + maxLat) / 2)
+            let longitude = (Math.cos(angle) * lngRange / 2 + (minLng + maxLng) / 2)    
+            return { latitude, longitude };
+        })
+        return points;
+    }
+
+    /**
+     * 서로 반대로 떨어진 두 점을 생성한다.
+     * @param {*} minLat 
+     * @param {*} minLng 
+     * @param {*} maxLat 
+     * @param {*} maxLng 
+     */
+    generateOppositeDots(minLat, minLng, maxLat, maxLng) {
+        let opposites = this.oppositeAngles();
+        let latRange = maxLat - minLat;
+        let lngRange = maxLng - minLng;
+
+        let points = opposites.map(angle=> {
+            let latitude = (Math.sin(angle) * latRange / 2 + (minLat + maxLat) / 2)
+            let longitude = (Math.cos(angle) * lngRange / 2 + (minLng + maxLng) / 2)    
+            return { latitude, longitude };
+        })
+        return points;
+    }
+
+    generateIsoscelesTriangle(minLat, minLng, maxLat, maxLng) {
+        let angles = this.isoscelesTriangleAngles();
+        let latRange = maxLat - minLat;
+        let lngRange = maxLng - minLng;
+
+        let points = angles.map(angle=> {
+            let latitude = (Math.sin(angle) * latRange / 2 + (minLat + maxLat) / 2)
+            let longitude = (Math.cos(angle) * lngRange / 2 + (minLng + maxLng) / 2)    
+            return { latitude, longitude };
+        })
+        return points;
+    }
+
 
     /**
      * 단순 볼록다각형을 만들기 위한 단위원 위의 랜덤한 점의 각도.
@@ -96,6 +149,51 @@ export default class OvalConvexPointsGenerater {
         }
         angles.sort();
         return angles;
+    }
+    /**
+     * 모두가 동일한 각도로 떨어져 있는 각도들
+     * @param {*} numVertices : 점의 개수
+     * @returns : 정 다각형을 이루는 점들을 만들기 위한 각도들
+     */
+    regularAngles(numVertices) {
+        let angles = [];
+        let firstAngle = Math.random() * 2 * Math.PI;
+        angles.push(firstAngle);
+        for (let i = 1; i < numVertices; i++) {
+            angles.push(firstAngle + i * (2 * Math.PI) / numVertices);
+        }
+        angles.sort();
+        return angles;
+    }
+
+    /**
+     * 정 반대의 두 점을 생성함
+     * @returns : [] 
+     */
+    oppositeAngles() {
+        let angles = [];
+        let firstAngle = Math.random() * 2 * Math.PI;
+        angles.push(firstAngle);
+        angles.push(firstAngle + Math.PI);
+        return angles;
+    }
+
+    /**
+     * 이등변 삼각형을 만들기 위한 점 생성함
+     */
+    isoscelesTriangleAngles() {
+        let angles = [];
+        let firstAngle = Math.random() * 2 * Math.PI;
+        angles.push(firstAngle);
+        const seta = this.getRandomBetween(2*Math.PI * (1/3), Math.PI)
+        angles.push(firstAngle + seta);
+        angles.push(firstAngle - seta);
+        angles.sort();
+        return angles;
+    }
+
+    getRandomBetween(min, max){
+        return Math.random() * (max - min) + min;
     }
 }
 /* 
