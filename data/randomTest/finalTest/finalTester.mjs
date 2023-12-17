@@ -1,6 +1,8 @@
 import {APISender, HTTPResponseError} from "../APISender.mjs"
 import ConvexInsidePointGenerator from "../randomSampling/generator/ConvexInsidePointGenerator.mjs";
 import wait from "waait";
+import fs from "fs";
+
 // import Drawer from "../randomSampling/Drawer";
 // const Drawer = require("../randomSampling/Drawer");
 
@@ -41,6 +43,8 @@ export default class FinalTester {
                 .then( response => {
                     result.push({
                         "index" : i,
+                        "n": 3,
+                        "inside" : inside,
                         "start": dots,
                         ...response
                     });
@@ -54,6 +58,7 @@ export default class FinalTester {
             }
         }
         await Promise.all(promises);
+        fs.writeFileSync(`regularPolygon.json` ,JSON.stringify(result), 'utf8');
         return result;
     }
 
@@ -64,6 +69,7 @@ export default class FinalTester {
         );
         return result;
     }
+
     testIsoscelesTriangleAngles() {
         const result = this.supplier.generateIsoscelesTriangle();
         return result;
