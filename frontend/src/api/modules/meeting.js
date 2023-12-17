@@ -222,6 +222,18 @@ async function saveMemberStartPlace(startPlaceInfo) {
   return await Promise.resolve(result);
 }
 
+async function getCenterWay(){
+
+}
+
+async function getIntervalWay(){
+
+}
+
+async function getTotalTimeWay(){
+
+}
+
 export {
   meetingRegister,
   getMeeting,
@@ -237,4 +249,7 @@ export {
   outMeeting,
   getRecentPastMeeting,
   deleteMeeting,
+  getCenterWay,
+  getIntervalWay,
+  getTotalTimeWay
 };
