@@ -409,21 +409,15 @@ export default {
       }
       this.size = this.startPlaces.length;
 
-      const combinations = [];
-      for (let i = 1; i <= this.size; i++) {
-        const result = this.combine(this.startPlaces, i);
-        combinations.push(...result);
-      }
-
-      // const reqStartPlaces = startPlaces.map((place) => {
-      //   return {
-      //     longitude : place.get("x"),
-      //     latitude : place.get("y"),
-      //   };
-      // });
+      const reqStartPlaces = this.startPlaces.map((place) => {
+        return {
+          longitude : place.get("x"),
+          latitude : place.get("y"),
+        };
+      });
 
 
-      await getTotalTimeWay(combinations).then((res) => {
+      await getTotalTimeWay(reqStartPlaces).then((res) => {
       if (res) {
         let middle = res;
 
