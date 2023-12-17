@@ -30,10 +30,12 @@ public class SelectionService {
                 routeTables, startPoints);
         FinalTestResult distanceOnlyAlgorithm = baseMiddleSpaceFindService.findMiddleSpaceWithRouterAndSum(
                 routeTables);
+        FinalTestResult original = baseMiddleSpaceFindService.findMiddleSpaceOriginal(routeTables, startPoints);
         return AllResponse.builder()
                 .stdOnlyAlgorithm(stdOnlyAlgorithm)
                 .distanceOnlyAlgorithm(distanceOnlyAlgorithm)
                 .weightAlgorithm(weightAlgorithm)
+                .original(original)
                 .build();
     }
 }

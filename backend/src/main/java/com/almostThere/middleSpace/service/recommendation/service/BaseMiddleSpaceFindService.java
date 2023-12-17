@@ -66,6 +66,31 @@ public class BaseMiddleSpaceFindService extends AbstractMiddleSpaceFindService {
                 .build();
     }
 
+    public FinalTestResult findMiddleSpaceOriginal(List<RouteTable> routeTables, List<Position> startPoints) {
+        int size = startPoints.size();
+        double avgLat = startPoints.stream().mapToDouble(Position::getLatitude).sum() / size;
+        double avgLng = startPoints.stream().mapToDouble(Position::getLongitude).sum() / size;
+        Integer nearestId = this.mapGraph.findNearestId(avgLat, avgLng);
+
+        List<Double> times = routeTables.stream()
+                .mapToDouble(routeTable -> routeTable.getCost(nearestId))
+                .boxed()
+                .collect(Collectors.toList());
+        Double sum = times.stream().reduce(0.0, Double::sum);
+        Double sumAvg = sum / size;
+
+        List<Double> gap = times.stream()
+                .map(time -> Math.abs(time - sumAvg))
+                .collect(Collectors.toList());
+        Double gapAvg = gap.stream().reduce(0.0, Double::sum) / size;
+        MapNode mapNode = this.mapGraph.findMapNode(nearestId);
+        return FinalTestResult.builder()
+                .gap(gapAvg)
+                .sum(sumAvg)
+                .end(new Position(mapNode.getLatitude(), mapNode.getLongitude()))
+                .build();
+    }
+
     /**
      * 경로 검증 용도
      * @param startPoints

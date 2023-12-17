@@ -79,7 +79,7 @@ public class MiddleSpaceController {
         return ResponseEntity.ok(this.findWithStartPointIntervalTimeService.getTestResult(result));
     }
 
-        @PostMapping("/testAll")
+    @PostMapping("/testAll")
     public ResponseEntity<AllResponse> getTestAll(@RequestBody List<Position> startPoints) {
         AllResponse allResponses = selectionService.getAllResponses(startPoints);
         return ResponseEntity.ok(allResponses);

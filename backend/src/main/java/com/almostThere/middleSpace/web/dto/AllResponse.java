@@ -13,4 +13,5 @@ public class AllResponse {
     private FinalTestResult stdOnlyAlgorithm;
     private FinalTestResult weightAlgorithm;
     private FinalTestResult distanceOnlyAlgorithm;
+    private FinalTestResult original;
 }
