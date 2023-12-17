@@ -148,6 +148,7 @@
 import CloseButton from "@/common/component/button/CloseButton.vue";
 import { mapActions, mapState } from "vuex";
 import NoImageDefault from "@/common/component/dialog/NoImageDefault.vue";
+import { getCenterWay, getIntervalWay, getTotalTimeWay } from "@/api/modules/meeting.js";
 // import  from "../SearchPlace/SearchPlacePage2.vue";
 
 export default {
@@ -275,15 +276,9 @@ export default {
     // halfwayStore 라는 State 관리 라이브러리에서 관리함.
     // 여기에는 startPlaces와 middlePlace가 있음.
 
-    // #TODO
-    // 수정방법
-    // 1. modal에서 중간 지점 찾기 후 다음 modal로 이동시간, 표준편차, 둘다 고려 중 하나를 선택할 수 있도록 함.
-    // 2. 이때 평균 소요시간, 총 이동시간 등을 보여줌으로써 이용자의 선택을 도움.
-    // 3. 이때 선택된 중간 지점을 기존 로직(addMiddle)에 넣어주도록 여기다가 코드 추가.
-    // 결론 : 이 부분만 수정하면 되는데, 여기서만으로 UI를 수정할 수 있을지?!, 일단 데이터 처리는 여기서만으로 가능할 거 같음.
-
+  
     // 가중치를 이용한 알고리즘 호출해서 중간지점을 찾는 함수
-    findCenterWay(){
+    async findCenterWay(){
       for (let i = 0; i < this.starts.length; i++) {
         if (this.starts[i] == null) {
           this.errorTitle = "<span>출발지를</span><span>입력하세요!</span>";
@@ -303,10 +298,21 @@ export default {
 
       const middlePlace = [];
 
+      // combination 여기서 정제 작업 한번 필요할 듯
+
+      await getCenterWay(combinations).then((res) => {
+      if (res) {
+        let middle = res;
+
+        this.addMiddlePlace({middleAvergeX : middle.longitude,  middleAvergeY : middle.latitude });
+      }
+      this.dialog = false;
+    });
+
     },
 
     // 표준편차를 이용한 알고리즘 호출해서 중간지점을 찾는 함수
-    findIntervalWay(){
+    async findIntervalWay(){
       for (let i = 0; i < this.starts.length; i++) {
         if (this.starts[i] == null) {
           this.errorTitle = "<span>출발지를</span><span>입력하세요!</span>";
@@ -329,7 +335,7 @@ export default {
     },
 
     // 총 이동시간을 고려한 알고리즘 호출해서 중간지점을 찾는 함수
-    findTotalTimeWay(){
+    async findTotalTimeWay(){
       for (let i = 0; i < this.starts.length; i++) {
         if (this.starts[i] == null) {
           this.errorTitle = "<span>출발지를</span><span>입력하세요!</span>";
@@ -394,6 +400,8 @@ export default {
       this.addMiddlePlace({ middleAvergeX, middleAvergeY });
       this.dialog = false;
     },
+
+
   },
 };
 </script>
