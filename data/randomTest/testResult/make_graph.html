@@ -85,7 +85,7 @@
               },
               {
                   label: '기존 알고리즘',
-                  data: data["origin"][target],
+                  data: data["original"][target],
                   // dataset 배경색
                   backgroundColor: [
                     'rgba(54, 162, 235, 0)'
@@ -128,40 +128,41 @@
 
     // 알고리즘 데이터
     const algorData = {
-            "algorithm1":{
+            "stdOnlyAlgorithm":{
               "gap": [],
               "sum": []
             },
-            "algorithm2":{
+            "weightAlgorithm":{
               "gap": [],
               "sum": []
             },
-            "algorithm3":{
+            "distanceOnlyAlgorithm":{
               "gap": [],
               "sum": []
             },
-            "origin": {
+            "original": {
               "gap": [],
               "sum": []
             }
           };
-    const jsonFilePath = "result.json";
+    const jsonFilePath = "regularPolygon.json";
     // json 파일 읽어오기
     fetch(jsonFilePath)
       .then(response => response.json())
       .then(data => {
           count = [0, 0, 0, 0, 0, 0];
           for(let i=0;i<data.length;i++){
-            item = data[i]["result"];
-            origin_gap = item["origin"]["gap"];
-            origin_sum = item["origin"]["sum"];
+            item = data[i];
+            console.log(item);
+            origin_gap = item["original"]["gap"];
+            origin_sum = item["original"]["sum"];
 
-            algor1_gap = item["algorithm1"]["gap"];
-            algor1_sum = item["algorithm1"]["sum"];
-            algor2_gap = item["algorithm2"]["gap"];
-            algor2_sum = item["algorithm2"]["sum"];
-            algor3_gap = item["algorithm3"]["gap"];
-            algor3_sum = item["algorithm3"]["sum"];
+            algor1_gap = item["stdOnlyAlgorithm"]["gap"];
+            algor1_sum = item["stdOnlyAlgorithm"]["sum"];
+            algor2_gap = item["weightAlgorithm"]["gap"];
+            algor2_sum = item["weightAlgorithm"]["sum"];
+            algor3_gap = item["distanceOnlyAlgorithm"]["gap"];
+            algor3_sum = item["distanceOnlyAlgorithm"]["sum"];
 
             if(algor1_gap < origin_gap){
               count[0]++;
@@ -182,14 +183,14 @@
               count[5]++;
             }
 
-            algorData["algorithm1"]["gap"].push(algor1_gap);
-            algorData["algorithm1"]["sum"].push(algor1_sum);
-            algorData["algorithm2"]["gap"].push(algor2_gap);
-            algorData["algorithm2"]["sum"].push(algor2_sum);
-            algorData["algorithm3"]["gap"].push(algor3_gap);
-            algorData["algorithm3"]["sum"].push(algor3_sum);
-            algorData["origin"]["gap"].push(origin_gap);
-            algorData["origin"]["sum"].push(origin_sum);
+            algorData["stdOnlyAlgorithm"]["gap"].push(algor1_gap);
+            algorData["stdOnlyAlgorithm"]["sum"].push(algor1_sum);
+            algorData["weightAlgorithm"]["gap"].push(algor2_gap);
+            algorData["weightAlgorithm"]["sum"].push(algor2_sum);
+            algorData["distanceOnlyAlgorithm"]["gap"].push(algor3_gap);
+            algorData["distanceOnlyAlgorithm"]["sum"].push(algor3_sum);
+            algorData["original"]["gap"].push(origin_gap);
+            algorData["original"]["sum"].push(origin_sum);
           }
           const ctx1 = document.getElementById('myChart1').getContext('2d');
           const ctx2 = document.getElementById('myChart2').getContext('2d');
@@ -198,16 +199,16 @@
           const ctx5 = document.getElementById('myChart5').getContext('2d');
           const ctx6 = document.getElementById('myChart6').getContext('2d');
           for (let i = 0; i<6; i++){
-            document.getElementById(`percentage${i+1}`).textContent = percent(count[i], algorData["origin"]["gap"].length) + '%';
+            document.getElementById(`percentage${i+1}`).textContent = percent(count[i], algorData["original"]["gap"].length) + '%';
           }
           
           // 차트 생성
-          const myChart1 = makeChart(algorData, "algorithm1", "gap", ctx1);
-          const myChart2 = makeChart(algorData, "algorithm1", "sum", ctx2);
-          const myChart3 = makeChart(algorData, "algorithm2", "gap", ctx3);
-          const myChart4 = makeChart(algorData, "algorithm2", "sum", ctx4);
-          const myChart5 = makeChart(algorData, "algorithm3", "gap", ctx5);
-          const myChart6 = makeChart(algorData, "algorithm3", "sum", ctx6);
+          const myChart1 = makeChart(algorData, "stdOnlyAlgorithm", "gap", ctx1);
+          const myChart2 = makeChart(algorData, "stdOnlyAlgorithm", "sum", ctx2);
+          const myChart3 = makeChart(algorData, "weightAlgorithm", "gap", ctx3);
+          const myChart4 = makeChart(algorData, "weightAlgorithm", "sum", ctx4);
+          const myChart5 = makeChart(algorData, "distanceOnlyAlgorithm", "gap", ctx5);
+          const myChart6 = makeChart(algorData, "distanceOnlyAlgorithm", "sum", ctx6);
         });
     
     
