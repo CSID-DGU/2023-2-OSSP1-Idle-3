@@ -259,6 +259,18 @@ async function getIntervalWay(startPlaceInfo){
 async function getTotalTimeWay(startPlaceInfo){
   var result = null;
 
+  await api.post('/middleSpace/????', JSON.stringify(startPlaceInfo))
+  .then((res) => {
+    // console.log("#[meeting]# api - response 확인: ", res);
+    result = res;
+  })
+  .catch((error) => {
+    error
+    // console.log("#[meeting]# 출발장소 저장 error: ", error);
+  });
+
+  return await Promise.resolve(result);
+
 }
 
 export {
