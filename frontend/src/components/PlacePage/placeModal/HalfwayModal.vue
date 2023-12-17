@@ -100,6 +100,57 @@
               </v-col>
             </v-row>
           </v-card-text>
+
+          <v-card-text style="overflow: visible">
+            <v-row>
+              <v-col class="search_halfway">
+                <v-btn
+                  elevation="0"
+                  color="var(--main-col-1)"
+                  dark
+                  rounded
+                  block
+                  @click="findCenterWay"
+                >
+                  공평하고 총 이동시간이 적은 지역에서 만나고 싶어요.
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+          <v-card-text style="overflow: visible">
+            <v-row>
+              <v-col class="search_halfway">
+                <v-btn
+                  elevation="0"
+                  color="var(--main-col-1)"
+                  dark
+                  rounded
+                  block
+                  @click="findIntervalWay"
+                >
+                  공평한 중간 지역에서 만나고 싶어요.
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
+
+          <v-card-text style="overflow: visible">
+            <v-row>
+              <v-col class="search_halfway">
+                <v-btn
+                  elevation="0"
+                  color="var(--main-col-1)"
+                  dark
+                  rounded
+                  block
+                  @click="findTotalTimeWay"
+                >
+                  총 이동시간이 가장 적은 지역에서 만나고 싶어요.
+                </v-btn>
+              </v-col>
+            </v-row>
+          </v-card-text>
         </v-card>
       </v-dialog>
     </div>
