@@ -1,0 +1,88 @@
+import json
+import time
+from time import sleep
+
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+
+# --크롬창을 숨기고 실행-- driver에 options를 추가해주면된다
+# options = webdriver.ChromeOptions()
+# options.add_argument('headless')
+with open('regularPolygon.json', 'r') as file:
+  algorResult = json.load(file)
+
+algorithms = ["stdOnlyAlgorithm", "weightAlgorithm", "distanceOnlyAlgorithm"]
+result = []
+chrome_options = Options()
+chrome_options.add_experimental_option("detach", True)
+
+url = 'https://www.google.co.kr/maps/?hl=ko'
+driver = webdriver.Chrome(options=chrome_options)  # 드라이버 경로
+
+testCase = len(algorResult)
+
+for T in range(testCase):
+  sum = 0
+  cost_list = []
+  caseT = algorResult[T]
+  start = []
+  for i in range(len(caseT["start"])):
+    start.append(
+      str(caseT["start"][i]["latitude"]) + ', ' + str(caseT["start"][i]["longitude"])
+    )
+  for i in range(len(algorithms)): 
+    for st in start:
+      end = str(caseT[algorithms[i]]["end"]["latitude"]) + ', ' + str(caseT[algorithms[i]]["end"]["longitude"])
+      print(end)
+      driver.implicitly_wait(5) # 페이지 로딩 완료될 때가지 3초 wait
+      # driver = webdriver.Chrome('./chromedriver',chrome_options=options) # 크롬창 숨기기
+      driver.get(url)
+
+      # 검색창 클릭
+      search_box = driver.find_element(By.XPATH,'//*[@id="searchboxinput"]')
+      search_box.click()
+      driver.implicitly_wait(6)
+      # 좌표값 입력
+      search_box.send_keys(st)
+      driver.implicitly_wait(6)
+      #검색버튼 클릭
+      # driver.find_element(By.XPATH,'//*[@id="searchbox-searchbutton"]').click()
+      # 길찾기 버튼 클릭
+      driver.find_element(By.XPATH,'//*[@id="hArJGc"]').click()
+      driver.implicitly_wait(6)
+      # 출발지 클릭
+      start_place = driver.find_element(By.XPATH,'//*[@id="sb_ifc50"]/input')
+      driver.implicitly_wait(6)
+      # 출발지 입력
+      start_place.send_keys(end)
+      driver.implicitly_wait(6)
+      # 검색 클릭
+      start_place.send_keys(Keys.RETURN)
+      # driver.find_element(By.XPATH,'//*[@id="directions-searchbox-0"]/button[1]')
+      driver.implicitly_wait(6)
+      # cost 가져오기
+      # //*[@id="section-directions-trip-0"]/div[1]/div/div[1]/div
+      # //*[@id="section-directions-trip-1"]/div[1]/div/div[1]/div
+      cost = driver.find_element(By.XPATH,'//*[@id="section-directions-trip-0"]/div[1]/div/div[1]/div').text
+      if len(cost) > 3:
+        # 문자열에서 시간과 분을 추출하여 숫자로 변환
+        hours, minutes = map(int, cost.split('시간')[0].split())
+        # 시간을 분으로 변환하고 분과 합산하여 총 분으로 계산
+        cost = hours * 60 + minutes[:-1]
+
+      sum += int(cost[:-1])
+
+      cost_list.append(cost[:-1])
+
+      # driver.close()
+      print(cost[:-1])
+    mean = sum/len(start)
+    for i in range(len(cost_list)):
+      cost_list[i] -= mean
+      cost_list[i] = abs(cost_list[i])
+    gap = sum(cost_list)
+    print(gap)
+    print(sum)
+    print(result)
