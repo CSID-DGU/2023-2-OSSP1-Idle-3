@@ -229,7 +229,7 @@ async function getCenterWay(startPlaceInfo){
 
   let data = JSON.stringify(startPlaceInfo);
 
-  await axios.post('${process.env.VUE_APP_API_BASE_URL}/middleSpace/testCenterTimeDistance', data, {
+  await axios.post(`${process.env.VUE_APP_API_BASE_URL}/middleSpace/testCenterTimeDistance`, data, {
     headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer '
@@ -253,7 +253,7 @@ async function getIntervalWay(startPlaceInfo){
 
   let data = JSON.stringify(startPlaceInfo);
 
-  await axios.post('${process.env.VUE_APP_API_BASE_URL}/middleSpace/testInterval', data, {
+  await axios.post(`${process.env.VUE_APP_API_BASE_URL}/middleSpace/testInterval`, data, {
     headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer '
@@ -274,10 +274,17 @@ async function getIntervalWay(startPlaceInfo){
 async function getTotalTimeWay(startPlaceInfo){
   var result = null;
 
-  await api.post('/middleSpace/?????', JSON.stringify(startPlaceInfo))
+  let data = JSON.stringify(startPlaceInfo);
+
+  await axios.post(`${process.env.VUE_APP_API_BASE_URL}/middleSpace/testSumOnly`, data, {
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '
+    }
+  })
   .then((res) => {
     // console.log("#[meeting]# api - response 확인: ", res);
-    result = res;
+    result = res.data.answer.position;
   })
   .catch((error) => {
     error
