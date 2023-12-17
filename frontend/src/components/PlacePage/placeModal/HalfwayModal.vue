@@ -88,6 +88,8 @@
             <v-row>
               <v-col class="search_halfway">
                 <v-btn
+                  font-size="9px"
+                  font-weight="bold"
                   elevation="0"
                   color="var(--main-col-1)"
                   dark
@@ -105,6 +107,7 @@
             <v-row>
               <v-col class="search_halfway">
                 <v-btn
+                  class = "small-text"
                   elevation="0"
                   color="var(--main-col-1)"
                   dark
@@ -122,6 +125,7 @@
             <v-row>
               <v-col class="search_halfway">
                 <v-btn
+                  class = "small-text"
                   elevation="0"
                   color="var(--main-col-1)"
                   dark
@@ -139,6 +143,7 @@
             <v-row>
               <v-col class="search_halfway">
                 <v-btn
+                  class = "small-text"
                   elevation="0"
                   color="var(--main-col-1)"
                   dark
@@ -541,6 +546,11 @@ span {
 .input {
   position: relative;
   z-index: 2;
+}
+
+.small-text{
+  font-size: 9px;
+  font-weight: bold;
 }
 
 .error {
