@@ -104,12 +104,11 @@ export default class ConvexInsidePointGenerator {
     
     generateFlatPolygon(n, height) {
         const minLocalLat = this.getRandomBetween(this.minLat, this.maxLat - height)
-        const maxLocalLat = this.getRandomBetween(minLocalLat, minLocalLat + height)
         
         const minLocalLng = this.getRandomBetween(this.minLng, this.maxLng)
         const maxLocalLng = this.getRandomBetween(minLocalLng, this.maxLng)
 
-        let polygon = this.polygonSupplier.generate(n, minLocalLat, maxLocalLat, minLocalLng, maxLocalLng);
+        let polygon = this.polygonSupplier.generateFixedHeightSize(n, minLocalLat, height, minLocalLng, maxLocalLng)
         return [...polygon];
     }
 

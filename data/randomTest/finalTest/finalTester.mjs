@@ -157,10 +157,7 @@ export default class FinalTester {
         for (let i = 0 ; i < testCase ; i++) {
             try {
                 await wait(300);
-                const dots = this.supplier.generateFlatPolygon(n);
-                dots.forEach(dot=> {
-                    console.log(`(${dot.longitude}, ${dot.latitude})`)
-                })
+                const dots = this.supplier.generateFlatPolygon(n, deltaLatitude * 0.5);
                 let promise = this.sender.requestTest(uri, dots)
                 .then( response => {
                     if (response.original == null) { 
@@ -187,7 +184,7 @@ export default class FinalTester {
             }
         }
         await Promise.all(promises);
-        fs.writeFileSync(`IsoscelesTriangle.json` ,JSON.stringify(result), 'utf8');
+        fs.writeFileSync(`FlatPolygon${n}_${testCase}.json` ,JSON.stringify(result), 'utf8');
         return result;
     }
 }
