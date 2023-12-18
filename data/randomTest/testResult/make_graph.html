@@ -10,7 +10,8 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 500px;
+      height: 300px;
+      /* width: 500px; */
       /* width: 600px; */
     }
     .text_style{
@@ -20,8 +21,8 @@
       width: 300px;
     }
     .canvas{
-      width: 600px;
-      height: 25px;
+      /* width: 100px;
+      height: 10px; */
     }
     .div_column{
       flex-direction: column;
@@ -29,23 +30,7 @@
   </style>
 </head>
 <body>
-  <!-- <div class="div_style"> -->
-    <div class="div_style">
-      <canvas id="myChart1" class="canvas"></canvas>
-      <div class="div_column">
-        <h2 id="percentage1" class="text_style">hi</h2>
-        <h2 id="gap1" class="text_style">hi</h2>
-      </div>
-    </div>
-    <div class="div_style">
-      <canvas id="myChart2" class="canvas"></canvas>
-      <div class="div_column">
-        <h2 id="percentage2" class="text_style">hi</h2>
-        <h2 id="sum1" class="text_style">hi</h2>
-      </div>
-    </div>
-  <!-- </div> -->
-  <!-- <div class="div_style"> -->
+  <div class="div_style">
     <div class="div_style">
       <canvas id="myChart3" class="canvas"></canvas>
       <div class="div_column">
@@ -60,8 +45,24 @@
         <h2 id="sum2" class="text_style">hi</h2>
       </div>
     </div>
-  <!-- </div> -->
-  <!-- <div class="div_style"> -->
+  </div>
+  <div class="div_style">
+    <div class="div_style">
+      <canvas id="myChart1" class="canvas"></canvas>
+      <div class="div_column">
+        <h2 id="percentage1" class="text_style">hi</h2>
+        <h2 id="gap1" class="text_style">hi</h2>
+      </div>
+    </div>
+    <div class="div_style">
+      <canvas id="myChart2" class="canvas"></canvas>
+      <div class="div_column">
+        <h2 id="percentage2" class="text_style">hi</h2>
+        <h2 id="sum1" class="text_style">hi</h2>
+      </div>
+    </div>
+  </div>
+  <div class="div_style">
     <div class="div_style">
       <canvas id="myChart5" class="canvas"></canvas>
       <div class="div_column">
@@ -76,7 +77,11 @@
         <h2 id="sum3" class="text_style">hi</h2>
       </div>
     </div>
-  <!-- </div> -->
+  </div>
+  <div>
+    <h2 id="total_gap_percent"></h2>
+    <h2 id="total_sum_percent"></h2>
+  </div>
   <div class="blank">
 
   </div>
@@ -84,12 +89,11 @@
   
   <script>
     function makeChart(data, name, target, ctx){
-      console.log(data);
       chart = new Chart(ctx, {
           type: 'line',
-          data: {
+          data: {//
               // x축 항목들
-              labels: Array.from({ length: data[name][target].length }, (_, index) => index),
+              labels: Array.from({ length: data[name][target].length}, (_, index) => index),
               // 실제 차트에 표시할 데이터들(Array), dataset 객체들을 담고 있다.
               datasets: [{
                   pointRadius: 0,
@@ -157,7 +161,7 @@
     function calculateAverage(arr) {
       const sum = arr.reduce((acc, val) => acc + val, 0);
       const average = sum / arr.length;
-      return average.toFixed(2);
+      return parseInt(average.toFixed(2));
     }
 
     // 알고리즘 데이터
@@ -178,20 +182,18 @@
               "gap": [],
               "sum": []
             }
-          };
-    const jsonFilePath = "regularPolygon_5_1.json";
+          };//regularPolygon
+    const jsonFilePath = "regularPolygon.json";
     // json 파일 읽어오기
     fetch(jsonFilePath)
       .then(response => response.json())
       .then(data => {
           // const n = data[0]["start"].length;
           const n = 1;
-          console.log(data);
           const count = [0, 0, 0, 0, 0, 0];
           //데이터 가공 후 집어 넣기
           for(let i=0;i<data.length;i++){
             item = data[i];
-            console.log(item);
             origin_gap = item["original"]["gap"];
             origin_sum = item["original"]["sum"];
 
@@ -238,15 +240,43 @@
           const ctx5 = document.getElementById('myChart5').getContext('2d');
           const ctx6 = document.getElementById('myChart6').getContext('2d');
 
+          // 평균 구하기
+          avg_origin_gap = calculateAverage(algorData["original"]["gap"]);
+          avg_origin_sum = calculateAverage(algorData["original"]["sum"]);
+          avg_stdOnly_gap = calculateAverage(algorData["stdOnlyAlgorithm"]["gap"]);
+          avg_weight_gap = calculateAverage(algorData["weightAlgorithm"]["gap"]);
+          avg_distanceOnly_gap = calculateAverage(algorData["distanceOnlyAlgorithm"]["gap"]);
+          avg_stdOnly_sum = calculateAverage(algorData["stdOnlyAlgorithm"]["sum"]);
+          avg_weight_sum = calculateAverage(algorData["weightAlgorithm"]["sum"]);
+          avg_distanceOnly_sum = calculateAverage(algorData["distanceOnlyAlgorithm"]["sum"]);
+
           for (let i = 0; i<6; i++){
-            document.getElementById(`percentage${i+1}`).textContent = percent(count[i], algorData["original"]["gap"].length) + '%';
+            // document.getElementById(`percentage${i+1}`).textContent = percent(count[i], algorData["original"]["gap"].length) + '%';
+            // document.getElementById(`percentage${i+1}`).textContent = percent(avg_stdOnly_gap, avg_origin_gap) + '%';
           }
-          document.getElementById('gap1').textContent = '평균 편차 ' + ((calculateAverage(algorData["original"]["gap"]) - calculateAverage(algorData["stdOnlyAlgorithm"]["gap"]))/n).toFixed(2) + '초 절약';
-          document.getElementById('gap2').textContent = '평균 편차 ' + ((calculateAverage(algorData["original"]["gap"]) - calculateAverage(algorData["weightAlgorithm"]["gap"]))/n).toFixed(2) + '초 절약';
-          document.getElementById('gap3').textContent = '평균 편차 ' + ((calculateAverage(algorData["original"]["gap"]) - calculateAverage(algorData["distanceOnlyAlgorithm"]["gap"]))/n).toFixed(2) + '초 절약';
-          document.getElementById('sum1').textContent = '평균 이동시간 ' + ((calculateAverage(algorData["original"]["sum"]) - calculateAverage(algorData["stdOnlyAlgorithm"]["sum"]))/n).toFixed(2) + '초 절약';
-          document.getElementById('sum2').textContent = '평균 이동시간 ' + ((calculateAverage(algorData["original"]["sum"]) - calculateAverage(algorData["weightAlgorithm"]["sum"]))/n).toFixed(2) + '초 절약';
-          document.getElementById('sum3').textContent = '평균 이동시간 ' + ((calculateAverage(algorData["original"]["sum"]) - calculateAverage(algorData["distanceOnlyAlgorithm"]["sum"]))/n).toFixed(2) + '초 절약';
+          // 알고리즘 각각의 percent 구하기
+          document.getElementById('percentage1').textContent = percent(avg_origin_gap - avg_stdOnly_gap, avg_origin_gap) + '%';
+          document.getElementById('percentage2').textContent = percent(avg_origin_sum - avg_stdOnly_sum, avg_origin_sum) + '%';
+          document.getElementById('percentage3').textContent = percent(avg_origin_gap - avg_weight_gap, avg_origin_gap) + '%';
+          document.getElementById('percentage4').textContent = percent(avg_origin_sum - avg_weight_sum, avg_origin_sum) + '%';
+          document.getElementById('percentage5').textContent = percent(avg_origin_gap - avg_distanceOnly_gap, avg_origin_gap) + '%';
+          document.getElementById('percentage6').textContent = percent(avg_origin_sum - avg_distanceOnly_sum, avg_origin_sum) + '%';
+
+          // 전체 percent 계산
+          avg_total_new_gap = (avg_stdOnly_gap + avg_weight_gap + avg_distanceOnly_gap)/3;
+          avg_total_new_sum = (avg_stdOnly_sum + avg_weight_sum + avg_distanceOnly_sum)/3;
+
+          // 전체 percent 
+          document.getElementById('total_gap_percent').textContent = '전체 편차 절약: ' + percent(avg_origin_gap - avg_total_new_gap, avg_origin_gap) + '%';
+          document.getElementById('total_sum_percent').textContent = '전체 이동시간 절약: ' + percent(avg_origin_sum - avg_total_new_sum, avg_origin_sum) + '%';
+
+          // 각각의 절약된 편차, 이동시간 계산
+          document.getElementById('gap1').textContent = '평균 편차 ' + ((avg_origin_gap - avg_stdOnly_gap)/n).toFixed(2) + '초 절약';
+          document.getElementById('gap2').textContent = '평균 편차 ' + ((avg_origin_gap - avg_weight_gap)/n).toFixed(2) + '초 절약';
+          document.getElementById('gap3').textContent = '평균 편차 ' + ((avg_origin_gap - avg_distanceOnly_gap)/n).toFixed(2) + '초 절약';
+          document.getElementById('sum1').textContent = '평균 이동시간 ' + ((avg_origin_sum - avg_stdOnly_sum)/n).toFixed(2) + '초 절약';
+          document.getElementById('sum2').textContent = '평균 이동시간 ' + ((avg_origin_sum - avg_weight_sum)/n).toFixed(2) + '초 절약';
+          document.getElementById('sum3').textContent = '평균 이동시간 ' + ((avg_origin_sum - avg_distanceOnly_sum)/n).toFixed(2) + '초 절약';
           
           // 차트 생성
           const myChart1 = makeChart(algorData, "stdOnlyAlgorithm", "gap", ctx1);
