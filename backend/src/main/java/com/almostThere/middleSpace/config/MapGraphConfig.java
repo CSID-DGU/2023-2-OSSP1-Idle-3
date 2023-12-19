@@ -33,21 +33,15 @@ public class MapGraphConfig {
         // 노드 파일 리스트
         List<String> nodeFiles = List.of(
                 "step_node.json",
-
                 "bus_stop_node_with_transfer.json",
-
                 "subway_node.json",
-//                "new_subway_node.json"
-//                ,
                 "gate_location_in_seoul_ver2.json"
         );
         // 간선 파일 리스트
         List<String> edgeFiles = List.of(
                 "step_link.json",
-
                 "bus_router_edge_with_transfer.json",
                 "bus_step_edge.json",
-
                 "subway_edge.json",
                 "gate_nearest_step_edge.json",
                 "gate_edge.json"

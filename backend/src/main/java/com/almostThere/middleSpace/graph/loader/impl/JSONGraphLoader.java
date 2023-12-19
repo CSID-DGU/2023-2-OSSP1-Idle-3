@@ -25,7 +25,7 @@ public class JSONGraphLoader implements GraphLoader {
         FileReader fileReader = new FileReader("src/main/resources/data/" + graphFile);
         JSONArray nodeArray = (JSONArray)jsonParser.parse(fileReader);
         System.out.println(graphFile);
-        List<MapNode> result = (List<MapNode>)nodeArray.stream().map((nodeObject) -> {
+        return (List<MapNode>)nodeArray.stream().map((nodeObject) -> {
             JSONObject jsonObject = (JSONObject) nodeObject;
             JSONObject positionObject = (JSONObject) jsonObject.get("position");
 
@@ -36,7 +36,6 @@ public class JSONGraphLoader implements GraphLoader {
                     (String) jsonObject.get("name")
             );
         }).collect(Collectors.toList());
-        return result;
     }
 
     @Override
@@ -44,18 +43,16 @@ public class JSONGraphLoader implements GraphLoader {
         FileReader fileReader = new FileReader("src/main/resources/data/" + graphFile);
         JSONArray nodeArray = (JSONArray)jsonParser.parse(fileReader);
         System.out.println(graphFile);
-        List<MapEdge> result = (List<MapEdge>)nodeArray.stream().map((nodeObject) -> {
+        return (List<MapEdge>)nodeArray.stream().map((nodeObject) -> {
             JSONObject jsonObject = (JSONObject) nodeObject;
             double cost = ((Number) jsonObject.get("cost")).doubleValue();
 
             return new MapEdge(
                     (long) jsonObject.get("start"),
                     (long) jsonObject.get("end"),
-                    cost,
-                    (String) jsonObject.get("line")
+                    cost
             );
         }).collect(Collectors.toList());
-        return result;
     }
 
     @Override

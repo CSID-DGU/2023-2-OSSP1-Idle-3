@@ -5,7 +5,6 @@ import com.almostThere.middleSpace.service.recommendation.AverageCost;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.util.NormUtil;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public abstract class AbstractMiddleSpaceFindWithCostService extends AbstractMiddleSpaceFindService{
@@ -15,7 +14,8 @@ public abstract class AbstractMiddleSpaceFindWithCostService extends AbstractMid
 
     /**
      * 편차와 이동거리 합 모두 정규화
-     * @param results
+     * @param results 데이터 리스트
+     * @return 정규화된 데이터 리스트
      */
     protected List<AverageCost> normalize(List<AverageCost> results) {
         // 정규화
@@ -32,23 +32,11 @@ public abstract class AbstractMiddleSpaceFindWithCostService extends AbstractMid
     }
 
     /**
-     * 최소 비용 구하는 함수
-     * @param costs
-     * @param alpha
-     * @return
-     */
-    protected Double minimumCost(List<AverageCost> costs, Double alpha) {
-        return costs.stream()
-                .mapToDouble(item -> cost(item.getSum(), item.getCost(), alpha))
-                .min()
-                .orElseThrow(NoSuchElementException::new);
-    }
-    /**
      *
      * @param sum 그 지점까지 가는데 걸리는 시간의 평균
      * @param gap 그 지점까지 가는데 걸리는 시간의 편차의 평균
      * @param alpha 편차를 고려하는 정도 [0, 1]
-     * @return
+     * @return alpha 값으로 구한 cost (alpha * gap + (1 - alpha) * sum)
      */
     protected Double cost(Double sum, Double gap, double alpha) {
         return alpha * gap + (1 - alpha) * sum;

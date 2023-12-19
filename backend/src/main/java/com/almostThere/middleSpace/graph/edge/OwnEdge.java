@@ -6,12 +6,10 @@ import lombok.Getter;
 public class OwnEdge implements Comparable<OwnEdge>{
     private final int index;
     private final double cost;
-    private final String line;
 
-    public OwnEdge(int index, double cost, String line) {
+    public OwnEdge(int index, double cost) {
         this.index = index;
         this.cost = cost;
-        this.line = line;
     }
 
     @Override

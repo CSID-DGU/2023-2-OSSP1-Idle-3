@@ -3,17 +3,12 @@ package com.almostThere.middleSpace.service.recommendation.service;
 import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.graph.MapGraph;
-import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
-import com.almostThere.middleSpace.service.recommendation.Result;
 import com.almostThere.middleSpace.service.routing.Router;
-import com.almostThere.middleSpace.web.dto.AnswerPoint;
-import com.almostThere.middleSpace.web.dto.MissingPoint;
-import com.almostThere.middleSpace.web.dto.TestModuleResponse;
+
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
-import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 public abstract class AbstractMiddleSpaceFindService {
@@ -23,8 +18,7 @@ public abstract class AbstractMiddleSpaceFindService {
         this.mapGraph = mapGraph;
         this.router = router;
     }
-    abstract public List<AverageCost> findMiddleSpace(List<Position> startPoints);
-    abstract public Result findMiddleSpaceTest(List<Position> startPoints);
+    abstract public Position findMiddleSpace(List<Position> startPoints);
 
     /**
      * @param routeTables : router에서 구한 각 사용자별로 소요되는 최소 시간 테이블 (노드 별로)
@@ -116,51 +110,5 @@ public abstract class AbstractMiddleSpaceFindService {
                 .filter(averageCost -> averageCost.getCost() != Double.MAX_VALUE)
                 .sorted(Comparator.comparingDouble(AverageCost::getSum))
                 .collect(Collectors.toList());
-    }
-
-
-    /**
-     * 랜덤 샘플 테스트용 메서드
-     * @param result
-     * @return (정답 정보, 놓친 점의 개수)
-     */
-    public TestModuleResponse getTestResult(Result result) {
-        // 정답 선택
-        List<AverageCost> candidates = result.getNormalizedResult();
-
-        AverageCost answer = candidates.get(0);
-        MapNode answerNode = answer.getNode();
-
-        AverageCost original = result.getResult().stream()
-                .filter(item -> item.getNode().getMap_id() == answerNode.getMap_id())
-                .findAny()
-                .orElseThrow(NoSuchElementException::new);
-
-        // 반환형 만드는 부분
-        AnswerPoint answerPoint = AnswerPoint.builder()
-                .position(new Position(answerNode.getLatitude(), answerNode.getLongitude()))
-                .gap(original.getCost())
-                .sum(original.getSum())
-                .build();
-
-        List<MissingPoint> missingPoints = candidates.stream().filter(candidate ->
-                (candidate.getSum() < answer.getSum()) && (candidate.getCost() < answer.getCost())
-        ).map(candidate -> {
-            MapNode node = candidate.getNode();
-            return MissingPoint.builder()
-                    .position(new Position(node.getLatitude(), node.getLongitude()))
-                    .sumDifference(answer.getSum() - candidate.getSum())
-                    .gapDifference(answer.getCost() - candidate.getCost())
-                    .build();
-        }).collect(Collectors.toList());
-
-        return TestModuleResponse
-                .builder()
-                .answer(answerPoint)
-                .missingPoints(missingPoints)
-                .alpha(result.getAlpha())
-                .middleSpace(result.getMiddle())
-                .cost(result.getCost())
-                .build();
     }
 }

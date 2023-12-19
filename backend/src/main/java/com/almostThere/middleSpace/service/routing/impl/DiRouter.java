@@ -31,7 +31,7 @@ public class DiRouter implements Router {
         dist[startNodeIndex].minCost = 0;
         dist[startNodeIndex].fromIndex = startNodeIndex;
 
-        pq.offer(new OwnEdge(startNodeIndex, 0, "none"));
+        pq.offer(new OwnEdge(startNodeIndex, 0));
         while (!pq.isEmpty()) {
             OwnEdge current = pq.poll();
 
@@ -42,9 +42,7 @@ public class DiRouter implements Router {
             for (OwnEdge next : adjacentNodes) {
                 if (dist[next.getIndex()].minCost > current.getCost() + next.getCost()) {
                     dist[next.getIndex()].minCost = current.getCost() + next.getCost();
-                    dist[next.getIndex()].fromIndex = current.getIndex();
-                    dist[next.getIndex()].line = next.getLine();
-                    pq.offer(new OwnEdge(next.getIndex(), dist[next.getIndex()].minCost, next.getLine()));
+                    pq.offer(new OwnEdge(next.getIndex(), dist[next.getIndex()].minCost));
                 }
             }
         }

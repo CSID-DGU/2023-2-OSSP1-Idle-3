@@ -4,10 +4,8 @@ import com.almostThere.middleSpace.graph.edge.OwnEdge;
 import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.util.GIS;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Stack;
 
 public class ListMapGraph implements MapGraph {
     private final List<MapNode> actualNode;
@@ -38,15 +36,18 @@ public class ListMapGraph implements MapGraph {
     public Integer findSearchId(Long mapId) {
         return this.map_to_id.get(mapId);
     }
-    @Override
-    public Long findMapId(Integer searchId) {
-        return this.actualNode.get(searchId).getMap_id();
-    }
 
     @Override
     public MapNode findMapNode(Integer searchId) {
         return this.actualNode.get(searchId);
     }
+
+    /**
+     * 주어진 위도 경도와 가장 가까운 도보 노드의 id를 반환
+     * @param latitude 위도
+     * @param longitude 경도
+     * @return 가장 가까운 도보 id
+     */
     @Override
     public Integer findNearestId(Double latitude, Double longitude) {
         double length = Double.MAX_VALUE;
@@ -64,50 +65,9 @@ public class ListMapGraph implements MapGraph {
         }
         return minIndex;
     }
-    @Override
-    public MapNode findNearestWalkNode(Double latitude, Double longitude) {
-        return this.actualNode.get(findNearestId(latitude, longitude));
-    }
 
     @Override
     public MapNode getNode(Integer searchId) {
         return this.actualNode.get(searchId);
-    }
-
-    private void dfs(int v, boolean[] visited, List<MapNode> component) {
-        Stack<Integer> stk = new Stack<>();
-        stk.push(v);
-        component.add(this.actualNode.get(v));
-
-        visited[v] = true;
-        while (!stk.empty()) {
-            Integer topNode = stk.pop();
-
-            visited[topNode] = true;
-            List<OwnEdge> ownEdges = adjacentGraph[topNode];
-            for (OwnEdge edge : ownEdges) {
-                if (!visited[edge.getIndex()]) {
-                    visited[edge.getIndex()] = true;
-                    stk.push(edge.getIndex());
-                    component.add(this.actualNode.get(edge.getIndex()));
-                }
-            }
-        }
-    }
-
-    @Override
-    public List<List<MapNode>> getIsolatedNetworks() {
-        List<List<MapNode>> subNetworks = new ArrayList<>();
-        final int size = actualNode.size();
-        boolean[] visited = new boolean[size];
-
-        for (int i = 0; i < size ; i++) {
-            if (!visited[i]) {
-                List<MapNode> subNetwork = new ArrayList<>();
-                dfs(i, visited, subNetwork);
-                subNetworks.add(subNetwork);
-            }
-        }
-        return subNetworks;
     }
 }

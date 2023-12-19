@@ -5,7 +5,6 @@ import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
-import com.almostThere.middleSpace.service.recommendation.Result;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.web.dto.FinalTestResult;
 import java.util.List;
@@ -18,31 +17,34 @@ public class FindWithStartPointIntervalTimeService extends AbstractMiddleSpaceFi
     public FindWithStartPointIntervalTimeService(MapGraph mapGraph, Router router) {
         super(mapGraph, router);
     }
-    @Override
-    public Result findMiddleSpaceTest(List<Position> startPoints) {
-        List<RouteTable> tables = startPoints.stream()
-                .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
-                .map(router::getShortestPath)
-                .collect(Collectors.toList());
-        double maxIntervalTime = getLongestStartPointIntervalTime(tables);
-        for (RouteTable table : tables) {
-            int nodeNum = this.mapGraph.getNodeNum();
-            for (int i = 0 ; i < nodeNum ; i++) {
-                if (table.getCost(i) > maxIntervalTime)
-                    table.getRouteInfo(i).setMinCost(Double.MAX_VALUE);
-            }
-        }
-        List<AverageCost> averageGap = getAverageGap(tables);
-        return Result.builder()
-                .middle(new Position(0.0 ,0.0))
-                .normalizedResult(averageGap)
-                .result(averageGap)
-                .alpha(0.0)
-                .cost(0.0)
-                .build();
-    }
 
     public FinalTestResult findMiddleSpaceWithRouter(List<RouteTable> tables){
+        List<AverageCost> averageGap = filterWithMaxIntervalTime(tables);
+        AverageCost selected = averageGap.get(0);
+        MapNode node = selected.getNode();
+        return FinalTestResult.builder()
+                .gap(selected.getCost())
+                .sum(selected.getSum())
+                .end(new Position(node.getLatitude(), node.getLongitude()))
+                .build();
+    }
+    @Override
+    public Position findMiddleSpace(List<Position> startPoints) {
+        List<RouteTable> routeTables = this.router.getRouteTables(startPoints);
+        List<AverageCost> candidates = filterWithMaxIntervalTime(routeTables);
+        // 전부 걸러지면 0.0을 반환한다.
+        if (candidates.isEmpty())
+            return new Position(0.0 ,0.0);
+        MapNode node = candidates.get(0).getNode();
+        return new Position(node.getLatitude(), node.getLongitude());
+    }
+
+    /**
+     * 출발지 사이 간 이동하는데 걸리는 최대 시간보다 오래걸리는 목적지를 걸러내는 함수
+     * @param tables 길찾기 결과 리스트
+     * @return 걸러낸 결과의 평균 편차와 평균 이동시간 리스트
+     */
+    private List<AverageCost> filterWithMaxIntervalTime(List<RouteTable> tables) {
         double maxIntervalTime = getLongestStartPointIntervalTime(tables);
         List<RouteTable> cloned = tables.stream().map(RouteTable::clone)
                 .collect(Collectors.toList());
@@ -56,20 +58,10 @@ public class FindWithStartPointIntervalTimeService extends AbstractMiddleSpaceFi
         List<AverageCost> averageGap = getAverageGap(cloned);
         if (averageGap.isEmpty())
             throw new NoSuchElementException();
-        AverageCost selected = averageGap.get(0);
-        MapNode node = selected.getNode();
-        return FinalTestResult.builder()
-                .gap(selected.getCost())
-                .sum(selected.getSum())
-                .end(new Position(node.getLatitude(), node.getLongitude()))
-                .build();
+        return averageGap;
     }
 
-    @Override
-    public List<AverageCost> findMiddleSpace(List<Position> startPoints) {
-        Result result = this.findMiddleSpaceTest(startPoints);
-        return result.getResult();
-    }
+
     /**
      * 출발지들 사이의 이동시간 중 cost가 가장 큰 cost 구하기
      * @param tables 출발 좌표들
@@ -79,9 +71,7 @@ public class FindWithStartPointIntervalTimeService extends AbstractMiddleSpaceFi
         List<MapNode> startPoints = tables.stream()
                 .map(RouteTable::getStartNode)
                 .collect(Collectors.toList());
-
         int size = startPoints.size();
-
         double maxCost = 0.0;
 
         for (int i = 0; i < size; i++) {

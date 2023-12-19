@@ -2,7 +2,6 @@ package com.almostThere.middleSpace.service.recommendation;
 
 import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
-import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.service.recommendation.service.BaseMiddleSpaceFindService;
 import com.almostThere.middleSpace.service.recommendation.service.FindWithStartPointIntervalTimeService;
 import com.almostThere.middleSpace.service.recommendation.service.FindWithWeightCenterTimeDistanceService;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 @Service
 @RequiredArgsConstructor
 public class SelectionService {
-    private final MapGraph mapGraph;
     private final Router router;
     private final FindWithStartPointIntervalTimeService findWithStartPointIntervalTimeService;
     private final FindWithWeightCenterTimeDistanceService findWithWeightCenterTimeDistanceService;

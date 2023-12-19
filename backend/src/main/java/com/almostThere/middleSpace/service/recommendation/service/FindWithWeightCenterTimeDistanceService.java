@@ -5,7 +5,6 @@ import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.graph.node.MapNode;
 import com.almostThere.middleSpace.service.recommendation.AverageCost;
-import com.almostThere.middleSpace.service.recommendation.Result;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.web.dto.FinalTestResult;
 import java.util.Comparator;
@@ -20,61 +19,12 @@ public class FindWithWeightCenterTimeDistanceService extends AbstractMiddleSpace
         super(mapGraph, router);
     }
 
-    @Override
-    public Result findMiddleSpaceTest(List<Position> startPoints) {
-        Position center = getCenterOfPosition(startPoints);
-        Integer nearestId = this.mapGraph.findNearestId(center.getLatitude(), center.getLongitude());
-
-        List<RouteTable> routeTables = router.getRouteTables(startPoints);
-        List<AverageCost> results = getAverageGap(routeTables);
-        // 최대 최소 시간 구하기
-        double alpha = getAlpha(nearestId, routeTables);
-        // 정규화하기
-        List<AverageCost> normalizedResults = normalize(results);
-        // 최소 코스트 자체 구하기
-        double minCost = normalizedResults.stream()
-                .mapToDouble(result -> cost(result.getSum(), result.getCost(), alpha))
-                .min()
-                .orElseThrow(NoSuchElementException::new);
-        // 코스트 기준으로 정렬하기
-        List<AverageCost> sortedCostList = results.stream()
-                .sorted(Comparator.comparingDouble(result -> cost(result.getSum(), result.getCost(), alpha)))
-                .collect(Collectors.toList());
-        return Result.builder()
-                .result(results)
-                .normalizedResult(sortedCostList)
-                .middle(center)
-                .alpha(alpha)
-                .cost(minCost)
-                .build();
-    }
-
-    private static double getAlpha(Integer nearestId, List<RouteTable> routeTables) {
-        List<Double> times = routeTables.stream()
-                .mapToDouble(routeTable -> routeTable.getCost(nearestId))
-                .boxed().collect(Collectors.toList());
-        Double minTimes = times.stream().min(Double::compareTo)
-                .orElseThrow(NoSuchElementException::new);
-        Double maxTimes = times.stream().max(Double::compareTo)
-                .orElseThrow(NoSuchElementException::new);
-        return minTimes / (maxTimes + minTimes);
-    }
-
     public FinalTestResult findMiddleSpaceWithRouter(List<RouteTable> routeTables, List<Position> startPoints){
-        Position center = getCenterOfPosition(startPoints);
-        Integer nearestId = this.mapGraph.findNearestId(center.getLatitude(), center.getLongitude());
-
-        double alpha = getAlpha(nearestId, routeTables);
         List<AverageCost> averageGap = getAverageGap(routeTables);
-        List<AverageCost> cloned = averageGap.stream()
-                .map(AverageCost::clone)
-                .collect(Collectors.toList());
-        List<AverageCost> normalizedResults = normalize(cloned);
 
-        // score 기준 가장 작은 노드 찾기
-        List<AverageCost> sortedCostList = normalizedResults.stream()
-                .sorted(Comparator.comparingDouble(result -> cost(result.getSum(), result.getCost(), alpha)))
-                .collect(Collectors.toList());
+        List<AverageCost> normalizedList = normalize(averageGap);
+
+        List<AverageCost> sortedCostList = sortWithAlpha(routeTables, startPoints, normalizedList);
         AverageCost selectedCost = sortedCostList.get(0);
         MapNode node = selectedCost.getNode();
 
@@ -91,15 +41,17 @@ public class FindWithWeightCenterTimeDistanceService extends AbstractMiddleSpace
     }
 
     @Override
-    public List<AverageCost> findMiddleSpace(List<Position> startPoints) {
-        Result result = this.findMiddleSpaceTest(startPoints);
-        return result.getResult();
+    public Position findMiddleSpace(List<Position> startPoints) {
+        List<RouteTable> routeTables = this.router.getRouteTables(startPoints);
+        List<AverageCost> sortWithAlpha = sortWithAlpha(routeTables, startPoints);
+        MapNode node = sortWithAlpha.get(0).getNode();
+        return new Position(node.getLatitude(), node.getLongitude());
     }
 
     /**
      * 시작점 좌표 기준으로 무게 중심 좌표를 구하는 함수
-     * @param startPoints
-     * @return
+     * @param startPoints 출발지 좌표 리스트
+     * @return 출발지 좌표의 평균인 무게중심
      */
     protected Position getCenterOfPosition(List<Position> startPoints) {
         double latitude = 0.0f;
@@ -111,5 +63,61 @@ public class FindWithWeightCenterTimeDistanceService extends AbstractMiddleSpace
             longitude += position.getLongitude();
         }
         return new Position(latitude / size, longitude / size);
+    }
+
+    /**
+     * alpha를 구하는 함수
+     * @param nearestId 무게중심과 가장 가까운 출발점 노드 id
+     * @param routeTables 길찾기 한 결과 리스트
+     * @return 최소 시간 / (최소 시간 + 최대 시간)인 alpha 값
+     */
+    private static double getAlpha(Integer nearestId, List<RouteTable> routeTables) {
+        List<Double> times = routeTables.stream()
+                .mapToDouble(routeTable -> routeTable.getCost(nearestId))
+                .boxed().collect(Collectors.toList());
+        Double minTimes = times.stream().min(Double::compareTo)
+                .orElseThrow(NoSuchElementException::new);
+        Double maxTimes = times.stream().max(Double::compareTo)
+                .orElseThrow(NoSuchElementException::new);
+        return minTimes / (maxTimes + minTimes);
+    }
+
+    /**
+     * test 데이터를 뽑기 위한 함수
+     * 정규화된 후보군 리스트가 이미 있는 경우 alpha을 구해 cost를 만들어
+     * cost를 오름차순으로 정렬한 리스트를 만든다.
+     * @param routeTables 길찾기 한 결과 리스트
+     * @param startPoints 시작점들
+     * @param normalizedResults 정규화된 데이터 리스트
+     * @return cost 기준으로 정렬된 정규화 데이터 리스트
+     */
+    private List<AverageCost> sortWithAlpha(List<RouteTable> routeTables, List<Position> startPoints,
+                                            List<AverageCost> normalizedResults) {
+        Position center = getCenterOfPosition(startPoints);
+        Integer nearestNodeId = this.mapGraph.findNearestId(center.getLatitude(), center.getLongitude());
+        double alpha = getAlpha(nearestNodeId, routeTables);
+        // score 기준 가장 작은 노드 찾기
+        return normalizedResults.stream()
+                .sorted(Comparator.comparingDouble(result -> cost(result.getSum(), result.getCost(), alpha)))
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * alpha를 구하고 이를 이용해 cost를 만들어 이 기준으로 오름차순으로 정렬한 리스트 반환
+     * 
+     * @param routeTables 길찾기 한 결과 리스트
+     * @param startPoints 시작점들
+     * @return cost 기준으로 정렬한 정규화 데이터 리스트
+     */
+    private List<AverageCost> sortWithAlpha(List<RouteTable> routeTables, List<Position> startPoints) {
+        Position center = getCenterOfPosition(startPoints);
+        Integer nearestNodeId = this.mapGraph.findNearestId(center.getLatitude(), center.getLongitude());
+        double alpha = getAlpha(nearestNodeId, routeTables);
+        List<AverageCost> candidates = getAverageGap(routeTables);
+        normalize(candidates);
+        // score 기준 가장 작은 노드 찾기
+        return candidates.stream()
+                .sorted(Comparator.comparingDouble(result -> cost(result.getSum(), result.getCost(), alpha)))
+                .collect(Collectors.toList());
     }
 }

@@ -13,8 +13,8 @@ import java.util.Map;
 
 public class ListMapGraphBuilder implements MapGraphBuilder {
     private int ownId;
-    private List<MapNode> actualNode;
-    private Map<Long, Integer> map_to_id;
+    private final List<MapNode> actualNode;
+    private final Map<Long, Integer> map_to_id;
     private List<OwnEdge>[] adjacentGraph;
 
     public ListMapGraphBuilder() {
@@ -43,7 +43,7 @@ public class ListMapGraphBuilder implements MapGraphBuilder {
         Integer startIndex = map_to_id.get(link.getMap_start_id());
         Integer endIndex = map_to_id.get(link.getMap_end_id());
         if (startIndex != null && endIndex != null)
-            this.adjacentGraph[startIndex].add(new OwnEdge(endIndex, link.getCost(), link.getLine()));
+            this.adjacentGraph[startIndex].add(new OwnEdge(endIndex, link.getCost()));
     }
 
     @Override
@@ -51,8 +51,7 @@ public class ListMapGraphBuilder implements MapGraphBuilder {
         for (MapNode node : nodes) {
             addNode(node);
         }
-        this.adjacentGraph = new ArrayList[ownId];
-        System.out.println("# of parsed node : " + ownId);
+        this.adjacentGraph = new ArrayList<>[ownId];
         for (int i = 0 ; i < ownId ; i++) {
             this.adjacentGraph[i] = new ArrayList<>();
         }

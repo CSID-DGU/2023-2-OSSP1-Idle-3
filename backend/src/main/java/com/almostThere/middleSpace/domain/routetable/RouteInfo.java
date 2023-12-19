@@ -7,12 +7,10 @@ package com.almostThere.middleSpace.domain.routetable;
  */
 public class RouteInfo implements Comparable<RouteInfo>, Cloneable {
     public int fromIndex;
-    public String line;
     public double minCost;
     public RouteInfo() {
         this.fromIndex = -1;
         this.minCost = Double.MAX_VALUE;
-        this.line = "none";
     }
 
     @Override
