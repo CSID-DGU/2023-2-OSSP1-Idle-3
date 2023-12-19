@@ -1,0 +1,74 @@
+[
+  {
+    "index": 0,
+    "start": [
+      { "latitude": 37.62690243579168, "longitude": 127.23464897028511 },
+      { "latitude": 37.65456973352661, "longitude": 127.05898789944716 },
+      { "latitude": 37.52910945849448, "longitude": 127.11416448405062 }
+    ],
+    "stdOnlyAlgorithm": {
+      "end": { "latitude": 37.6008375349, "longitude": 127.154349236 },
+      "gap": 173.8229043401399,
+      "sum": 3117.9190976664017
+    },
+    "weightAlgorithm": {
+      "end": { "latitude": 37.55947021293795, "longitude": 127.17103026426713 },
+      "gap": 254.4272220454346,
+      "sum": 1834.2707587642533
+    },
+    "distanceOnlyAlgorithm": {
+      "end": { "latitude": 37.545303, "longitude": 127.10357 },
+      "gap": 681.4396169362682,
+      "sum": 1473.2684817555025
+    }
+  },
+  {
+    "index": 1,
+    "start": [
+      { "latitude": 37.70012878295993, "longitude": 126.9444226121079 },
+      { "latitude": 37.48770774934327, "longitude": 126.89000281125205 },
+      { "latitude": 37.52891958540738, "longitude": 127.05059899984755 }
+    ],
+    "stdOnlyAlgorithm": {
+      "end": { "latitude": 37.566672, "longitude": 126.992548 },
+      "gap": 7.102245717316388,
+      "sum": 1865.806619570406
+    },
+    "weightAlgorithm": {
+      "end": { "latitude": 37.566672, "longitude": 126.992548 },
+      "gap": 7.102245717316388,
+      "sum": 1865.806619570406
+    },
+    "distanceOnlyAlgorithm": {
+      "end": { "latitude": 37.571605, "longitude": 126.991791 },
+      "gap": 63.79562779103685,
+      "sum": 1832.3503529037391
+    }
+  },
+  {
+    "index": 2,
+    "start": [
+      { "latitude": 37.62444874493556, "longitude": 127.0630576905306 },
+      { "latitude": 37.64791304453868, "longitude": 127.11804940023931 },
+      { "latitude": 37.69811475800559, "longitude": 127.07492790194617 }
+    ],
+    "stdOnlyAlgorithm": {
+      "end": {
+        "latitude": 37.641954828860236,
+        "longitude": 127.08537523180578
+      },
+      "gap": 221.92972884292416,
+      "sum": 1758.7062757093609
+    },
+    "weightAlgorithm": {
+      "end": { "latitude": 37.6282997244, "longitude": 127.08218124 },
+      "gap": 236.67049850614322,
+      "sum": 1186.4536232033945
+    },
+    "distanceOnlyAlgorithm": {
+      "end": { "latitude": 37.623632, "longitude": 127.061835 },
+      "gap": 580.34277832582,
+      "sum": 985.6015674887299
+    }
+  }
+]
