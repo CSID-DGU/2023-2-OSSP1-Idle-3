@@ -29,7 +29,6 @@ export default class FinalTester {
         this.sender = new APISender(protocol, hostname, port);
         // this.drawer = new Drawer(500, 500, minLat, maxLat, minLng, maxLng);
     }
-
     async testRegularPolygon(n, inside, uri, testCase) {
         let promises = [];
         let result = [];
@@ -41,23 +40,27 @@ export default class FinalTester {
                 const dots = this.supplier.generateRegularPolygon(n, inside, this.deltaLatitude, this.deltaLongitude);
                 let promise = this.sender.requestTest(uri, dots)
                 .then( response => {
-                    result.push({
-                        "index" : i,
-                        "n": n,
-                        "inside" : inside,
-                        "start": dots,
-                        ...response
-                    });
-                    completed++;
-                    console.log(`Progress: ${completed}\n`);
-                }).catch(err=> {
-                    console.log(err);
+                    if (response.original == null) { 
+                        i--;
+                    } else {
+                        result.push({
+                            "index" : i,
+                            "n": n,
+                            "inside" : inside,
+                            "start": dots,
+                            ...response
+                        });
+                        completed++;
+                        console.log(`Progress: ${completed}\n`);
+                    }
+                }).catch(err => {
                     i--;
-                })
+                    // console.log(dots);
+                    console.log(`Error at iteration ${i}:`, err.message);
+                });
                 promises.push(promise);
             }catch (err) {
-                i--;
-                console.log(err);
+                console.log(err.message);
             }
         }
         await Promise.all(promises);
@@ -65,16 +68,123 @@ export default class FinalTester {
         return result;
     }
 
-    testFarwayPolygon(n, avgCloseDistance) {
-        const result = this.supplier.generateOneFromAnother(n, this.deltaLatitude, this.deltaLongitude,
-            this.deltaLatitude  * 5, this.deltaLongitude * 5,
-            this.deltaLatitude * 1, this.deltaLongitude * 1
-        );
+    async testFarwayPolygon(n, uri, testCase) {
+        let promises = [];
+        let result = [];
+        let completed = 0;
+        // let inside = 0;
+        
+        for (let i = 0 ; i < testCase ; i++) {
+            try {
+                await wait(400);
+                const dots = this.supplier.generateOneFromAnother(n, this.deltaLatitude, this.deltaLongitude,
+                    this.deltaLatitude  * 7, this.deltaLongitude * 7,
+                    this.deltaLatitude * 2, this.deltaLongitude * 2
+                );
+                let promise = this.sender.requestTest(uri, dots)
+                .then( response => {
+                    if (response.original == null) {
+                        i--;
+                    }else {
+                        result.push({
+                            // "index" : i,
+                            // "n": n,
+                            // "inside" : inside,
+                            "start": dots,
+                            ...response
+                        });
+                        completed++;
+                        console.log(`Progress: ${completed}\n`);
+                    }
+                });
+                promises.push(promise);
+            }catch (err) {
+                i--;
+                console.log(dots);
+                // console.log(err);
+            }
+        }
+        await Promise.all(promises);
+        fs.writeFileSync(`oneFarwayFromOther${n}.json` ,JSON.stringify(result), 'utf8');
+        return result;
+        
+    }
+
+    async testIsoscelesTriangleAngles(uri, testCase) {
+        let promises = [];
+        let result = [];
+        let completed = 0;
+
+        for (let i = 0 ; i < testCase ; i++) {
+            try {
+                await wait(300);
+                const dots = this.supplier.generateIsoscelesTriangle();
+                let promise = this.sender.requestTest(uri, dots)
+                .then( response => {
+                    if (response.original == null) { 
+                        i--;
+                    } else {
+                        result.push({
+                            "index" : i,
+                            // "n": n,
+                            // "inside" : inside,
+                            "start": dots,
+                            ...response
+                        });
+                        completed++;
+                        console.log(`Progress: ${completed}\n`);
+                    }
+                }).catch(err => {
+                    i--;
+                    // console.log(dots);
+                    console.log(`Error at iteration ${i}:`, err.message);
+                });
+                promises.push(promise);
+            }catch (err) {
+                console.log(err.message);
+            }
+        }
+        await Promise.all(promises);
+        fs.writeFileSync(`IsoscelesTriangle.json` ,JSON.stringify(result), 'utf8');
         return result;
     }
 
-    testIsoscelesTriangleAngles() {
-        const result = this.supplier.generateIsoscelesTriangle();
+    async testFlatPolygon(n, uri, testCase) {
+        let promises = [];
+        let result = [];
+        let completed = 0;
+
+        for (let i = 0 ; i < testCase ; i++) {
+            try {
+                await wait(300);
+                const dots = this.supplier.generateFlatPolygon(n, deltaLatitude * 0.5);
+                let promise = this.sender.requestTest(uri, dots)
+                .then( response => {
+                    if (response.original == null) { 
+                        i--;
+                    } else {
+                        result.push({
+                            // "index" : i,
+                            // "n": n,
+                            // "inside" : inside,
+                            "start": dots,
+                            ...response
+                        });
+                        completed++;
+                        console.log(`Progress: ${completed}\n`);
+                    }
+                }).catch(err => {
+                    i--;
+                    // console.log(dots);
+                    console.log(`Error at iteration ${i}:`, err.message);
+                });
+                promises.push(promise);
+            }catch (err) {
+                console.log(err.message);
+            }
+        }
+        await Promise.all(promises);
+        fs.writeFileSync(`FlatPolygon${n}_${testCase}.json` ,JSON.stringify(result), 'utf8');
         return result;
     }
 }

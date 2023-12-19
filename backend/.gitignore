@@ -38,4 +38,5 @@ out/
 ### VS Code ###
 .vscode/
 /src/main/java/com/almostThere/domain/map/repository/graphLoader/data/
-/src/main/resources/data/
+/src/main/resources/data
+*.json

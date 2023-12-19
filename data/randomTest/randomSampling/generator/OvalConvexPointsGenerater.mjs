@@ -17,8 +17,8 @@ export default class OvalConvexPointsGenerater {
         let lngRange = maxLng - minLng;
         
         let points = angles.map(angle => {
-            let latitude =  parseFloat((Math.sin(angle) * latRange / 2 + (minLat + maxLat) / 2).toFixed(10));
-            let longitude = parseFloat((Math.cos(angle) * lngRange / 2 + (minLng + maxLng) / 2).toFixed(10));    
+            let latitude = (Math.sin(angle) * latRange / 2 + (minLat + maxLat) / 2);
+            let longitude = (Math.cos(angle) * lngRange / 2 + (minLng + maxLng) / 2);    
             return { latitude, longitude };
         });
         return points;

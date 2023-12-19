@@ -9,6 +9,7 @@ import com.almostThere.middleSpace.service.recommendation.Result;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.web.dto.FinalTestResult;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
@@ -43,17 +44,18 @@ public class FindWithStartPointIntervalTimeService extends AbstractMiddleSpaceFi
 
     public FinalTestResult findMiddleSpaceWithRouter(List<RouteTable> tables){
         double maxIntervalTime = getLongestStartPointIntervalTime(tables);
-        List<RouteTable> newTables = tables.stream().map(routeTable -> {
-            RouteTable clonedTable = routeTable.clone();
-
+        List<RouteTable> cloned = tables.stream().map(RouteTable::clone)
+                .collect(Collectors.toList());
+        for (RouteTable table : cloned) {
             int nodeNum = this.mapGraph.getNodeNum();
-            for (int i = 0; i < nodeNum; i++) {
-                if (clonedTable.getCost(i) > maxIntervalTime)
-                    clonedTable.getRouteInfo(i).setMinCost(Double.MAX_VALUE);
+            for (int i = 0 ; i < nodeNum ; i++) {
+                if (table.getCost(i) > maxIntervalTime)
+                    table.getRouteInfo(i).setMinCost(Double.MAX_VALUE);
             }
-            return clonedTable;
-        }).collect(Collectors.toList());
-        List<AverageCost> averageGap = getAverageGap(newTables);
+        }
+        List<AverageCost> averageGap = getAverageGap(cloned);
+        if (averageGap.isEmpty())
+            throw new NoSuchElementException();
         AverageCost selected = averageGap.get(0);
         MapNode node = selected.getNode();
         return FinalTestResult.builder()

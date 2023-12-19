@@ -11,6 +11,7 @@ import com.almostThere.middleSpace.web.dto.FinalTestResult;
 import com.almostThere.middleSpace.web.dto.MiddleSpaceResponse;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
@@ -57,6 +58,8 @@ public class BaseMiddleSpaceFindService extends AbstractMiddleSpaceFindService {
 
     public FinalTestResult findMiddleSpaceWithRouterAndSum(List<RouteTable> routeTables) {
         List<AverageCost> averageSum = getAverageSum(routeTables);
+        if (averageSum.isEmpty())
+            throw new NoSuchElementException();
         AverageCost cost = averageSum.get(0);
         MapNode node = cost.getNode();
         return FinalTestResult.builder()
