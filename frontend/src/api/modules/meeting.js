@@ -1,4 +1,5 @@
 import { apiInstance } from "../index";
+import axios from "axios";
 
 const api = apiInstance();
 
@@ -222,6 +223,78 @@ async function saveMemberStartPlace(startPlaceInfo) {
   return await Promise.resolve(result);
 }
 
+// input : 
+async function getCenterWay(startPlaceInfo){
+  var result = null;
+
+  let data = JSON.stringify(startPlaceInfo);
+
+  await axios.post(`${process.env.VUE_APP_API_BASE_URL}/middleSpace/testCenterTimeDistance`, data, {
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '
+    }
+  })
+  .then((res) => {
+    // console.log("#[meeting]# api - response 확인: ", res);
+    result = res.data.answer.position;
+  })
+  .catch((error) => {
+    error
+    // console.log("#[meeting]# 출발장소 저장 error: ", error);
+  });
+
+  return await Promise.resolve(result);
+}
+
+
+async function getIntervalWay(startPlaceInfo){
+  var result = null;
+
+  let data = JSON.stringify(startPlaceInfo);
+
+  await axios.post(`${process.env.VUE_APP_API_BASE_URL}/middleSpace/testInterval`, data, {
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '
+    }
+  })
+  .then((res) => {
+    console.log("#[meeting]# api - response 확인: ", res);
+    result = res.data.answer.position;
+  })
+  .catch((error) => {
+    error
+    console.log("에러 출력 error: ", error);
+  });
+
+  return await Promise.resolve(result);
+}
+
+async function getTotalTimeWay(startPlaceInfo){
+  var result = null;
+
+  let data = JSON.stringify(startPlaceInfo);
+
+  await axios.post(`${process.env.VUE_APP_API_BASE_URL}/middleSpace/testSumOnly`, data, {
+    headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer '
+    }
+  })
+  .then((res) => {
+    // console.log("#[meeting]# api - response 확인: ", res);
+    result = res.data.answer.position;
+  })
+  .catch((error) => {
+    error
+    // console.log("#[meeting]# 출발장소 저장 error: ", error);
+  });
+
+  return await Promise.resolve(result);
+
+}
+
 export {
   meetingRegister,
   getMeeting,
@@ -237,4 +310,7 @@ export {
   outMeeting,
   getRecentPastMeeting,
   deleteMeeting,
+  getCenterWay,
+  getIntervalWay,
+  getTotalTimeWay
 };

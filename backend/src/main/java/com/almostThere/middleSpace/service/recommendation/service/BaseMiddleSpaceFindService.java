@@ -51,7 +51,7 @@ public class BaseMiddleSpaceFindService extends AbstractMiddleSpaceFindService {
                 .middle(new Position(0.0, 0.0))
                 .alpha(0.0)
                 .cost(cost.getCost())
-                .normalizedResult(new ArrayList<>())
+                .normalizedResult(averageSum)
                 .result(averageSum)
                 .build();
     }

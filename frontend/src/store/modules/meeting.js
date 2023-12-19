@@ -5,6 +5,8 @@ import {
 } from "@/api/modules/meeting";
 import router from "@/router"; // 라우터 import
 
+// meeting store는 회의 관련 정보를 저장하는 store.
+
 const meetingStore = {
   namespaced: true,
   state: {

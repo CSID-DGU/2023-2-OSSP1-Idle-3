@@ -87,7 +87,9 @@ try:
 
             # 시간을 분으로 변환하고 분과 합산하여 총 분으로 계산
             cost = hours * 60 + minutes
+
           elif cost[-1] == '분':  
+
             cost = int(cost[:-1])
           else:
             cost = int(cost[0])
