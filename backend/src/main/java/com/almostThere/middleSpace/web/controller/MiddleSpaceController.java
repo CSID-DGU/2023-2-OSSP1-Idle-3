@@ -37,7 +37,7 @@ public class MiddleSpaceController {
         Position result = this.baseMiddleSpaceFindService.findMiddleSpace(startPoints);
         return ResponseEntity.ok(result);
     }
-    @PostMapping("/testCenterTimeDistance")
+    @PostMapping("/sumAndStd")
     public ResponseEntity<Position> getTestCenterTimeDistance(@RequestBody List<Position> startPoints) {
         Position result = this.findWithWeightCenterTimeDistanceService.findMiddleSpace(startPoints);
         return ResponseEntity.ok(result);
