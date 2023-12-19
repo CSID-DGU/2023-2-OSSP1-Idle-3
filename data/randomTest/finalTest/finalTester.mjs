@@ -187,4 +187,39 @@ export default class FinalTester {
         fs.writeFileSync(`FlatPolygon${n}_${testCase}.json` ,JSON.stringify(result), 'utf8');
         return result;
     }
+
+    async testPureRandom(n, uri, testCase) {
+        let promises = [];
+        let result = [];
+        let completed = 0;
+
+        for (let i = 0 ; i < testCase ; i++) {
+            try {
+                await wait(300);
+                const dots = this.supplier.generateRandomPolygon(n);
+                let promise = this.sender.requestTest(uri, dots)
+                .then( response => {
+                    if (response.original == null) { 
+                        i--;
+                    } else {
+                        result.push({
+                            // "index" : i,
+                            // "n": n,
+                            // "inside" : inside,
+                            "start": dots,
+                            ...response
+                        });
+                        completed++;
+                        console.log(`Progress: ${completed}\n`);
+                    }
+                });
+                promises.push(promise);
+            }catch (err) {
+                console.log(err.message);
+            }
+        }
+        await Promise.all(promises);
+        fs.writeFileSync(`PureRandom${n}_${testCase}.json` ,JSON.stringify(result), 'utf8');
+        return result;
+    }
 }

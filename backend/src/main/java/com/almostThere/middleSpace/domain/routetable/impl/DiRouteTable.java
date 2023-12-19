@@ -15,7 +15,7 @@ import lombok.Getter;
 
 @Getter
 public class DiRouteTable implements RouteTable, Cloneable{
-    private final int startNodeIndex;
+    private int startNodeIndex;
     private RouteInfo[] dist;
     private final MapGraph mapGraph;
 
@@ -28,6 +28,7 @@ public class DiRouteTable implements RouteTable, Cloneable{
     public DiRouteTable clone() {
         try {
             DiRouteTable cloned = (DiRouteTable) super.clone();
+            cloned.startNodeIndex = startNodeIndex;
             // RouteInfo 배열의 깊은 복사
             cloned.dist = new RouteInfo[this.dist.length];
             for (int i = 0; i < this.dist.length; i++) {

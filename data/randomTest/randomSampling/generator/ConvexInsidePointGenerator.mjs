@@ -113,6 +113,16 @@ export default class ConvexInsidePointGenerator {
         return [...polygon];
     }
 
+    generateRandomPolygon(n) {
+        let polygon = [];
+        for (let i = 0; i < n ; i++) {
+            let latitude = this.getRandomBetween(this.minLat, this.maxLat)
+            let longitude = this.getRandomBetween(this.minLng, this.maxLng)
+            polygon.push({latitude, longitude})
+        }
+        return polygon;
+    }
+
     getRandomBetween(min, max){
         return Math.random() * (max - min) + min;
     }
