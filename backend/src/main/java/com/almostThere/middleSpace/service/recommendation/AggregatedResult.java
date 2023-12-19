@@ -8,21 +8,21 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class AverageCost implements Cloneable{
+public class AggregatedResult implements Cloneable{
     private MapNode node;
     private Double cost;
     private Double sum;
 
-    public AverageCost(MapNode node) {
+    public AggregatedResult(MapNode node) {
         this.node = node;
         this.cost = Double.MAX_VALUE;
         this.sum = Double.MAX_VALUE;
     }
 
     @Override
-    public AverageCost clone() {
+    public AggregatedResult clone() {
         try {
-            AverageCost cloned = (AverageCost) super.clone();
+            AggregatedResult cloned = (AggregatedResult) super.clone();
 
             // MapNode는 얕은 복사가 적절한지, 아니면 깊은 복사가 필요한지에 따라 다를 수 있음
             // 얕은 복사의 경우 아래와 같이 할당

@@ -1,7 +1,7 @@
 package com.almostThere.middleSpace.service.recommendation.service;
 
 import com.almostThere.middleSpace.graph.MapGraph;
-import com.almostThere.middleSpace.service.recommendation.AverageCost;
+import com.almostThere.middleSpace.service.recommendation.AggregatedResult;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.util.NormUtil;
 import java.util.List;
@@ -17,17 +17,17 @@ public abstract class AbstractMiddleSpaceFindWithCostService extends AbstractMid
      * @param results 데이터 리스트
      * @return 정규화된 데이터 리스트
      */
-    protected List<AverageCost> normalize(List<AverageCost> results) {
+    protected List<AggregatedResult> normalize(List<AggregatedResult> results) {
         // 정규화
-        List<Double> sumList = results.stream().mapToDouble(AverageCost::getSum).boxed().collect(Collectors.toList());
-        List<Double> gapList = results.stream().mapToDouble(AverageCost::getCost).boxed().collect(Collectors.toList());
+        List<Double> sumList = results.stream().mapToDouble(AggregatedResult::getSum).boxed().collect(Collectors.toList());
+        List<Double> gapList = results.stream().mapToDouble(AggregatedResult::getCost).boxed().collect(Collectors.toList());
         double sumMean = NormUtil.calculateMean(sumList);
         double sumStd = NormUtil.calculateStandardDeviation(sumList, sumMean);
         double gapMean = NormUtil.calculateMean(gapList);
         double gapStd = NormUtil.calculateStandardDeviation(gapList, gapMean);
         return results.stream().map(result-> {
             Double gap = result.getCost(), sum = result.getSum();
-            return new AverageCost(result.getNode(), (gap - gapMean) / gapStd, (sum - sumMean) / sumStd);
+            return new AggregatedResult(result.getNode(), (gap - gapMean) / gapStd, (sum - sumMean) / sumStd);
         }).collect(Collectors.toList());
     }
 

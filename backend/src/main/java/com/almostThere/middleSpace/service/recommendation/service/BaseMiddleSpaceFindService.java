@@ -4,7 +4,7 @@ import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.graph.node.MapNode;
-import com.almostThere.middleSpace.service.recommendation.AverageCost;
+import com.almostThere.middleSpace.service.recommendation.AggregatedResult;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.web.dto.FinalTestResult;
 import java.util.List;
@@ -24,16 +24,16 @@ public class BaseMiddleSpaceFindService extends AbstractMiddleSpaceFindService {
                 .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
                 .map(router::getShortestPath)
                 .collect(Collectors.toList());
-        List<AverageCost> result = getAverageSum(tables);
+        List<AggregatedResult> result = getAverageSum(tables);
         MapNode selectedNode = result.get(0).getNode();
         return new Position(selectedNode.getLatitude(), selectedNode.getLongitude());
     }
 
     public FinalTestResult findMiddleSpaceWithRouterAndSum(List<RouteTable> routeTables) {
-        List<AverageCost> averageSum = getAverageSum(routeTables);
+        List<AggregatedResult> averageSum = getAverageSum(routeTables);
         if (averageSum.isEmpty())
             throw new NoSuchElementException();
-        AverageCost cost = averageSum.get(0);
+        AggregatedResult cost = averageSum.get(0);
         MapNode node = cost.getNode();
         return FinalTestResult.builder()
                 .sum(cost.getSum())

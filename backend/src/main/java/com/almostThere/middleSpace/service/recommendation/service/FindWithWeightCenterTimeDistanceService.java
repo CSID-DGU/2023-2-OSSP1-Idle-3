@@ -4,7 +4,7 @@ import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.graph.node.MapNode;
-import com.almostThere.middleSpace.service.recommendation.AverageCost;
+import com.almostThere.middleSpace.service.recommendation.AggregatedResult;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.web.dto.FinalTestResult;
 import java.util.Comparator;
@@ -20,16 +20,16 @@ public class FindWithWeightCenterTimeDistanceService extends AbstractMiddleSpace
     }
 
     public FinalTestResult findMiddleSpaceWithRouter(List<RouteTable> routeTables, List<Position> startPoints){
-        List<AverageCost> averageGap = getAverageGap(routeTables);
+        List<AggregatedResult> averageGap = getAverageGap(routeTables);
 
-        List<AverageCost> normalizedList = normalize(averageGap);
+        List<AggregatedResult> normalizedList = normalize(averageGap);
 
-        List<AverageCost> sortedCostList = sortWithAlpha(routeTables, startPoints, normalizedList);
-        AverageCost selectedCost = sortedCostList.get(0);
+        List<AggregatedResult> sortedCostList = sortWithAlpha(routeTables, startPoints, normalizedList);
+        AggregatedResult selectedCost = sortedCostList.get(0);
         MapNode node = selectedCost.getNode();
 
         // 원본 값에서 해당 node에 대한 값 찾기
-        AverageCost cost = averageGap.stream()
+        AggregatedResult cost = averageGap.stream()
                 .filter(item -> item.getNode().getMap_id() == node.getMap_id())
                 .findFirst().orElseThrow(NoSuchElementException::new);
 
@@ -43,7 +43,7 @@ public class FindWithWeightCenterTimeDistanceService extends AbstractMiddleSpace
     @Override
     public Position findMiddleSpace(List<Position> startPoints) {
         List<RouteTable> routeTables = this.router.getRouteTables(startPoints);
-        List<AverageCost> sortWithAlpha = sortWithAlpha(routeTables, startPoints);
+        List<AggregatedResult> sortWithAlpha = sortWithAlpha(routeTables, startPoints);
         MapNode node = sortWithAlpha.get(0).getNode();
         return new Position(node.getLatitude(), node.getLongitude());
     }
@@ -91,8 +91,8 @@ public class FindWithWeightCenterTimeDistanceService extends AbstractMiddleSpace
      * @param normalizedResults 정규화된 데이터 리스트
      * @return cost 기준으로 정렬된 정규화 데이터 리스트
      */
-    private List<AverageCost> sortWithAlpha(List<RouteTable> routeTables, List<Position> startPoints,
-                                            List<AverageCost> normalizedResults) {
+    private List<AggregatedResult> sortWithAlpha(List<RouteTable> routeTables, List<Position> startPoints,
+                                                 List<AggregatedResult> normalizedResults) {
         Position center = getCenterOfPosition(startPoints);
         Integer nearestNodeId = this.mapGraph.findNearestId(center.getLatitude(), center.getLongitude());
         double alpha = getAlpha(nearestNodeId, routeTables);
@@ -109,11 +109,11 @@ public class FindWithWeightCenterTimeDistanceService extends AbstractMiddleSpace
      * @param startPoints 시작점들
      * @return cost 기준으로 정렬한 정규화 데이터 리스트
      */
-    private List<AverageCost> sortWithAlpha(List<RouteTable> routeTables, List<Position> startPoints) {
+    private List<AggregatedResult> sortWithAlpha(List<RouteTable> routeTables, List<Position> startPoints) {
         Position center = getCenterOfPosition(startPoints);
         Integer nearestNodeId = this.mapGraph.findNearestId(center.getLatitude(), center.getLongitude());
         double alpha = getAlpha(nearestNodeId, routeTables);
-        List<AverageCost> candidates = getAverageGap(routeTables);
+        List<AggregatedResult> candidates = getAverageGap(routeTables);
         normalize(candidates);
         // score 기준 가장 작은 노드 찾기
         return candidates.stream()

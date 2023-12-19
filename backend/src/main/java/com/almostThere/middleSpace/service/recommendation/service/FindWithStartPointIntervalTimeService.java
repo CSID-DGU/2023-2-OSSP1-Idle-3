@@ -4,7 +4,7 @@ import com.almostThere.middleSpace.domain.gis.Position;
 import com.almostThere.middleSpace.domain.routetable.RouteTable;
 import com.almostThere.middleSpace.graph.MapGraph;
 import com.almostThere.middleSpace.graph.node.MapNode;
-import com.almostThere.middleSpace.service.recommendation.AverageCost;
+import com.almostThere.middleSpace.service.recommendation.AggregatedResult;
 import com.almostThere.middleSpace.service.routing.Router;
 import com.almostThere.middleSpace.web.dto.FinalTestResult;
 import java.util.List;
@@ -19,8 +19,8 @@ public class FindWithStartPointIntervalTimeService extends AbstractMiddleSpaceFi
     }
 
     public FinalTestResult findMiddleSpaceWithRouter(List<RouteTable> tables){
-        List<AverageCost> averageGap = filterWithMaxIntervalTime(tables);
-        AverageCost selected = averageGap.get(0);
+        List<AggregatedResult> averageGap = filterWithMaxIntervalTime(tables);
+        AggregatedResult selected = averageGap.get(0);
         MapNode node = selected.getNode();
         return FinalTestResult.builder()
                 .gap(selected.getCost())
@@ -31,7 +31,7 @@ public class FindWithStartPointIntervalTimeService extends AbstractMiddleSpaceFi
     @Override
     public Position findMiddleSpace(List<Position> startPoints) {
         List<RouteTable> routeTables = this.router.getRouteTables(startPoints);
-        List<AverageCost> candidates = filterWithMaxIntervalTime(routeTables);
+        List<AggregatedResult> candidates = filterWithMaxIntervalTime(routeTables);
         // 전부 걸러지면 0.0을 반환한다.
         if (candidates.isEmpty())
             return new Position(0.0 ,0.0);
@@ -44,7 +44,7 @@ public class FindWithStartPointIntervalTimeService extends AbstractMiddleSpaceFi
      * @param tables 길찾기 결과 리스트
      * @return 걸러낸 결과의 평균 편차와 평균 이동시간 리스트
      */
-    private List<AverageCost> filterWithMaxIntervalTime(List<RouteTable> tables) {
+    private List<AggregatedResult> filterWithMaxIntervalTime(List<RouteTable> tables) {
         double maxIntervalTime = getLongestStartPointIntervalTime(tables);
         List<RouteTable> cloned = tables.stream().map(RouteTable::clone)
                 .collect(Collectors.toList());
@@ -55,7 +55,7 @@ public class FindWithStartPointIntervalTimeService extends AbstractMiddleSpaceFi
                     table.getRouteInfo(i).setMinCost(Double.MAX_VALUE);
             }
         }
-        List<AverageCost> averageGap = getAverageGap(cloned);
+        List<AggregatedResult> averageGap = getAverageGap(cloned);
         if (averageGap.isEmpty())
             throw new NoSuchElementException();
         return averageGap;
