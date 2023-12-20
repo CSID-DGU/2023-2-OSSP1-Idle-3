@@ -11,7 +11,7 @@
 
 ## 💻 Almost There
 ```
-기존 프로젝트인 [Almost There](https://github.com/JiKangHun/AlmostThere/tree/develop) 는 사용자가 모임을 편리하게 관리할 수 있도록 다양한 기능을 제공하는 서비스입니다.
+기존 프로젝트 [Almost There](https://github.com/JiKangHun/AlmostThere/tree/develop) 는 사용자가 모임을 편리하게 관리할 수 있도록 다양한 기능을 제공하는 서비스입니다.
 모임을 위해 '만나기 전', '만났을 때', '만나고 난 후' 각 상황에 맞춰 다양한 기능을 제공합니다.
 
  🔸 만나기 전에는 카페, 영화관, 음식점 카테고리로 만날 장소를 추천해주고 모임 멤버 구성 및 채팅 기능을 제공합니다.
