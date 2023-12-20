@@ -24,13 +24,13 @@ public class BaseMiddleSpaceFindService extends AbstractMiddleSpaceFindService {
                 .map(point -> this.mapGraph.findNearestId(point.getLatitude(), point.getLongitude()))
                 .map(router::getShortestPath)
                 .collect(Collectors.toList());
-        List<AggregatedResult> result = getAverageSum(tables);
+        List<AggregatedResult> result = aggregateAndSortWithSum(tables);
         MapNode selectedNode = result.get(0).getNode();
         return new Position(selectedNode.getLatitude(), selectedNode.getLongitude());
     }
 
     public FinalTestResult findMiddleSpaceWithRouterAndSum(List<RouteTable> routeTables) {
-        List<AggregatedResult> averageSum = getAverageSum(routeTables);
+        List<AggregatedResult> averageSum = aggregateAndSortWithSum(routeTables);
         if (averageSum.isEmpty())
             throw new NoSuchElementException();
         AggregatedResult cost = averageSum.get(0);

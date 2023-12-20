@@ -20,7 +20,7 @@ public class FindWithWeightCenterTimeDistanceService extends AbstractMiddleSpace
     }
 
     public FinalTestResult findMiddleSpaceWithRouter(List<RouteTable> routeTables, List<Position> startPoints){
-        List<AggregatedResult> averageGap = getAverageGap(routeTables);
+        List<AggregatedResult> averageGap = aggregateAndSortWithGap(routeTables);
 
         List<AggregatedResult> normalizedList = normalize(averageGap);
 
@@ -113,7 +113,7 @@ public class FindWithWeightCenterTimeDistanceService extends AbstractMiddleSpace
         Position center = getCenterOfPosition(startPoints);
         Integer nearestNodeId = this.mapGraph.findNearestId(center.getLatitude(), center.getLongitude());
         double alpha = getAlpha(nearestNodeId, routeTables);
-        List<AggregatedResult> candidates = getAverageGap(routeTables);
+        List<AggregatedResult> candidates = aggregateAndSortWithGap(routeTables);
         normalize(candidates);
         // score 기준 가장 작은 노드 찾기
         return candidates.stream()

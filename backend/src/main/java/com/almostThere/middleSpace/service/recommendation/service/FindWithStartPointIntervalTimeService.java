@@ -55,7 +55,7 @@ public class FindWithStartPointIntervalTimeService extends AbstractMiddleSpaceFi
                     table.getRouteInfo(i).setMinCost(Double.MAX_VALUE);
             }
         }
-        List<AggregatedResult> averageGap = getAverageGap(cloned);
+        List<AggregatedResult> averageGap = aggregateAndSortWithGap(cloned);
         if (averageGap.isEmpty())
             throw new NoSuchElementException();
         return averageGap;

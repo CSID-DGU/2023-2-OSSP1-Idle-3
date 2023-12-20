@@ -24,7 +24,7 @@ public abstract class AbstractMiddleSpaceFindService {
      * @param routeTables : router에서 구한 각 사용자별로 소요되는 최소 시간 테이블 (노드 별로)
      * @return 구해진 소요시간의 편차의 평균으로 정렬한 리스트를 반환
      */
-    protected List<AggregatedResult> getAverageGap(List<RouteTable> routeTables) {
+    protected List<AggregatedResult> aggregateAndSortWithGap(List<RouteTable> routeTables) {
         AggregatedResult[] avgCost = aggregate(routeTables);
 
         // 구해진 평균 편차를 오름차순으로 정렬함.
@@ -40,7 +40,7 @@ public abstract class AbstractMiddleSpaceFindService {
      * @param routeTables : router에서 구한 각 사용자별로 소요되는 최소 시간 테이블 (노드 별로)
      * @return 구해진 총 소요시간의 평균으로 정렬한 리스트를 반환
      */
-    protected List<AggregatedResult> getAverageSum(List<RouteTable> routeTables) {
+    protected List<AggregatedResult> aggregateAndSortWithSum(List<RouteTable> routeTables) {
         AggregatedResult[] aggregate = aggregate(routeTables);
 
         // 구해진 평균 편차를 오름차순으로 정렬함.
