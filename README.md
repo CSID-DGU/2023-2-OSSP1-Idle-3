@@ -86,12 +86,12 @@
   
 <p float="left">
  <figure>
-   <img src="img/resultStd.png" alt="편차">
+   <img src="img/resultStd.png" width="20%" alt="편차">
    <figcaption>편차</figcaption>
  </figure>
  
  <figure>
-   <img src="img/resultTime.png" alt="이동시간">
+   <img src="img/resultTime.png" width="20%" alt="이동시간">
    <figcaption>이동시간</figcaption>
  </figure>
 </p>
@@ -107,22 +107,22 @@
 ```
 <p float="left">
  <figure>
-   <img src="img/mainUI1.png" alt="선택 버튼">
+   <img src="img/mainUI1.png" width="20%" alt="선택 버튼">
    <figcaption>편차</figcaption>
  </figure>
  
  <figure>
-   <img src="img/mainUI2.png" alt="이동거리와 편차 모두 고려하는 알고리즘">
+   <img src="img/mainUI2.png" width="20%" alt="이동거리와 편차 모두 고려하는 알고리즘">
    <figcaption>이동거리와 편차 모두 고려</figcaption>
  </figure>
 
   <figure>
-   <img src="img/mainUI3.png" alt="편차 위주로 고려하는 알고리즘">
+   <img src="img/mainUI3.png" width="20%" alt="편차 위주로 고려하는 알고리즘">
    <figcaption>편차 위주 고려</figcaption>
   </figure>
 
   <figure>
-   <img src="img/mainUI5.png" alt=" 이동시간을 고려하는 알고리즘">
+   <img src="img/mainUI4.png" width="20%" alt=" 이동시간을 고려하는 알고리즘">
    <figcaption>총 이동시간 고려</figcaption>
   </figure>
 </p>
