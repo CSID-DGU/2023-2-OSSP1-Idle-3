@@ -6,7 +6,7 @@
 |:-:|:-:|:-:|:-:|
 |2019112104|2019112167|2021112073|2019112090|
 |<img src="https://avatars.githubusercontent.com/u/89333351?v=4" width="100px" />|<img src="https://avatars.githubusercontent.com/u/55657581?v=4" width="100px" />|<img src="https://avatars.githubusercontent.com/u/113760409?v=4" width="100px" />|<img src="https://avatars.githubusercontent.com/u/74304338?v=4" width="100px" />|
-|[@likerhythm](https://github.com/likerhythm)|[@shortboy7](https://github.com/shortboy7)|[@EunseJang](https://github.com/EunseJang)|[@seonwoonam](https://github.com/seonwoonam)|
+|[@likerhythm](https://github.com/likerhythm)|[@jwsong98](https://github.com/jwsong98)|[@EunseJang](https://github.com/EunseJang)|[@seonwoonam](https://github.com/seonwoonam)|
 
 
 ## 💻 [Almost There](https://github.com/JiKangHun/AlmostThere/tree/develop)
